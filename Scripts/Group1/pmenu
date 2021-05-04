@@ -1,0 +1,11 @@
+#!/bin/bash
+
+DMENU='dmenu -fn monospace:size=11 -nb #222222 -nf #bbbbbb -sb #af2626 -sf #eeeeee -i -l 4'
+choice=$(echo -e "Star-Wars\nRoot-terminal\nLog-out\nExit-menu" | $DMENU)
+
+case "$choice" in
+	Star-Wars) st -e telnet towel.blinkenlights.nl ;;
+	Root-terminal) st -e su - ;;
+	Log-out) pkill dwm ;;
+	Exit-menu) exit 0 ;;
+esac
