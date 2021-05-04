@@ -69,13 +69,10 @@ static Key keys[] = {
         { MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
         { MODKEY,                       XK_b,      togglebar,      {0} },
         { MODKEY,                       XK_Tab,    focusstack,     {.i = +1 } },
-        { MODKEY,                       XK_Right,  focusstack,     {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_Tab,    focusstack,     {.i = -1 } },
         { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
         { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-        { MODKEY,                       XK_Down,   setmfact,       {.f = -0.05} },
-        { MODKEY,                       XK_Up,     setmfact,       {.f = +0.05} },
         { MODKEY,                       XK_Return, zoom,           {0} },
-        { MODKEY,                       XK_Left,   view,           {0} },
         { MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
         { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
         { MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
@@ -104,7 +101,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_F7,     spawn,          SHCMD("flameshot gui") },
 	{ MODKEY,                       XK_F8,     spawn,          SHCMD("flameshot full -p /home/willy-wonka/Imágenes/Screenshots/") },
-
+	{ MODKEY|ShiftMask,             XK_l,      spawn,          SHCMD("slock") },
 };
 
 /* button definitions */
