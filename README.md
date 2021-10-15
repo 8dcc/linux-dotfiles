@@ -95,6 +95,16 @@ echo "source ~/.git-prompt.sh" >> ~/.bashrc
 
 #
 
+### .xinitrc
+Make a backup and copy the `.xinitrc` to `~/.xinitrc`
+```bash
+cp ~/.xinitrc ~/.xinitrc.bak  # Make a backup (The file might not exist!)
+cd ~/000/GITHUB/custom_arch/dotfiles/xinitrc  # Yes it is a folder
+cp xinitrc ~/.xinitrc  # Copy the actual file
+```
+
+#
+
 ### Scripts
 - Group 1.
 	```bash
