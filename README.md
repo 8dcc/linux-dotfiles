@@ -38,7 +38,7 @@ And the required font from the aur:
 yay -S ttf-font-awesome  # Required font for st
 ```
 
-#
+---
 
 ## Process:
 ### dwm
@@ -128,7 +128,7 @@ echo "startx" >> ~/.bash_profile  # Append to the file
 ### nvim
 [Go to the vim-dotfiles repository.](https://github.com/r4v10l1/vim-dotfiles)
 
-#
+---
 
 ## Extra
 - You might need to edit the grub config to launch garuda linux in terminal mode. [Help here.](https://forum.garudalinux.org/t/how-to-open-garuda-linux-in-text-console/7613)
