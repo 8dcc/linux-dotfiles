@@ -6,12 +6,12 @@
 ## Table of contents
 1. [Requirements](https://github.com/r4v10l1/arch-files#Requirements)
 2. [Process](https://github.com/r4v10l1/arch-files#Process)
-	1. [dwm](https://github.com/r4v10l1/arch-files#dwm)
-	2. [st](https://github.com/r4v10l1/arch-files#st)
-	3. [xmenu](https://github.com/r4v10l1/arch-files#xmenu)
-	4. [bashrc](https://github.com/r4v10l1/arch-files#bashrc)
-	5. [Scripts](https://github.com/r4v10l1/arch-files#Scripts)
-	6. [nvim](https://github.com/r4v10l1/arch-files#nvim)
+	- [dwm](https://github.com/r4v10l1/arch-files#dwm)
+	- [st](https://github.com/r4v10l1/arch-files#st)
+	- [xmenu](https://github.com/r4v10l1/arch-files#xmenu)
+	- [bashrc](https://github.com/r4v10l1/arch-files#bashrc)
+	- [Scripts](https://github.com/r4v10l1/arch-files#Scripts)
+	- [nvim](https://github.com/r4v10l1/arch-files#nvim)
 
 #
 
