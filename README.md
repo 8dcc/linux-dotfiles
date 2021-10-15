@@ -19,18 +19,18 @@ https://archlinux.org/packages/community/any/ttf-font-awesome/
 
 #### dwm-6.2
 
-``` cd custom_arch/DWM-6.2 ```
-
-``` make clean install ``` (As root)
+```bash
+cd custom_arch/DWM-6.2
+make clean install  # As root
+```
 
 #### Scripts
 
 Copy the scripts from the Group1 and Group2 to the paths in the `README.txt`
 
-``` cd custom_arch/Scripts/Group1 ```
-
-``` cp * /usr/local/bin ``` (Don't copy * if you don't want to have a random readme in `/usr/local/bin`)
-
-``` cd custom_arch/Scripts/Group2 ```
-
-``` cp dwmbar /home/YOUR_USERNAME/.dwmbar ``` (It's important to change the file name)
+```bash
+cd custom_arch/Scripts/Group1
+cp * /usr/local/bin  # Except readme
+cd custom_arch/Scripts/Group2
+cp dwmbar /home/YOUR_USERNAME/.dwmbar  # Change the file name to make it hidden
+``` 
