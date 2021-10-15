@@ -102,6 +102,10 @@ cp ~/.xinitrc ~/.xinitrc.bak  # Make a backup (The file might not exist!)
 cd ~/000/GITHUB/custom_arch/dotfiles/xinitrc  # Yes it is a folder
 cp xinitrc ~/.xinitrc  # Copy the actual file
 ```
+Add `startx` to the `~/.bash_profile`
+```bash
+echo "startx" >> ~/.bash_profile  # Append to the file
+```
 
 #
 
