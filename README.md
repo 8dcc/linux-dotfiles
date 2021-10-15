@@ -15,7 +15,9 @@ You will need to install "Awesome font" in order to see the bar icons.
 https://archlinux.org/packages/community/any/ttf-font-awesome/
 
 ### Install
-``` git clone https://github.com/r4v10l1/custom_arch ```
+```bash
+git clone https://github.com/r4v10l1/custom_arch
+```
 
 #### dwm-6.2
 
