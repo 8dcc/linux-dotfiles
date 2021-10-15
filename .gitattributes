@@ -1,3 +1,4 @@
 *.c linguist-detectable=false
 *.h linguist-detectable=false
-.1 linguist-detectable=false 
+*.1 linguist-detectable=false 
+*.mk linguist-detectable=false 
