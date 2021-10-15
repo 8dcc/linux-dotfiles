@@ -28,10 +28,14 @@
 	git clone https://github.com/r4v10l1/arch-files
 	```
 ### Packages:
-Install the requires packages for `ras`:
+Install the required packages for `ras`:
 ```bash
 sudo pacman -S feh
 sudo pacman -S compton
+```
+The required packages for `dwm`:
+```bash
+sudo pacman -S dmenu
 ```
 And the required font from the aur:
 ```bash
