@@ -4,14 +4,14 @@
 </div>
 
 ## Table of contents
-1. [Requirements](https://github.com/r4v10l1/custom_arch#Requirements)
-2. [Process](https://github.com/r4v10l1/custom_arch#Process)
-	1. [dwm](https://github.com/r4v10l1/custom_arch#dwm)
-	2. [st](https://github.com/r4v10l1/custom_arch#st)
-	3. [xmenu](https://github.com/r4v10l1/custom_arch#xmenu)
-	4. [bashrc](https://github.com/r4v10l1/custom_arch#bashrc)
-	5. [Scripts](https://github.com/r4v10l1/custom_arch#Scripts)
-	6. [nvim](https://github.com/r4v10l1/custom_arch#nvim)
+1. [Requirements](https://github.com/r4v10l1/arch-files#Requirements)
+2. [Process](https://github.com/r4v10l1/arch-files#Process)
+	1. [dwm](https://github.com/r4v10l1/arch-files#dwm)
+	2. [st](https://github.com/r4v10l1/arch-files#st)
+	3. [xmenu](https://github.com/r4v10l1/arch-files#xmenu)
+	4. [bashrc](https://github.com/r4v10l1/arch-files#bashrc)
+	5. [Scripts](https://github.com/r4v10l1/arch-files#Scripts)
+	6. [nvim](https://github.com/r4v10l1/arch-files#nvim)
 
 #
 
@@ -24,7 +24,7 @@
 2. Clone the repo to `~/000/GITHUB`.
 	```bash
 	cd ~/000/GITHUB
-	git clone https://github.com/r4v10l1/custom_arch
+	git clone https://github.com/r4v10l1/arch-files
 	```
 ### Packages:
 Install the requires packages for `ras`:
@@ -43,7 +43,7 @@ yay -S ttf-font-awesome  # Required font for st
 ### dwm
 We will install dwm 6.2.
 ```bash
-cd ~/000/GITHUB/custom_arch/DWM-6.2
+cd ~/000/GITHUB/arch-files/DWM-6.2
 # rm config.h
 sudo make clean install  # Prepare for the errors?
 ```
@@ -53,14 +53,14 @@ sudo make clean install  # Prepare for the errors?
 ### st
 Make the `.font` folder and copy the powerline font in there.
 ```bash
-cd ~/000/GITHUB/custom_arch/fonts
+cd ~/000/GITHUB/arch-files/fonts
 mkdir ~/.fonts
 cp -r powerline-fonts ~/.fonts
 c-list | grep power  # Check that all is fine
 ```
 We will install 0.8.2 because of the extensions.
 ```bash
-cd ~/000/GITHUB/custom_arch/ST-0.8.2
+cd ~/000/GITHUB/arch-files/ST-0.8.2
 # rm config.h
 sudo make clean install  # Prepare for the errors?
 ```
@@ -71,7 +71,7 @@ sudo make clean install  # Prepare for the errors?
 ### xmenu
 Enter the `XMENU` folder.
 ```bash
-cd ~/000/GITHUB/custom_arch/XMENU/
+cd ~/000/GITHUB/arch-files/XMENU/
 sudo make clean install
 ```
 
@@ -81,7 +81,7 @@ sudo make clean install
 Make a backup and copy the `.bashrc` to `~/.bashrc`
 ```bash
 cp ~/.bashrc ~/.bashrc.bak  # Make a backup
-cd ~/000/GITHUB/custom_arch/dotfiles/bashrc  # Yes it is a folder
+cd ~/000/GITHUB/arch-files/dotfiles/bashrc  # Yes it is a folder
 cp bashrc ~/.bashrc  # Copy the actual file
 ```
 Need to download `.git-prompt.sh`
@@ -98,12 +98,12 @@ echo "source ~/.git-prompt.sh" >> ~/.bashrc
 ### Scripts
 - Group 1.
 	```bash
-	cat ~/000/GITHUB/custom_arch/Scripts/Group1/README.txt  # Copy to /usr/local/bin
+	cat ~/000/GITHUB/arch-files/Scripts/Group1/README.txt  # Copy to /usr/local/bin
 	# Just do what the file says
 	```
 - Group 2.
 	```bash
-	cat ~/000/GITHUB/custom_arch/Scripts/Group2/README.txt
+	cat ~/000/GITHUB/arch-files/Scripts/Group2/README.txt
 	# Change the file name from 'dwmbar' to '.dwmbar' and copy it to ~
 	# Just do what the file says
 	```
