@@ -30,8 +30,7 @@
 ### Packages:
 Install the required packages for `ras`:
 ```bash
-sudo pacman -S feh
-sudo pacman -S compton
+sudo pacman -S feh compton acpi
 ```
 The required packages for `dwm`:
 ```bash
