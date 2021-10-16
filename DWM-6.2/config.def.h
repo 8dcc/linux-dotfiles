@@ -8,7 +8,7 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int vertpad            = 10;       /* vertical padding of bar */
 static const int sidepad            = 8;       /* horizontal padding of bar */
-static const char *fonts[]          = { "Liberation Mono for Powerline:size=12" };
+static const char *fonts[]          = { "Liberation Mono for Powerline:size=14" };
 static const char dmenufont[]       = "monospace:size=15";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#af2626";
