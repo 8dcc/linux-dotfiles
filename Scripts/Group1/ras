@@ -1,9 +1,9 @@
 # Resolution
 #xrandr --size 1680x1050
 # Background
-feh --bg-scale /home/bush/.wallpaper.png
+feh --bg-scale /home/null/.wallpaper.png
 # Opacity
-compton -m 1 --opacity-rule '95:name *= "st"' --opacity-rule '97:name *?= "Brave"' --opacity-rule '90:name *?= "Mozilla"' --opacity-rule '90:name %= "*Opera"'  --opacity-rule '95:name *?= ".mp3"' --opacity-rule '95:name *?= "ranger"' &
+compton -m 1 --opacity-rule '96:name *= "st"' --opacity-rule '97:name *?= "Brave"' ---opacity-rule '98:bane *?= "FireDragon"' -opacity-rule '98:bane *?= "Firefox"' --opacity-rule '95:name *?= ".mp3"' --opacity-rule '95:name *?= "ranger"' &
 # Statusbar loop
-bash /home/bush/.dwmbar 2>/dev/null
+bash /home/null/.dwmbar 2>/dev/null
 
