@@ -87,3 +87,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+source ~/.git-prompt.sh
