@@ -136,3 +136,12 @@ echo "startx" >> ~/.bash_profile  # Append to the file
 ## Extra
 - You might need to edit the grub config to launch garuda linux in terminal mode. [Help here.](https://forum.garudalinux.org/t/how-to-open-garuda-linux-in-text-console/7613)
 - You might need to install `iwd`, `dialog` and `dhcpcd`.
+- For natural scrolling, you can install `xf86-input-libinput` and add this to `/etc/X11/xorg.conf.d/30-touchpad.conf`:
+	```conf
+	Section "InputClass"
+		Identifier "r4v10l1-rocks"
+		Driver "libinput"
+		Option "Tapping" "on"
+		Option "NaturalScrolling" "true"
+	EndSection
+	```
