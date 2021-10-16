@@ -136,3 +136,4 @@ echo "startx" >> ~/.bash_profile  # Append to the file
 
 ## Extra
 - You might need to edit the grub config to launch garuda linux in terminal mode. [Help here.](https://forum.garudalinux.org/t/how-to-open-garuda-linux-in-text-console/7613)
+- You might need to install `iwd`, `dialog` and `dhcpcd`.
