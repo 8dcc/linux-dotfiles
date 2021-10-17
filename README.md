@@ -13,6 +13,7 @@
 	- [Scripts](https://github.com/r4v10l1/arch-files#Scripts)
 	- [nvim](https://github.com/r4v10l1/arch-files#nvim)
 3. [Extra](https://github.com/r4v10l1/arch-files#Extra)
+4. [Screenshots](https://github.com/r4v10l1/arch-files#Screenshots)
 
 #
 
@@ -166,3 +167,9 @@ echo "startx" >> ~/.bash_profile  # Append to the file
 	maim FILENAME.png -d 2
 	# Will save the screenshot to a file with a 2 second delay.
 	```
+
+---
+
+## Screenshots
+![dwm-screenshot-1](images/dwm-1.png)
+![dwm-screenshot-2](images/dwm-2.png)
