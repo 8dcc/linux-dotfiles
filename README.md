@@ -158,4 +158,5 @@ echo "startx" >> ~/.bash_profile  # Append to the file
 	```bash
 	sudo pacman -S alsa-utils
 	alsamixer
+	speaker-test -c 8  # Test the speakers
 	```
