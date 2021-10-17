@@ -39,6 +39,10 @@ The required packages for `dwm`:
 ```bash
 sudo pacman -S dmenu
 ```
+The required packages for `surf`:
+```bash
+sudo pacman -S hspell aspell nuspell libvoikko
+```
 And the required font from the aur:
 ```bash
 yay -S ttf-font-awesome  # Required font for st
