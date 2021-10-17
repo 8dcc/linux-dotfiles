@@ -163,6 +163,6 @@ echo "startx" >> ~/.bash_profile  # Append to the file
 - For screenshots you can use `maim`.
 	```bash
 	sudo pacman -S maim
-	maim FILENAME.png -d=2
+	maim FILENAME.png -d 2
 	# Will save the screenshot to a file with a 2 second delay.
 	```
