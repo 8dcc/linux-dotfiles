@@ -155,12 +155,14 @@ echo "startx" >> ~/.bash_profile  # Append to the file
 		Option "NaturalScrolling" "true"
 	EndSection
 	```
-- For audio and microphone, install `alsa-utils`. Then enable and change volumes with the `alsamixer` command. This works with `mvp`.
+- For audio and microphone, install `alsa-utils`. Then enable and change volumes with the `alsamixer` command.
 	```bash
 	sudo pacman -S alsa-utils
 	alsamixer
 	speaker-test -c 8  # Test the speakers
 	```
+	- You can use `mvp` to play videos.
+	- You can use `musikcube` for music.
 - For screenshots you can use `maim`.
 	```bash
 	sudo pacman -S maim
