@@ -87,6 +87,10 @@ if ! shopt -oq posix; then
   fi
 fi
 
+##########################
+alias yt2mp3='youtube-dl -x --audio-format mp3 --prefer-ffmpeg'
+alias vim='nvim'
+
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 source ~/.git-prompt.sh
