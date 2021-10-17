@@ -99,8 +99,6 @@ static Key keys[] = {
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_F7,     spawn,          SHCMD("flameshot gui") },
-	{ MODKEY,                       XK_F8,     spawn,          SHCMD("flameshot full -p /home/willy-wonka/Imágenes/Screenshots/") },
 	{ MODKEY|ShiftMask,             XK_l,      spawn,          SHCMD("slock") },
 };
 
