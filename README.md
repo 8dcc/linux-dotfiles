@@ -73,9 +73,18 @@ sudo make clean install  # Prepare for the errors?
 #
 
 ### xmenu
-Enter the `XMENU` folder.
+Enter the `XMENU` folder and install.
 ```bash
-cd ~/000/GITHUB/arch-files/XMENU/
+cd ~/000/GITHUB/custom_arch/XMENU/
+sudo make clean install
+```
+
+#
+
+### slock
+Enter the `SLOCK` folder and install.
+```bash
+cd ~/000/GITHUB/custom_arch/SLOCK/
 sudo make clean install
 ```
 
@@ -144,4 +153,9 @@ echo "startx" >> ~/.bash_profile  # Append to the file
 		Option "Tapping" "on"
 		Option "NaturalScrolling" "true"
 	EndSection
+	```
+- For audio and microphone, install `alsa-utils`. Then enable and change volumes with the `alsamixer` command. This works with `mvp`.
+	```bash
+	sudo pacman -S alsa-utils
+	alsamixer
 	```
