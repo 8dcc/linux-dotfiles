@@ -5,7 +5,8 @@
 
 ## Table of contents
 1. [Requirements](https://github.com/r4v10l1/arch-files#Requirements)
-2. [Process](https://github.com/r4v10l1/arch-files#Process)
+2. [Keys](https://github.com/r4v10l1/arch-files#Keys)
+3. [Process](https://github.com/r4v10l1/arch-files#Process)
 	- [dwm](https://github.com/r4v10l1/arch-files#dwm)
 	- [st](https://github.com/r4v10l1/arch-files#st)
 	- [xmenu](https://github.com/r4v10l1/arch-files#xmenu)
@@ -13,10 +14,10 @@
 	- [bashrc](https://github.com/r4v10l1/arch-files#bashrc)
 	- [Scripts](https://github.com/r4v10l1/arch-files#Scripts)
 	- [nvim](https://github.com/r4v10l1/arch-files#nvim)
-3. [Extra](https://github.com/r4v10l1/arch-files#Extra)
-4. [Screenshots](https://github.com/r4v10l1/arch-files#Screenshots)
+4. [Extra](https://github.com/r4v10l1/arch-files#Extra)
+5. [Screenshots](https://github.com/r4v10l1/arch-files#Screenshots)
 
-#
+---
 
 ## Requirements:
 ### Files:
@@ -43,7 +44,8 @@ And the required font from the aur:
 yay -S ttf-font-awesome  # Required font for st
 ```
 
----
+## Keys:
+All the keys and shortcuts can be found [here](https://github.com/r4v10l1/arch-files/blob/main/dwm-cheatsheet.md).
 
 ## Process:
 ### dwm
