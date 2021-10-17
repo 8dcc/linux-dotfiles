@@ -9,6 +9,7 @@
 	- [dwm](https://github.com/r4v10l1/arch-files#dwm)
 	- [st](https://github.com/r4v10l1/arch-files#st)
 	- [xmenu](https://github.com/r4v10l1/arch-files#xmenu)
+	- [slock](https://github.com/r4v10l1/arch-files#slock)
 	- [bashrc](https://github.com/r4v10l1/arch-files#bashrc)
 	- [Scripts](https://github.com/r4v10l1/arch-files#Scripts)
 	- [nvim](https://github.com/r4v10l1/arch-files#nvim)
