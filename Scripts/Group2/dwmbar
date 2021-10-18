@@ -54,5 +54,6 @@ status(){
 
 while true; do
 	xsetroot -name "$(status)"
-	sleep 10
+	batteryalert.sh  # Will check if the battery is bellow 20%, if so, will display an alert.
+	sleep 15
 done &
