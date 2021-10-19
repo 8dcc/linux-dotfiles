@@ -9,6 +9,7 @@
 3. [Process](https://github.com/r4v10l1/arch-files#Process)
 	- [dwm](https://github.com/r4v10l1/arch-files#dwm)
 	- [st](https://github.com/r4v10l1/arch-files#st)
+	- [dmenu](https://github.com/r4v10l1/arch-files#dmenu)
 	- [xmenu](https://github.com/r4v10l1/arch-files#xmenu)
 	- [slock](https://github.com/r4v10l1/arch-files#slock)
 	- [bashrc](https://github.com/r4v10l1/arch-files#bashrc)
@@ -77,6 +78,15 @@ cd ~/000/GITHUB/arch-files/ST-0.8.2
 sudo make clean install  # Prepare for the errors?
 ```
 **You can scroll the terminal with shift+mwheel**
+
+#
+
+### dmenu
+Enter the `DMENU` folder and install.
+```bash
+cd ~/000/GITHUB/custom_arch/DMENU/
+sudo make clean install
+```
 
 #
 
