@@ -9,7 +9,12 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const int vertpad            = 10;       /* vertical padding of bar */
 static const int sidepad            = 7;       /* horizontal padding of bar */
 static const char *fonts[]          = { "Liberation Mono for Powerline:size=14" };
+
 static const char dmenufont[]       = "monospace:size=14";
+static const char dmenux[]          = "7";
+static const char dmenuy[]          = "10";
+static const char dmenuz[]          = "1906";
+
 static const char col_gray1[]       = "#222222"; // Background color
 static const char col_gray2[]       = "#541414"; // Inactive window border
 static const char col_gray3[]       = "#bbbbbb"; // Font color
@@ -59,7 +64,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-x", dmenux, "-y", dmenuy, "-z", dmenuz, "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *layoutmenu_cmd = "layoutmenu.sh";
 
