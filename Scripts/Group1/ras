@@ -26,10 +26,10 @@ if [[ $st_opacity == true ]]; then
 	if [[ $menu_opaticy == true ]]; then
 		picom -m 1 --opacity-rule '97:name *= "st"' --opacity-rule '97:name *?= "Brave"' --opacity-rule '98:name *?= "FireDragon"' --opacity-rule '98:name *?= "Firefox"' --opacity-rule '95:name *?= ".mp3"' --opacity-rule '95:name *?= "ranger"' &
 	else
-		picom -m 0 -e 1 --opacity-rule '97:name *= "st"' --opacity-rule '97:name *?= "Brave"' --opacity-rule '98:name *?= "FireDragon"' --opacity-rule '98:name *?= "Firefox"' --opacity-rule '95:name *?= ".mp3"' --opacity-rule '95:name *?= "ranger"' &
+		picom -m 1 -e 1 --opacity-rule '97:name *= "st"' --opacity-rule '97:name *?= "Brave"' --opacity-rule '98:name *?= "FireDragon"' --opacity-rule '98:name *?= "Firefox"' --opacity-rule '95:name *?= ".mp3"' --opacity-rule '95:name *?= "ranger"' &
 	fi
 else
-	picom -m 0 -e 1 --opacity-rule '97:name *?= "Brave"' --opacity-rule '98:name *?= "FireDragon"' --opacity-rule '98:name *?= "Firefox"' &
+	picom -m 1 -e 1 --opacity-rule '97:name *?= "Brave"' --opacity-rule '98:name *?= "FireDragon"' --opacity-rule '98:name *?= "Firefox"' &
 fi
 
 # Statusbar loop
