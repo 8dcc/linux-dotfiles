@@ -35,8 +35,13 @@ vpn(){
 }
 
 vol(){
-	vol="$(amixer -D pulse get Master | awk -F'[][]' 'END{print $4":"$2}')"
-	echo " $vol"
+	vol="$(amixer -D pulse get Master | awk -F'[][]' 'END{print $2}')"
+	muted="$(amixer -D pulse get Master | awk -F'[][]' 'END{print $4}')"
+	if [[ $muted == off ]]; then
+		echo " Muted"
+	else
+		echo " $vol"
+	fi
 }
 
 batt(){
@@ -47,7 +52,7 @@ batt(){
 status(){
 	#echo "$(cpu) | $(mem) | $(hdd) | $(pkgs) | $(vpn) | $(vol) |  ch0colate's debian - dwm-6.2 | $(dte)"
 	#echo "$(cpu) \ $(mem) \ $(hdd) \ $(batt) \  dwm-6.2 \ $(dte)"
-	echo "$(cpu) \ $(mem) \ $(hdd) \ $(batt) \ $(dte)"
+	echo "$(cpu) \ $(mem) \ $(hdd) \ $(vol) \ $(dte)"
 
 }
 
