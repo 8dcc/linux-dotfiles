@@ -1,6 +1,7 @@
 <div align="center">
   <h1>dwm installation in arch</h1>
-  <b>Installation process of <a href="https://dwm.suckless.org/">dwm</a> in <a href="https://archlinux.org/">arch</a> / <a href="https://garudalinux.org/">garuda linux</a>.</b>
+  <b>Installation process of <a href="https://dwm.suckless.org/">dwm</a> in <a href="https://archlinux.org/">arch</a> / <a href="https://garudalinux.org/">garuda linux</a>.</b><br>
+  Simple version <a href="https://github.com/r4v10l1/dwm-lite">here</a>.
 </div>
 
 ## Table of contents
