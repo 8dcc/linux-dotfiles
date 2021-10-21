@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DMENU='dmenu -fn monospace:size=11 -nb #222222 -nf #bbbbbb -sb #af2626 -sf #eeeeee -i -l 4'
+DMENU='dmenu -x 7 -y 10 -z 1907 -fn monospace:size=12 -nb #222222 -nf #bbbbbb -sb #af2626 -sf #eeeeee -i -l 4'
 choice=$(echo -e "NetHack\nRoot terminal\nLog-out\nExit menu" | $DMENU)
 
 case "$choice" in
