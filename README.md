@@ -39,7 +39,7 @@ sudo pacman -S feh compton acpi picom
 ```
 The required packages for `dwm`:
 ```bash
-sudo pacman -S dmenu
+sudo pacman -S xorg xorg-xinit
 ```
 The required packages for `surf`:
 ```bash
