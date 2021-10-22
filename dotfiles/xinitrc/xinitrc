@@ -1,1 +1,2 @@
+bash ~/.change-layout.sh
 exec dwm
