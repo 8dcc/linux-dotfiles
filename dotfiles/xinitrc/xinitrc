@@ -1,2 +1,2 @@
-bash ~/.change-layout.sh
+bash ~/.change-layout.sh  # Scripts/Group2
 exec dwm
