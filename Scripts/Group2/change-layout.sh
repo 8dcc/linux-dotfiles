@@ -1,1 +1,1 @@
-#setxkbmap -layout YOURLAYOUT
+# setxkbmap -layout ReplaceMe
