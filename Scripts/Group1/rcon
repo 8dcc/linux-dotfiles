@@ -1,0 +1,26 @@
+#!/bin/bash
+
+#####  EDIT ME  #####
+auto=true
+network_ssid="ravi0li-fibra"
+stationname="wlan0"
+#####################
+
+sudo echo " [+] sudo granted."
+
+if [[ $auto == false ]]; then
+	echo " [+] auto variable is set to false, please type your ssid."
+	read -p "    > " ssid
+else
+	ssid=$network_ssid
+fi
+
+iwctl station $stationname get-networks >/dev/null # Start iwctl (probably not the best method)
+
+if [[ auto == true ]]; then
+	iwctl station list | tail -n 2 | head -n 1 | awk '{print $1}'
+fi
+
+iwctl station $stationname connect $ssid > /dev/null
+sudo killall dhcpcd > /dev/null
+sudo dhcpcd 2>/dev/null
