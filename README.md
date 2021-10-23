@@ -175,7 +175,7 @@ echo "startx" >> ~/.bash_profile  # Append to the file
 	```
 - For audio and microphone, install `alsa-utils`. Then enable and change volumes with the `alsamixer` command.
 	```bash
-	sudo pacman -S alsa-utils
+	sudo pacman -S alsa-utils alsa-plugins alsa-lib pulseaudio-alsa pulseaudio
 	alsamixer
 	speaker-test -c 8  # Test the speakers
 	```
