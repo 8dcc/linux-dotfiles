@@ -17,6 +17,7 @@
 	- [Scripts](https://github.com/r4v10l1/arch-files#Scripts)
 	- [nvim](https://github.com/r4v10l1/arch-files#nvim)
 4. [Extra](https://github.com/r4v10l1/arch-files#Extra)
+4. [Todo](https://github.com/r4v10l1/arch-files#Todo)
 5. [Screenshots](https://github.com/r4v10l1/arch-files#Screenshots)
 
 ---
@@ -188,6 +189,11 @@ echo "startx" >> ~/.bash_profile  # Append to the file
 	# Will save the screenshot to a file with a 2 second delay.
 	```
 - Added low battery alerts using [xmenu](https://github.com/r4v10l1/arch-files/tree/main/XMENU) and [acpi](https://github.com/r4v10l1/arch-files/blob/main/Scripts/Group1/poweralert.sh#L7)
+
+---
+
+## Todo
+- Add [tag-previews](https://dwm.suckless.org/patches/tag-previews/) to dwm.
 
 ---
 
