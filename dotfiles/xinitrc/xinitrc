@@ -1,2 +1,6 @@
+ras
+
+#xbindkeys
+
 bash ~/.change-layout.sh  # Scripts/Group2
 exec dwm
