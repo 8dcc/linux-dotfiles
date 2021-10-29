@@ -117,9 +117,10 @@ cp ~/.bashrc ~/.bashrc.bak  # Make a backup
 cd ~/000/GITHUB/arch-files/dotfiles/bashrc  # Yes it is a folder
 cp bashrc ~/.bashrc  # Copy the actual file
 ```
-Need to download `.git-prompt.sh`
+Need to ~~download~~ copy `.git-prompt.sh`
 ```bash
-curl -o ~/.git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
+#curl -o ~/.git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
+cp ~/000/GITHUB/arch-files/dotfiles/bashrc/git-prompt.sh ~/.git-prompt.sh
 ```
 Add it to the `.bashrc` if you use your own:
 ```bash
