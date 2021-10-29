@@ -190,7 +190,13 @@ echo "startx" >> ~/.bash_profile  # Append to the file
 	# Will save the screenshot to a file with a 2 second delay.
 	```
 - Added low battery alerts using [xmenu](https://github.com/r4v10l1/arch-files/tree/main/XMENU) and [acpi](https://github.com/r4v10l1/arch-files/blob/main/Scripts/Group1/poweralert.sh#L7)
-
+- For custom keys like XF86NNNNNNNNN, install `xbindkeys`, run `xbindkeys -d > ~/.xbindkeysrc` and copy `xbindkeysrc` to `~/.xbindkeysrc`.
+	```bash
+	sudo pacman -S xbindkeys
+	xbindkeys -d > ~/.xbindkeysrc
+	cp ~/000/GITHUB/arch-files/dotfiles/xbindkeysrc/xbindkeysrc ~/.xbindkeysrc
+	```
+	
 ---
 
 ## Todo
