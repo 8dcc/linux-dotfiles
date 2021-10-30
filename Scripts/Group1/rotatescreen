@@ -7,11 +7,11 @@ font="dina:size=7"
 
 choice=`cat <<EOF | xmenu
 
-	0
-	1
-	2
-	3
- 	4
+ Normal	0
+ Left	1
+ Right	2
+ Inverted	3
+ Exit	4
 
 EOF`
 
