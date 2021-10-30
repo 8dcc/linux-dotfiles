@@ -48,7 +48,7 @@ sudo pacman -S hspell aspell nuspell libvoikko
 ```
 And the required font from the aur:
 ```bash
-yay -S ttf-font-awesome  # Required font for st
+yay -S ttf-font-awesome dina-font
 ```
 
 ## Keys:
