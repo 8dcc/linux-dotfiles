@@ -1,9 +1,14 @@
+# For the benefit of emacs users: -*- shell-script -*-
 ###########################
 # xbindkeys configuration #
 ###########################
 
-"bash ~/.rotatescreen.sh; sleep 2"
+"rotatescreen"  # XMENU command
    XF86WWW
+
+# Example: Different key and using autorotation instead of xmenu
+# --------------------------------------
+#"bash ~/.rotatescreen.sh; sleep 2"
 #   XF86RotateWindows
 
 ##################################
