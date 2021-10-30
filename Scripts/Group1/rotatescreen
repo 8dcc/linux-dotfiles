@@ -1,0 +1,23 @@
+#!/bin/sh
+
+######################
+x_res="1024"
+y_res="768"
+######################
+
+z_size="38"
+x_coord="$(( ($x_res / 2) - ($z_size / 2) ))"
+y_coord="$(( $y_res / 2 - 50 ))"
+
+#echo -e "$x_coord $y_coord"
+
+DMENU="dmenu -x $x_coord -y $y_coord -z $z_size -fn dina:size=9 -nb #222222 -nf #bbbbbb -sb #af2626 -sf #eeeeee -i -l 5"
+choice=$(echo -e "  \n  \n  \n  \n " | $DMENU)
+
+case "$choice" in
+	"   ") xrandr -o 2; xsetwacom set $deviceid Rotate half ;;
+	"  ") xrandr -o 3; xsetwacom set $deviceid Rotate cw ;;
+	"  ") xrandr -o 1; xsetwacom set $deviceid Rotate ccw ;;
+	"  ") xrandr -o 0; xsetwacom set $deviceid Rotate none ;;
+	"  ") exit 0 ;; 
+esac
