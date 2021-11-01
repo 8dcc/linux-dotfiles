@@ -89,6 +89,7 @@ fi
 
 ##########################
 alias yt2mp3='youtube-dl -x --audio-format mp3 --prefer-ffmpeg'
+alias gcco='gcc -o $(echo $1 | cut -d '.' -f 1).out $1 && ./$(echo $1 | cut -d '.' -f 1).out'
 alias vim='nvim'
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
