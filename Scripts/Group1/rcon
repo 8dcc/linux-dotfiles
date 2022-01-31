@@ -2,7 +2,7 @@
 
 #####  EDIT ME  #####
 auto=true
-network_ssid="ravi0li-fibra"
+network_ssid="YOUR-SSID"
 stationname="wlan0"
 #####################
 
