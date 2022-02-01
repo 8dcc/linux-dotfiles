@@ -1,4 +1,9 @@
-#!/bin/sh
+#!/bin/bash
+
+###################
+multibattery=true
+###################
+
 dte(){
         dte="$(date +"%d-%b %R")"
         echo " $dte"
@@ -45,19 +50,33 @@ vol(){
 }
 
 batt(){
-	batt=$(acpi | awk '{print $4}' | sed s/,//)
-	echo " $batt"
+	if [[ $multibattery == false ]]; then
+		batt1=$(acpi | awk '{print $4}' | sed s/,//)
+		echo " $batt1"
+	else
+		if [[ $(acpi | head -n 1 | awk '{print $4}' | sed s/,//) == "charging" ]]; then		# If battery is not being charged we use the 5th field
+			batt1=$(acpi | head -n 1 | awk '{print $5}' | sed s/,//)
+		else
+			batt1=$(acpi | head -n 1 | awk '{print $4}' | sed s/,//)
+		fi
+
+		if [[ $(acpi | tail -n 1 | awk '{print $4}' | sed s/,//) == "charging" ]]; then
+			batt2=$(acpi | tail -n 1 | awk '{print $5}' | sed s/,//)
+		else
+			batt2=$(acpi | tail -n 1 | awk '{print $4}' | sed s/,//)
+		fi
+
+		echo " $batt1 - $batt2"
+	fi
 }
 
 status(){
-	#echo "$(cpu) | $(mem) | $(hdd) | $(pkgs) | $(vpn) | $(vol) |  ch0colate's debian - dwm-6.2 | $(dte)"
-	#echo "$(cpu) \ $(mem) \ $(hdd) \ $(batt) \  dwm-6.2 \ $(dte)"
-	echo "$(cpu) \ $(mem) \ $(hdd) \ $(vol) \ $(dte)"
+	echo "$(cpu) | $(mem) | $(hdd) | $(vol) | $(batt) | $(dte)"
 
 }
 
 
 while true; do
 	xsetroot -name "$(status)"
-	sleep 15
+	sleep 1
 done &
