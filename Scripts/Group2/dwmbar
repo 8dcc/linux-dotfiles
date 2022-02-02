@@ -2,11 +2,22 @@
 
 ###################
 multibattery=true
+hourchange=true
 ###################
 
 dte(){
-        dte="$(date +"%d-%b %R")"
-        echo " $dte"
+        if [[ $hourchange == true ]]; then
+            hour=$(($(date +"%H") - 1))
+            if [[ $hour < 10 ]]; then
+                hour="0$hour"	# Kinda not working ngl
+			fi
+
+			dte="$(date +"%d-%b $hour:%M")"
+		else
+	        dte="$(date +"%d-%b %R")"
+		fi
+
+		echo " $dte"
 }
 
 hdd(){
@@ -71,7 +82,7 @@ batt(){
 }
 
 status(){
-	echo "$(cpu) | $(mem) | $(hdd) | $(vol) | $(batt) | $(dte)"
+	echo "$(cpu) | $(mem) | $(hdd) | $(vol) | $(batt) | $(dte) "
 
 }
 
