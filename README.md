@@ -207,10 +207,7 @@ echo "startx" >> ~/.bash_profile  # Append to the file
 ---
 
 ## Screenshots
-![dwm-screenshot-1](images/dwm-1.png)
-![dwm-screenshot-2](images/dwm-2.png)
+![dwm-screenshot-1](images/dwm-5.png)
 ![dwm-screenshot-3](images/dwm-3.png)
 ![dwm-lite-mix](images/dwm-lite-mix.png)
 ![slock-1](images/lockscreen-1.png)
-![slock-2](images/lockscreen-2.png)
-![slock-3](images/lockscreen-3.png)
