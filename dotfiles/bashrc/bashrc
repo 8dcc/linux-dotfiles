@@ -90,6 +90,8 @@ fi
 ##########################
 
 gcco() {
+	execute=false
+
 	if [[ -f $1 ]]; then
 		filename="$(echo $1 | cut -d '.' -f 1).out"
 		if [[ -f $filename ]]; then
@@ -98,11 +100,15 @@ gcco() {
 
 		gcc -o $filename $1
 	
-		if [[ -f $filename ]]; then
-			echo "------------- COMPILED. RUNNING... -------------"
-			./$filename
+		if [[ $execute == true ]]; then
+			if [[ -f $filename ]]; then
+				echo "------------- COMPILED. RUNNING... -------------"
+				./$filename
+			else
+				echo "------------- ERROR. ABORTED... -------------"
+			fi
 		else
-			echo "------------- ERROR. ABORTED... -------------"
+			echo "Done. Compiled as $filename"
 		fi
 	else
 		echo "[gcco] Error. No such file."
@@ -116,5 +122,7 @@ alias vim='nvim'
 alias sudo='doas'
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+echo "( ._.)"
 
 source ~/.git-prompt.sh
