@@ -3,14 +3,14 @@
 ###########################
 #        SETTINGS         #
 ###########################
-st_opacity=true
+# Opacity                 #
+global_opacity=false      # if false, will ignore all opacity options
+st_opacity=true           # if false, will disable the terminal opacity
 menu_opacity=false        # Will be checked only if st_opacity is true
-change_res=false
-target_res=1680x1050
+# Resolution              #
+change_res=false          # if true, will change the resolution using xrandr
+target_res=1920x1080      # 
 ###########################
-
-
-# ------------------------------------------
 
 
 # Resolution
@@ -18,19 +18,22 @@ if [[ $change_res == true ]]; then
 	xrandr --size $target_res
 fi
 
+# Opacity
+if [[ $global_opacity == true ]]; then
+	if [[ $st_opacity == true ]]; then
+		if [[ $menu_opaticy == true ]]; then
+			picom -m 1 --opacity-rule '98:name *= "st"' --opacity-rule '97:name *?= "Brave"' --opacity-rule '98:name *?= "FireDragon"' --opacity-rule '98:name *?= "Firefox"' --opacity-rule '95:name *?= ".mp3"' --opacity-rule '95:name *?= "ranger"' &
+		else
+			picom -m 1 -e 1 --opacity-rule '97:name *= "st"' --opacity-rule '97:name *?= "Brave"' --opacity-rule '98:name *?= "FireDragon"' --opacity-rule '98:name *?= "Firefox"' --opacity-rule '95:name *?= ".mp3"' --opacity-rule '95:name *?= "ranger"' &
+		fi
+	else
+		picom -m 1 -e 1 --opacity-rule '97:name *?= "Brave"' --opacity-rule '98:name *?= "FireDragon"' --opacity-rule '98:name *?= "Firefox"' &
+	fi
+fi
+
+
 # Background
 feh --bg-scale ~/.wallpaper.png
-
-# Opacity
-if [[ $st_opacity == true ]]; then
-	if [[ $menu_opaticy == true ]]; then
-		picom -m 1 --opacity-rule '97:name *= "st"' --opacity-rule '97:name *?= "Brave"' --opacity-rule '98:name *?= "FireDragon"' --opacity-rule '98:name *?= "Firefox"' --opacity-rule '95:name *?= ".mp3"' --opacity-rule '95:name *?= "ranger"' &
-	else
-		picom -m 1 -e 1 --opacity-rule '97:name *= "st"' --opacity-rule '97:name *?= "Brave"' --opacity-rule '98:name *?= "FireDragon"' --opacity-rule '98:name *?= "Firefox"' --opacity-rule '95:name *?= ".mp3"' --opacity-rule '95:name *?= "ranger"' &
-	fi
-else
-	picom -m 1 -e 1 --opacity-rule '97:name *?= "Brave"' --opacity-rule '98:name *?= "FireDragon"' --opacity-rule '98:name *?= "Firefox"' &
-fi
 
 # Statusbar loop
 bash ~/.dwmbar 2>/dev/null
