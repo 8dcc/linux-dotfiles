@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# https://github.com/r4v10l1/arch-files
+#----------------------------------------
+# It is important that you have installed the
+# awesome font from the aur (ttf-font-awesome)
+
 ###################
 multibattery=true
 hourchange=true
@@ -7,8 +12,17 @@ hourchange=true
 
 dte(){
         if [[ $hourchange == true ]]; then
-            hour=$(($(date +"%H") - 1))
-            if [[ $hour < 10 ]]; then
+            hour=$(date +"%H")
+			
+			# Subtract one from the hour unless it is 00
+			if [[ $hour == 00 ]]; then
+				hour=23
+			else
+				hour=$(($hour - 1))
+			fi
+
+			# Add a 0 after the subtraction
+            if [[ $hour < 10 && $hour > 0 ]]; then
                 hour="0$hour"	# Kinda not working ngl
 			fi
 
@@ -17,12 +31,12 @@ dte(){
 	        dte="$(date +"%d-%b %R")"
 		fi
 
-		echo " $dte"
+		echo " $dte"
 }
 
 hdd(){
         hdd="$(df -h /home | grep dev | awk '{print$5}')"
-        echo " $hdd"
+        echo " $hdd"
 }
 
 mem(){
@@ -37,7 +51,7 @@ cpu() {
           read cpu a b c idle rest < /proc/stat
             total=$((a+b+c+idle))
               cpu=$((100*( (total-prevtotal) - (idle-previdle) ) / (total-prevtotal) ))
-                echo "  $cpu% "
+                echo " $cpu%"
 }
 
 pkgs(){
@@ -65,24 +79,33 @@ batt(){
 		batt1=$(acpi | awk '{print $4}' | sed s/,//)
 		echo " $batt1"
 	else
-		if [[ $(acpi | head -n 1 | awk '{print $4}' | sed s/,//) == "charging" ]]; then		# If battery is not being charged we use the 5th field
-			batt1=$(acpi | head -n 1 | awk '{print $5}' | sed s/,//)
+		# First battery
+		if [[ $(acpi | head -n 1 | awk '{print $3}') == "Charging," ]]; then
+			# If battery is being charged we display a different icon
+			batt1=" $(acpi | head -n 1 | awk '{print $4}')"
+		elif [[ $(acpi | head -n 1 | awk '{print $3}') == "Not" ]]; then
+			# If battery is not being charged we use the 5th field
+			batt1=" $(acpi | head -n 1 | awk '{print $5}')"
 		else
-			batt1=$(acpi | head -n 1 | awk '{print $4}' | sed s/,//)
+			batt1=" $(acpi | head -n 1 | awk '{print $4}')"
 		fi
 
-		if [[ $(acpi | tail -n 1 | awk '{print $4}' | sed s/,//) == "charging" ]]; then
-			batt2=$(acpi | tail -n 1 | awk '{print $5}' | sed s/,//)
+
+		# Second battery
+		if [[ $(acpi | tail -n 1 | awk '{print $3}') == "Charging," ]]; then
+			batt2=" $(acpi | tail -n 1 | awk '{print $4}')"
+		elif [[ $(acpi | tail -n 1 | awk '{print $3}') == "Not" ]];then
+			batt2=" $(acpi | tail -n 1 | awk '{print $5}')"
 		else
-			batt2=$(acpi | tail -n 1 | awk '{print $4}' | sed s/,//)
+			batt2=" $(acpi | tail -n 1 | awk '{print $4}')"
 		fi
 
-		echo " $batt1 - $batt2"
+		echo "$batt1 - $batt2"
 	fi
 }
 
 status(){
-	echo "$(cpu) | $(mem) | $(hdd) | $(vol) | $(batt) | $(dte) "
+	echo " $(cpu) | $(mem) | $(hdd) | $(vol) | $(batt) | $(dte) "
 
 }
 
