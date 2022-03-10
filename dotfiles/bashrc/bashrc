@@ -120,6 +120,7 @@ alias sn='doas shutdown -f now'  # Shutdown now
 
 alias vim='nvim'
 alias sudo='doas'
+alias xclipp='xclip -sel clip'
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
