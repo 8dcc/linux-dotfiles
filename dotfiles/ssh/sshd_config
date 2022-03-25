@@ -1,0 +1,43 @@
+Include /etc/ssh/sshd_config.d/*.conf
+
+HostKey /etc/ssh/ssh_host_ed25519_key
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+
+HostKeyAlgorithms ssh-ed25519-cert-v01@openssh.com,ssh-ed25519
+KexAlgorithms curve25519-sha256
+Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com
+MACs hmac-sha2-512,hmac-sha2-512-etm@openssh.com
+
+HostbasedAcceptedKeyTypes ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,ssh-ed25519
+PubkeyAcceptedKeyTypes ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,ssh-ed25519
+
+# Authentication:
+PermitRootLogin no
+AllowUsers null
+MaxAuthTries 5
+MaxSessions 2
+
+AuthenticationMethods publickey
+PubkeyAuthentication yes
+
+PasswordAuthentication no
+
+ChallengeResponseAuthentication no
+
+UsePAM no
+
+AllowAgentForwarding no
+AllowTcpForwarding no
+AllowStreamLocalForwarding no
+X11Forwarding no
+PrintMotd no
+
+ClientAliveInterval 900
+ClientAliveCountMax 0
+
+AcceptEnv LANG LC_*
+
+# override default of no subsystems
+Subsystem	sftp	/usr/lib/openssh/sftp-server -f AUTHPRIV -l INFO
+
