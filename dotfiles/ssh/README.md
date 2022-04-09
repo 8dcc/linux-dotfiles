@@ -1,7 +1,10 @@
 ## `sshd_config`
 Move this file to `/etc/ssh/sshd_config` in your server.
 
-I don't think you need to edit this file.
+You will need to edit the `AllowUsers` line. You need to put there the user you will use to log in. Keep in mind that root login is disabled.
+```bash
+AllowUsers <YOUR-USER>
+```
 
 ## `config`
 Move this file to `~/.ssh/config` in your client machine.

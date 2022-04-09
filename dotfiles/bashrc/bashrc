@@ -38,7 +38,7 @@ fi
 
 # Get repo info
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[1;032m\]\u\[\033[00;37m\] at \[\e[1m\e[38;5;105m\]\h\[\033[01;37m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " \[\033[01;32m\][%s]")\[\033[00m\]\$ '
+	PS1='${debian_chroot:+($debian_chroot)}\[\033[1;032m\]\u\[\033[00;37m\] at \[\e[1m\e[38;5;105m\]\h\[\033[01;37m\]:\[\033[01;34m\]\w\[\033[00m\]\[$(check_git_color)\]$(__git_ps1 " (%s)")\[\033[00m\]\$ '
     PS2="> "
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
@@ -87,7 +87,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
-##########################
+#---------------------------------------------
+# Custom shit
+#---------------------------------------------
 
 gcco() {
 	execute=false
@@ -117,14 +119,27 @@ gcco() {
 
 alias yt2mp3='youtube-dl -x --audio-format mp3 --prefer-ffmpeg'
 alias sn='doas shutdown -f now'  # Shutdown now
-
 alias vim='nvim'
-alias sudo='doas'
 alias xclipp='xclip -sel clip'
 alias tree='tree -Aaq'
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export PYTHONDONTWRITEBYTECODE=1
 
 echo "( ._.)"
 
+# GIT
 source ~/.git-prompt.sh
+
+check_git_color() {
+	if [[ $(git status -s 2> /dev/null) ]]; then
+		echo -e "\033[0;33m"
+	elif [[ $(git diff --stat origin/main 2> /dev/null) ]]; then
+		echo -e "\033[0;35m"
+	else
+		echo -e "\033[0;32m"
+	fi
+}
+
+# Alternate version (gets only branch name):
+#git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
