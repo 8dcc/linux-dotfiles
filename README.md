@@ -7,20 +7,20 @@
 </div>
 
 ## Table of contents
-1. [Requirements](https://github.com/r4v10l1/arch-files#Requirements)
-2. [Keys](https://github.com/r4v10l1/arch-files#Keys)
-3. [Process](https://github.com/r4v10l1/arch-files#Process)
-	- [dwm](https://github.com/r4v10l1/arch-files#dwm)
-	- [st](https://github.com/r4v10l1/arch-files#st)
-	- [dmenu](https://github.com/r4v10l1/arch-files#dmenu)
-	- [xmenu](https://github.com/r4v10l1/arch-files#xmenu)
-	- [slock](https://github.com/r4v10l1/arch-files#slock)
-	- [bashrc](https://github.com/r4v10l1/arch-files#bashrc)
-	- [Scripts](https://github.com/r4v10l1/arch-files#Scripts)
-	- [nvim](https://github.com/r4v10l1/arch-files#nvim)
-4. [Extra](https://github.com/r4v10l1/arch-files#Extra)
-4. [Todo](https://github.com/r4v10l1/arch-files#Todo)
-5. [Screenshots](https://github.com/r4v10l1/arch-files#Screenshots)
+1. [Requirements](#Requirements)
+2. [Keys](#Keys)
+3. [Process](#Process)
+	- [dwm](#dwm)
+	- [st](#st)
+	- [dmenu](#dmenu)
+	- [xmenu](#xmenu)
+	- [slock](#slock)
+	- [bashrc](#bashrc)
+	- [Scripts](#Scripts)
+	- [nvim](#nvim)
+4. [Extra](#Extra)
+4. [Todo](#Todo)
+5. [Screenshots](#Screenshots)
 
 ---
 
