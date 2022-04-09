@@ -1,6 +1,8 @@
 <div align="center">
-	<h1>dwm installation in arch</h1>
-	<b>Installation process of <a href="https://dwm.suckless.org/">dwm</a> in <a href="https://archlinux.org/">arch</a> / <a href="https://garudalinux.org/">garuda linux</a>.</b><br>
+	<h1>My dotfiles and configurations for arch</h1>
+	<b>
+        Installation process of <a href="https://dwm.suckless.org/">dwm</a> in <a href="https://archlinux.org/">arch</a> / <a href="https://garudalinux.org/">garuda linux</a>.
+    </b><br>
 	Simple version <a href="https://github.com/r4v10l1/dwm-lite">here</a>.<br><br>
 	<a href="https://github.com/r4v10l1/arch-files/network/members"><img src="https://img.shields.io/github/forks/r4v10l1/arch-files.svg?style=for-the-badge&logo=archlinux" alt="Forks"></a>
 	<a href="https://github.com/r4v10l1/arch-files/stargazers"><img src="https://img.shields.io/github/stars/r4v10l1/arch-files.svg?style=for-the-badge&logo=archlinux" alt="Stars"></a>
@@ -202,7 +204,7 @@ echo "startx" >> ~/.bash_profile  # Append to the file
 ---
 
 ## Todo
-- Add [tag-previews](https://dwm.suckless.org/patches/tag-previews/) to dwm.
+- [ ] Add [tag-previews](https://dwm.suckless.org/patches/tag-previews/) to dwm.
 
 ---
 
