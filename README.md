@@ -4,8 +4,8 @@
         Installation process of <a href="https://dwm.suckless.org/">dwm</a> in <a href="https://archlinux.org/">arch</a> / <a href="https://garudalinux.org/">garuda linux</a>.
     </b><br>
 	Simple version <a href="https://github.com/r4v10l1/dwm-lite">here</a>.<br><br>
-	<a href="https://github.com/r4v10l1/arch-files/network/members"><img src="https://img.shields.io/github/forks/r4v10l1/arch-files.svg?style=for-the-badge&logo=archlinux" alt="Forks"></a>
-	<a href="https://github.com/r4v10l1/arch-files/stargazers"><img src="https://img.shields.io/github/stars/r4v10l1/arch-files.svg?style=for-the-badge&logo=archlinux" alt="Stars"></a>
+	<a href="https://github.com/r4v10l1/arch-dotfiles/network/members"><img src="https://img.shields.io/github/forks/r4v10l1/arch-dotfiles.svg?style=for-the-badge&logo=archlinux" alt="Forks"></a>
+	<a href="https://github.com/r4v10l1/arch-dotfiles/stargazers"><img src="https://img.shields.io/github/stars/r4v10l1/arch-dotfiles.svg?style=for-the-badge&logo=archlinux" alt="Stars"></a>
 </div>
 
 ## Table of contents
@@ -18,6 +18,8 @@
 	- [xmenu](#xmenu)
 	- [slock](#slock)
 	- [bashrc](#bashrc)
+	- [xinitrc](#xinitrc)
+	- [ssh](#ssh)
 	- [Scripts](#Scripts)
 	- [nvim](#nvim)
 4. [Extra](#Extra)
@@ -35,7 +37,7 @@
 2. Clone the repo to `~/000/GITHUB`.
 	```bash
 	cd ~/000/GITHUB
-	git clone https://github.com/r4v10l1/arch-files
+	git clone https://github.com/r4v10l1/arch-dotfiles
 	```
 ### Packages:
 Install the required packages for `ras`:
@@ -56,13 +58,13 @@ yay -S ttf-font-awesome dina-font
 ```
 
 ## Keys:
-All the keys and shortcuts can be found [here](https://github.com/r4v10l1/arch-files/blob/main/dwm-cheatsheet.md).
+All the keys and shortcuts can be found [here](https://github.com/r4v10l1/arch-dotfiles/blob/main/dwm-cheatsheet.md).
 
 ## Process:
 ### dwm
 We will install dwm 6.2.
 ```bash
-cd ~/000/GITHUB/arch-files/DWM-6.2
+cd ~/000/GITHUB/arch-dotfiles/DWM-6.2
 # rm config.h
 sudo make clean install  # Prepare for the errors?
 ```
@@ -72,14 +74,14 @@ sudo make clean install  # Prepare for the errors?
 ### st
 Make the `.font` folder and copy the powerline font in there.
 ```bash
-cd ~/000/GITHUB/arch-files/fonts
+cd ~/000/GITHUB/arch-dotfiles/fonts
 mkdir ~/.fonts
 cp -r powerline-fonts ~/.fonts
 c-list | grep power  # Check that all is fine
 ```
 We will install 0.8.2 because of the extensions.
 ```bash
-cd ~/000/GITHUB/arch-files/ST-0.8.2
+cd ~/000/GITHUB/arch-dotfiles/ST-0.8.2
 # rm config.h
 sudo make clean install  # Prepare for the errors?
 ```
@@ -118,13 +120,13 @@ sudo make clean install
 Make a backup and copy the `.bashrc` to `~/.bashrc`
 ```bash
 cp ~/.bashrc ~/.bashrc.bak  # Make a backup
-cd ~/000/GITHUB/arch-files/dotfiles/bashrc  # Yes it is a folder
+cd ~/000/GITHUB/arch-dotfiles/dotfiles/bashrc  # Yes it is a folder
 cp bashrc ~/.bashrc  # Copy the actual file
 ```
 Need to ~~download~~ copy `.git-prompt.sh`
 ```bash
 #curl -o ~/.git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
-cp ~/000/GITHUB/arch-files/dotfiles/bashrc/git-prompt.sh ~/.git-prompt.sh
+cp ~/000/GITHUB/arch-dotfiles/dotfiles/bashrc/git-prompt.sh ~/.git-prompt.sh
 ```
 Add it to the `.bashrc` if you use your own:
 ```bash
@@ -147,15 +149,22 @@ echo "startx" >> ~/.bash_profile  # Append to the file
 
 #
 
+### ssh
+Configuring ssh depends on your needs, but I recommend what the [install gentoo wiki](https://wiki.installgentoo.com/wiki/Home_server/Remote_access) recommends.  
+For my configuration file make sure you have ssh installed and enabled, and follow the [`README.md`](https://github.com/r4v10l1/arch-dotfiles/tree/main/dotfiles/ssh) in the ssh folder.  
+Copy the `sshd_config` file to `/etc/ssh/sshd_config`. Make sure you change the `AllowUsers` part to allow login only with the user you want.
+
+#
+
 ### Scripts
 - Group 1.
 	```bash
-	cat ~/000/GITHUB/arch-files/Scripts/Group1/README.txt  # Copy to /usr/local/bin
+	cat ~/000/GITHUB/arch-dotfiles/Scripts/Group1/README.txt  # Copy to /usr/local/bin
 	# Just do what the file says
 	```
 - Group 2.
 	```bash
-	cat ~/000/GITHUB/arch-files/Scripts/Group2/README.txt
+	cat ~/000/GITHUB/arch-dotfiles/Scripts/Group2/README.txt
 	# Change the file name from 'dwmbar' to '.dwmbar' and copy it to ~
 	# Just do what the file says
 	```
@@ -193,12 +202,12 @@ echo "startx" >> ~/.bash_profile  # Append to the file
 	maim FILENAME.png -d 2
 	# Will save the screenshot to a file with a 2 second delay.
 	```
-- Added low battery alerts using [xmenu](https://github.com/r4v10l1/arch-files/tree/main/XMENU) and [acpi](https://github.com/r4v10l1/arch-files/blob/main/Scripts/Group1/poweralert.sh#L7)
+- Added low battery alerts using [xmenu](https://github.com/r4v10l1/arch-dotfiles/tree/main/XMENU) and [acpi](https://github.com/r4v10l1/arch-dotfiles/blob/main/Scripts/Group1/poweralert.sh#L7)
 - For custom keys like XF86NNNNNNNNN, install `xbindkeys`, run `xbindkeys -d > ~/.xbindkeysrc` and copy `xbindkeysrc` to `~/.xbindkeysrc`.
 	```bash
 	sudo pacman -S xbindkeys
 	xbindkeys -d > ~/.xbindkeysrc
-	cp ~/000/GITHUB/arch-files/dotfiles/xbindkeysrc/xbindkeysrc ~/.xbindkeysrc
+	cp ~/000/GITHUB/arch-dotfiles/dotfiles/xbindkeysrc/xbindkeysrc ~/.xbindkeysrc
 	```
 	
 ---
