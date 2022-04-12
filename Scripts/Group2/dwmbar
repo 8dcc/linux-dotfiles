@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# https://github.com/r4v10l1/arch-files
+# https://github.com/r4v10l1/arch-dotfiles
 #----------------------------------------
 # It is important that you have installed the
 # awesome font from the aur (ttf-font-awesome)
@@ -11,106 +11,106 @@ hourchange=true
 ###################
 
 dte(){
-        if [[ $hourchange == true ]]; then
-            hour=$(date +"%H")
-			
-			# Subtract one from the hour unless it is 00
-			if [[ $hour == 00 ]]; then
-				hour=23
-			else
-				hour=$(($hour - 1))
-			fi
+    if [[ $hourchange == true ]]; then
+        hour=$(date +"%H")
 
-			# Add a 0 after the subtraction
+            # Subtract one from the hour unless it is 00
+            if [[ $hour == 00 ]]; then
+                hour=23
+            else
+                hour=$(($hour - 1))
+            fi
+
+            # Add a 0 after the subtraction
             if [[ $hour < 10 && $hour > 0 ]]; then
                 hour="0$hour"	# Kinda not working ngl
-			fi
+            fi
 
-			dte="$(date +"%d-%b $hour:%M")"
-		else
-	        dte="$(date +"%d-%b %R")"
-		fi
+            dte="$(date +"%d-%b $hour:%M")"
+        else
+            dte="$(date +"%d-%b %R")"
+    fi
 
-		echo " $dte"
+    echo " $dte"
 }
 
 hdd(){
-        hdd="$(df -h /home | grep dev | awk '{print$5}')"
-        echo " $hdd"
+    hdd="$(df -h /home | grep dev | awk '{print$5}')"
+    echo " $hdd"
 }
 
 mem(){
-        mem="$(free -h | awk '/Mem:/ {printf $3 "-" $2}')"
-        echo " $mem"
+    mem="$(free -h | awk '/Mem:/ {printf $3 "-" $2}')"
+    echo " $mem"
 }
 
 cpu() {
     read cpu a b c previdle rest < /proc/stat
-      prevtotal=$((a+b+c+previdle))
-        sleep 0.5
-          read cpu a b c idle rest < /proc/stat
-            total=$((a+b+c+idle))
-              cpu=$((100*( (total-prevtotal) - (idle-previdle) ) / (total-prevtotal) ))
-                echo " $cpu%"
+    prevtotal=$((a+b+c+previdle))
+    sleep 0.5
+    read cpu a b c idle rest < /proc/stat
+    total=$((a+b+c+idle))
+    cpu=$((100*( (total-prevtotal) - (idle-previdle) ) / (total-prevtotal) ))
+    echo " $cpu%"
 }
 
 pkgs(){
-        pkgs="$(apt list --installed | wc -l)"
-        echo " $pkgs"
+    pkgs="$(apt list --installed | wc -l)"
+    echo " $pkgs"
 }
 
 vpn(){
-        vpn="$(ip a | grep tun0 | grep inet | wc -l)"
-        echo " VPN: $vpn"
+    vpn="$(ip a | grep tun0 | grep inet | wc -l)"
+    echo " VPN: $vpn"
 }
 
 vol(){
-	vol="$(amixer -D pulse get Master | awk -F'[][]' 'END{print $2}')"
-	muted="$(amixer -D pulse get Master | awk -F'[][]' 'END{print $4}')"
-	if [[ $muted == off ]]; then
-		echo " Muted"
-	else
-		echo " $vol"
-	fi
+    vol="$(amixer -D pulse get Master | awk -F'[][]' 'END{print $2}')"
+    muted="$(amixer -D pulse get Master | awk -F'[][]' 'END{print $4}')"
+    if [[ $muted == off ]]; then
+        echo " Muted"
+    else
+        echo " $vol"
+    fi
 }
 
 batt(){
-	if [[ $multibattery == false ]]; then
-		batt1=$(acpi | awk '{print $4}' | sed s/,//)
-		echo " $batt1"
-	else
-		# First battery
-		if [[ $(acpi | head -n 1 | awk '{print $3}') == "Charging," ]]; then
-			# If battery is being charged we display a different icon
-			batt1=" $(acpi | head -n 1 | awk '{print $4}')"
-		elif [[ $(acpi | head -n 1 | awk '{print $3}') == "Not" ]]; then
-			# If battery is not being charged we use the 5th field
-			batt1=" $(acpi | head -n 1 | awk '{print $5}')"
-		else
-			batt1=" $(acpi | head -n 1 | awk '{print $4}')"
-		fi
+    if [[ $multibattery == false ]]; then
+        batt1=$(acpi | awk '{print $4}' | sed s/,//)
+        echo " $batt1"
+    else
+        # First battery
+        if [[ $(acpi | head -n 1 | awk '{print $3}') == "Charging," ]]; then
+            # If battery is being charged we display a different icon
+            batt1=" $(acpi | head -n 1 | awk '{print $4}')"
+        elif [[ $(acpi | head -n 1 | awk '{print $3}') == "Not" ]]; then
+            # If battery is not being charged we use the 5th field
+            batt1=" $(acpi | head -n 1 | awk '{print $5}')"
+        else
+            batt1=" $(acpi | head -n 1 | awk '{print $4}')"
+        fi
 
 
-		# Second battery
-		if [[ $(acpi | tail -n 1 | awk '{print $3}') == "Charging," ]]; then
-			batt2=" $(acpi | tail -n 1 | awk '{print $4}')"
-		elif [[ $(acpi | tail -n 1 | awk '{print $3}') == "Not" ]];then
-			batt2=" $(acpi | tail -n 1 | awk '{print $5}')"
-		else
-			batt2=" $(acpi | tail -n 1 | awk '{print $4}')"
-		fi
+        # Second battery
+        if [[ $(acpi | tail -n 1 | awk '{print $3}') == "Charging," ]]; then
+            batt2=" $(acpi | tail -n 1 | awk '{print $4}')"
+        elif [[ $(acpi | tail -n 1 | awk '{print $3}') == "Not" ]];then
+            batt2=" $(acpi | tail -n 1 | awk '{print $5}')"
+        else
+            batt2=" $(acpi | tail -n 1 | awk '{print $4}')"
+        fi
 
-		echo "$batt1 - $batt2"
-	fi
+        echo "$batt1 - $batt2"
+    fi
 }
 
 status(){
-	echo " $(cpu) | $(mem) | $(hdd) | $(vol) | $(batt) | $(dte) "
+    echo " $(cpu) | $(mem) | $(hdd) | $(vol) | $(batt) | $(dte) "
 
 }
 
 
 while true; do
-	xsetroot -name "$(status)"
-	sleep 1
+    xsetroot -name "$(status)"
+    sleep 1
 done &

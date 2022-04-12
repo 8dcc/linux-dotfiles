@@ -1,6 +1,6 @@
 <div align="center">
   <h1>dwm shortcuts</h1>
-  <b><a href="https://dwm.suckless.org/">dwm</a> shortcuts for <a href="https://github.com/r4v10l1/arch-files">arch-files</a>.</b>
+  <b><a href="https://dwm.suckless.org/">dwm</a> shortcuts for <a href="https://github.com/r4v10l1/arch-dotfiles">arch-dotfiles</a>.</b>
 </div>
 
 ## Table of contents
@@ -58,17 +58,17 @@ Keys                 | Action
 -------------------  | ------
 `alt`+`p`             | Execute menu.
 `alt`+`shift`+`enter`  | Open a terminal. In my config is `st`.
-`alt`+`shift`+`q`      | Open the [`pmenu`](https://github.com/r4v10l1/arch-files/blob/main/Scripts/Group1/pmenu). To log-out, etc.
+`alt`+`shift`+`q`      | Open the [`pmenu`](https://github.com/r4v10l1/arch-dotfiles/blob/main/Scripts/Group1/pmenu). To log-out, etc.
 
 #### Misc.
 Keys                 | Action
 -------------------  | ------
 `alt`+`b`             | Toggle hide/show bar.
 `alt`+`F12`           | Run `maim ~/screenshot.png -d 1` (Save screenshot with 1s delay).
-`alt`+`shift`+`l`      | Lock screen (run [`slock`](https://github.com/r4v10l1/arch-files#slock)).
+`alt`+`shift`+`l`      | Lock screen (run [`slock`](https://github.com/r4v10l1/arch-dotfiles#slock)).
 
 ## Extra
-All this is based on my `config.def.h`. Which can be found in [here](https://github.com/r4v10l1/arch-files).
+All this is based on my `config.def.h`. Which can be found in [here](https://github.com/r4v10l1/arch-dotfiles).
 - By default, dwm will start the window in your main side (left) and will transfer your previous main window to your right side, at the top. If you transfer all your windows to the right or left side using `alt + i` or `alt + d`, it will create a *stack* layout.
 	
-![Stack layout](https://raw.githubusercontent.com/r4v10l1/arch-files/main/images/dwm-3.png)
+![Stack layout](https://raw.githubusercontent.com/r4v10l1/arch-dotfiles/main/images/dwm-3.png)
