@@ -11,4 +11,5 @@ cp git-prompt.sh ~/.git-prompt.sh
 
 # Copy the `gcco` file (previously a function in the `.bashrc`) to `~/.gcco`
 cp gcco ~/.gcco
+sudo chmod +x ~/.gcco
 ```
