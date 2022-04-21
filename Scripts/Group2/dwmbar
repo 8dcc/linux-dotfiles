@@ -5,10 +5,11 @@
 # It is important that you have installed the
 # awesome font from the aur (ttf-font-awesome)
 
-###################
-multibattery=true
-hourchange=true
-###################
+#####################
+multibattery=true   #
+hourchange=true     #
+hourdiff=-2         # Ignored if !hourchange
+#####################
 
 dte(){
     if [[ $hourchange == true ]]; then
@@ -18,7 +19,7 @@ dte(){
             if [[ $hour == 00 ]]; then
                 hour=23
             else
-                hour=$(($hour - 1))
+                hour=$(($hour + $hourdiff))
             fi
 
             # Add a 0 after the subtraction
