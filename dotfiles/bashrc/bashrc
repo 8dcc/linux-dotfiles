@@ -56,7 +56,7 @@ ADMIN_COMMAND='doas'    # Change for sudo if you use it
 alias sn="$ADMIN_COMMAND shutdown -f now"  # Shutdown now
 alias vim='nvim'
 alias tree='tree -Aaq'
-# alias ls='exa -lh'
+# alias ls='exa -l --no-icons --git --color=auto --sort=type --time-style=iso'
 
 alias gcco='bash ~/.gcco'
 alias xclipp='xclip -sel clip'
