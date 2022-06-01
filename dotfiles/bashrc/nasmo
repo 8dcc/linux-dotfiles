@@ -1,0 +1,48 @@
+#!/bin/bash
+
+#--------- SETTINGS ---------
+EXECUTE=false               # Execute after compilation
+RM_OBJ=true                 # Remove object file after linking
+NASM_F="elf"                # Compiler
+LD_M="elf_i386"             # Linker
+#----------------------------
+
+if [[ -f $1 ]]; then
+    obj_file="$(echo $1 | cut -d '.' -f 1).o"
+    out_file="${obj_file}ut"                    # *.o -> *.out
+    
+    if [[ -f $obj_file ]]; then
+        rm $obj_file
+    fi
+    if [[ -f $out_file ]]; then
+        rm $out_file
+    fi
+
+    nasm -f $NASM_F $1
+
+    if ! [[ -f $obj_file ]]; then        # Object file does not exist
+        echo "[nasmo] Error. Can't find the object file after compilation."
+        exit 1;
+    fi
+
+    ld -m $LD_M -o $out_file $obj_file
+
+    if [[ $RM_OBJ == true ]]; then
+        rm $obj_file                    # Remove object file after linking
+    fi
+
+    if [[ $EXECUTE == true ]]; then
+        if [[ -f $out_file ]]; then
+            echo "[nasmo] Done. Running..."
+            ./$filename
+        else
+            echo "[nasmo] Error. Can't find the binary when trying to run."
+            exit 1;
+        fi
+    else
+        echo "[nasmo] Done. Compiled as $out_file"
+    fi
+else
+    echo "[nasmo] Error. No such file."      # Could not find user input
+    exit 1;
+fi
