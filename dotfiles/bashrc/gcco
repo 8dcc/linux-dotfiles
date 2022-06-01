@@ -1,26 +1,26 @@
 #!/bin/bash
 
 #-------- SETTINGS --------
-execute=false
+EXECUTE=false
 #--------------------------
 
 if [[ -f $1 ]]; then
-    filename="$(echo $1 | cut -d '.' -f 1).out"
-    if [[ -f $filename ]]; then
-        rm $filename
+    out_file="$(echo $1 | cut -d '.' -f 1).out"
+    if [[ -f $out_file ]]; then
+        rm $out_file
     fi
 
-    gcc -o $filename $1
+    gcc -o $out_file $1
 
-    if [[ $execute == true ]]; then
-        if [[ -f $filename ]]; then
+    if [[ $EXECUTE == true ]]; then
+        if [[ -f $out_file ]]; then
             echo "[gcco] Done. Running..."
             ./$filename
         else
             echo "[gcco] Error. Aborted."
         fi
     else
-        echo "[gcco] Done. Compiled as $filename"
+        echo "[gcco] Done. Compiled as $out_file"
     fi
 else
     echo "[gcco] Error. No such file."
