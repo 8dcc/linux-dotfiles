@@ -1,9 +1,10 @@
 <div align="center">
-    <h1>Dotfiles</h1>
-	<b>My dotfiles and configurations for linux</b><br>
+    <h1>Linux dotfiles</h1>
+	<b>My dotfiles, configurations and custom sources for linux</b>
+	(Mainly <a href="https://archlinux.org/">Arch</a> and <a href="https://nixos.org//">NixOS</a>)<br>
 	Simple version <a href="https://github.com/r4v10l1/dwm-lite">here</a>.<br><br>
-	<a href="https://github.com/r4v10l1/arch-dotfiles/network/members"><img src="https://img.shields.io/github/forks/r4v10l1/arch-dotfiles.svg?style=for-the-badge&logo=archlinux" alt="Forks"></a>
-	<a href="https://github.com/r4v10l1/arch-dotfiles/stargazers"><img src="https://img.shields.io/github/stars/r4v10l1/arch-dotfiles.svg?style=for-the-badge&logo=archlinux" alt="Stars"></a>
+	<a href="https://github.com/r4v10l1/arch-dotfiles/network/members"><img src="https://img.shields.io/github/forks/r4v10l1/arch-dotfiles.svg?style=for-the-badge&logo=linux&color=00ffff&logoColor=00ffff" alt="Forks"></a>
+	<a href="https://github.com/r4v10l1/arch-dotfiles/stargazers"><img src="https://img.shields.io/github/stars/r4v10l1/arch-dotfiles.svg?style=for-the-badge&logo=linux&color=00ffff&logoColor=00ffff" alt="Stars"></a>
 </div>
 
 ## Table of contents
