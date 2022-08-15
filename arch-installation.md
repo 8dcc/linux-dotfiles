@@ -125,9 +125,9 @@ echo "source ~/.git-prompt.sh" >> ~/.bashrc
 ### .xinitrc
 Make a backup and copy the `.xinitrc` to `~/.xinitrc`
 ```bash
-cp ~/.xinitrc ~/.xinitrc.bak                    # Make a backup (The file might not exist, just ignore then)
-cd ~/arch-dotfiles/dotfiles/xinitrc             # xinitrc is the folder name
-cp xinitrc ~/.xinitrc                           # Copy the actual file
+cp ~/.xinitrc ~/.xinitrc.bak            # Make a backup (The file might not exist, just ignore then)
+cd ~/arch-dotfiles/dotfiles/xinitrc     # xinitrc is the folder name
+cp xinitrc ~/.xinitrc                   # Copy the actual file
 ```
 Add `startx` to the `~/.bash_profile`
 ```bash
