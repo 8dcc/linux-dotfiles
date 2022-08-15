@@ -126,7 +126,7 @@ echo "source ~/.git-prompt.sh" >> ~/.bashrc
 Make a backup and copy the `.xinitrc` to `~/.xinitrc`
 ```bash
 cp ~/.xinitrc ~/.xinitrc.bak                    # Make a backup (The file might not exist, just ignore then)
-cd ~/arch-dotfiles/dotfiles/xinitrc    # xinitrc is the folder name
+cd ~/arch-dotfiles/dotfiles/xinitrc             # xinitrc is the folder name
 cp xinitrc ~/.xinitrc                           # Copy the actual file
 ```
 Add `startx` to the `~/.bash_profile`
@@ -143,16 +143,15 @@ Copy the `sshd_config` file to `/etc/ssh/sshd_config`. Make sure you change the 
 - home
 
 	```bash
+    # just do what the readme says
 	cat ~/arch-dotfiles/scripts/home/README.txt
-	# Change the file name from 'dwmbar' to '.dwmbar' and copy it to ~
-	# Just do what the file says
 	```
 - usr
 
 	```bash
-	cat ~/arch-dotfiles/scripts/usr/README.txt      # Copy to /usr/local/bin
-	# Just do what the file says
-	```
+    # just do what the readme says
+	cat ~/arch-dotfiles/scripts/usr/README.txt
+    ```
 
 ### nvim
 [Go to the vim-dotfiles repository.](https://github.com/r4v10l1/vim-dotfiles)
@@ -175,7 +174,7 @@ Copy the `sshd_config` file to `/etc/ssh/sshd_config`. Make sure you change the 
 	```bash
 	sudo pacman -S alsa-utils alsa-plugins alsa-lib pulseaudio-alsa pulseaudio
 	alsamixer
-	speaker-test -c 8  # Test the speakers
+	speaker-test -c 8       # Test the speakers
 	```
 	- You can use `mvp` to play videos.
 	- You can use `musikcube` for music.
@@ -183,8 +182,9 @@ Copy the `sshd_config` file to `/etc/ssh/sshd_config`. Make sure you change the 
 
 	```bash
 	sudo pacman -S maim
+
+	# Save the screenshot to a file with a 2 second delay.
 	maim FILENAME.png -d 2
-	# Will save the screenshot to a file with a 2 second delay.
 	```
 - Added low battery alerts using [xmenu](https://github.com/r4v10l1/arch-dotfiles/tree/main/apps/XMENU) and [acpi](https://github.com/r4v10l1/arch-dotfiles/blob/main/scripts/usr/poweralert.sh#L7)
 - For custom keys like XF86NNNNNNNNN, install `xbindkeys`, run `xbindkeys -d > ~/.xbindkeysrc` and copy `xbindkeysrc` to `~/.xbindkeysrc`.
@@ -192,5 +192,5 @@ Copy the `sshd_config` file to `/etc/ssh/sshd_config`. Make sure you change the 
 	```bash
 	sudo pacman -S xbindkeys
 	xbindkeys -d > ~/.xbindkeysrc
-	cp ~/000/GITHUB/arch-dotfiles/dotfiles/xbindkeysrc/xbindkeysrc ~/.xbindkeysrc
+	cp ~/arch-dotfiles/dotfiles/xbindkeysrc/xbindkeysrc ~/.xbindkeysrc
 	```
