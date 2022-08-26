@@ -44,11 +44,11 @@ if [ -f ~/.bash_aliases ]; then
 fi
 # --------- Bash completion ---------
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
+    fi
 fi
 # --------- Custom aliases ----------
 ADMIN_COMMAND='doas'    # Change for sudo if you use it
@@ -70,13 +70,13 @@ export PYTHONDONTWRITEBYTECODE=1
 # -------------- Git ----------------
 source ~/.git-prompt.sh
 check_git_color() {
-	if [[ $(git status -s 2> /dev/null) ]]; then
-		echo -e "\033[0;33m"
-	elif [[ $(git diff --stat origin/main 2> /dev/null) ]]; then
-		echo -e "\033[0;35m"
-	else
-		echo -e "\033[0;32m"
-	fi
+    if [[ $(git status -s 2> /dev/null) ]]; then
+        echo -e "\033[0;33m"
+    elif [[ $(git diff --stat $(git remote 2> /dev/null)/$(git rev-parse --abbrev-ref HEAD 2> /dev/null) 2> /dev/null) ]]; then
+        echo -e "\033[0;35m"
+    else
+        echo -e "\033[0;32m"
+    fi
 }
 # Alternate version (gets only branch name):
 #git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
