@@ -1,3 +1,4 @@
-.out
-.o
+*.out
+*.o
+st
 config.h
