@@ -5,7 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Liberation Mono for Powerline:pixelsize=12:antialias=true:aut hint=true";
+static char *font = "dina:pixelsize=11:antialias=true:aut hint=true";
 static int borderpx = 2;
 
 /*
