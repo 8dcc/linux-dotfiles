@@ -11,7 +11,7 @@ hourchange=true     #
 hourdiff=-2         # Ignored if !hourchange
 #####################
 
-dte(){
+dte() {
     if [[ $hourchange == true ]]; then
         hour=$(date +"%H")
 
@@ -35,12 +35,12 @@ dte(){
     echo " $dte"
 }
 
-hdd(){
+hdd() {
     hdd="$(df -h /home | grep dev | awk '{print$5}')"
     echo " $hdd"
 }
 
-mem(){
+mem() {
     mem="$(free -h | awk '/Mem:/ {printf $3 "-" $2}')"
     echo " $mem"
 }
@@ -55,17 +55,17 @@ cpu() {
     echo " $cpu%"
 }
 
-pkgs(){
+pkgs() {
     pkgs="$(apt list --installed | wc -l)"
     echo " $pkgs"
 }
 
-vpn(){
+vpn() {
     vpn="$(ip a | grep tun0 | grep inet | wc -l)"
     echo " VPN: $vpn"
 }
 
-vol(){
+vol() {
     vol="$(amixer -D pulse get Master | awk -F'[][]' 'END{print $2}')"
     muted="$(amixer -D pulse get Master | awk -F'[][]' 'END{print $4}')"
     if [[ $muted == off ]]; then
@@ -75,7 +75,7 @@ vol(){
     fi
 }
 
-batt(){
+batt() {
     if [[ $multibattery == false ]]; then
         batt1=$(acpi | awk '{print $4}' | sed s/,//)
         echo " $batt1"
@@ -91,7 +91,6 @@ batt(){
             batt1=" $(acpi | head -n 1 | awk '{print $4}')"
         fi
 
-
         # Second battery
         if [[ $(acpi | tail -n 1 | awk '{print $3}') == "Charging," ]]; then
             batt2=" $(acpi | tail -n 1 | awk '{print $4}')"
@@ -101,13 +100,20 @@ batt(){
             batt2=" $(acpi | tail -n 1 | awk '{print $4}')"
         fi
 
+        # Check for weird commas
+        if [[ $batt1 == *","* ]]; then
+            batt1=${batt1::-1}
+        fi
+        if [[ $batt2 == *","* ]]; then
+            batt2=${batt2::-1}
+        fi
+
         echo "$batt1 - $batt2"
     fi
 }
 
-status(){
+status() {
     echo " $(cpu) | $(mem) | $(hdd) | $(vol) | $(batt) | $(dte) "
-
 }
 
 
