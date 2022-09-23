@@ -1,3 +1,5 @@
+# https://wiki.installgentoo.com/wiki/Home_server/Remote_access
+
 HostKey /etc/ssh/ssh_host_ed25519_key
 HostKey /etc/ssh/ssh_host_rsa_key
 HostKey /etc/ssh/ssh_host_ecdsa_key
