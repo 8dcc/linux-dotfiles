@@ -1,20 +1,19 @@
-
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 2;        /* border pixel of windows */
-static const unsigned int gappx     = 6;        /* gaps between windows */
+static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int gappx     = 3;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const int vertpad            = 10;       /* vertical padding of bar */
-static const int sidepad            = 7;       /* horizontal padding of bar */
-static const char *fonts[]          = { "Liberation Mono for Powerline:size=14" };
+static const int vertpad            = 0;        /* vertical padding of bar */
+static const int sidepad            = 0;        /* horizontal padding of bar */
+static const char *fonts[]          = { "dina:size=10" };
 
-static const char dmenufont[]       = "monospace:size=14";
-static const char dmenux[]          = "7";
-static const char dmenuy[]          = "10";
-static const char dmenuz[]          = "1906";
+static const char dmenufont[]       = "dina:size=10";
+static const char dmenux[]          = "0";
+static const char dmenuy[]          = "0";
+static const char dmenuz[]          = "1924";
 
 static const char col_gray1[]       = "#222222"; // Background color
 static const char col_gray2[]       = "#541414"; // Inactive window border
@@ -28,7 +27,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
     /* xprop(1):
@@ -126,3 +125,4 @@ static Button buttons[] = {
     { ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
     { ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
+
