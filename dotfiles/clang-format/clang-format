@@ -1,6 +1,7 @@
 ﻿---
 BasedOnStyle: Mozilla
 AlignAfterOpenBracket: Align
+AlignConsecutiveMacros: 'true'
 AlignConsecutiveAssignments: 'true'
 AlignEscapedNewlines: Left
 AlignOperands: 'true'
@@ -12,6 +13,8 @@ AllowShortIfStatementsOnASingleLine: WithoutElse
 AllowShortLoopsOnASingleLine: 'true'
 AlwaysBreakAfterDefinitionReturnType: None
 AlwaysBreakAfterReturnType: None
+BinPackArguments: 'true'
+BinPackParameters: 'true'
 BreakBeforeBraces: Attach
 ColumnLimit: '85'
 CompactNamespaces: 'false'
@@ -19,7 +22,7 @@ IncludeBlocks: Preserve
 IndentWidth: '4'
 IndentWrappedFunctionNames: 'false'
 NamespaceIndentation: Inner
-PenaltyBreakAssignment: '3'
+PenaltyBreakAssignment: '4'
 PenaltyBreakBeforeFirstCallParameter: '3'
 PenaltyBreakComment: '1'
 PenaltyBreakString: '2'
