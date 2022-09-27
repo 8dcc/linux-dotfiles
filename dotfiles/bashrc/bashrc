@@ -58,6 +58,10 @@ alias vim='nvim'
 alias tree='tree -Aaq'
 # alias ls='exa -l --no-icons --git --color=auto --sort=type --time-style=iso'
 
+format() {
+    clang-format $1 > buff && mv buff $1
+}
+
 alias gcco='bash ~/.gcco'
 alias nasmo='bash ~/.nasmo'
 alias xclipp='xclip -sel clip'
