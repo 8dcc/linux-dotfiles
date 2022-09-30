@@ -62,6 +62,11 @@ format() {
     clang-format $1 > buff && mv buff $1
 }
 
+tsurf() {
+    # Enable developer tools and pass tabbed as window id
+    surf -N -e $(tabbed -d) "$@"
+}
+
 alias gcco='bash ~/.gcco'
 alias nasmo='bash ~/.nasmo'
 alias xclipp='xclip -sel clip'
