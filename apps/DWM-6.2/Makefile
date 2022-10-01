@@ -28,6 +28,10 @@ dwm: ${OBJ}
 clean:
 	rm -f dwm ${OBJ} dwm-${VERSION}.tar.gz
 
+# Remove config.h because I use config.def.h
+cleaner: clean
+	rm -f config.h
+
 dist: clean
 	mkdir -p dwm-${VERSION}
 	cp -R LICENSE Makefile README config.def.h config.mk\

@@ -31,6 +31,10 @@ stest: stest.o
 clean:
 	rm -f dmenu stest $(OBJ) dmenu-$(VERSION).tar.gz
 
+# Remove config.h because I use config.def.h
+cleaner: clean
+	rm -f config.h
+
 dist: clean
 	mkdir -p dmenu-$(VERSION)
 	cp LICENSE Makefile README arg.h config.def.h config.mk dmenu.1\

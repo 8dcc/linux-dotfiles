@@ -32,6 +32,10 @@ clean:
 	@echo cleaning
 	@rm -f slock ${OBJ} slock-${VERSION}.tar.gz
 
+# Remove config.h because I use config.def.h
+cleaner: clean
+	rm -f config.h
+
 dist: clean
 	@echo creating dist tarball
 	@mkdir -p slock-${VERSION}

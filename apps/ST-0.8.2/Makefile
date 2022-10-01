@@ -32,6 +32,10 @@ st: $(OBJ)
 clean:
 	rm -f st $(OBJ) st-$(VERSION).tar.gz
 
+# Remove config.h because I use config.def.h
+cleaner: clean
+	rm -f config.h
+
 dist: clean
 	mkdir -p st-$(VERSION)
 	cp -R FAQ LEGACY TODO LICENSE Makefile README config.mk\

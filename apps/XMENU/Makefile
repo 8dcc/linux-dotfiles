@@ -16,6 +16,10 @@ ${OBJS}: config.h ${PROG}.h
 clean:
 	-rm ${OBJS} ${PROG}
 
+# Remove config.h because I use config.def.h
+cleaner: clean
+	rm -f config.h
+
 install: all
 	mkdir -p ${DESTDIR}${PREFIX}/bin
 	install -m 755 ${PROG} ${DESTDIR}${PREFIX}/bin/${PROG}
