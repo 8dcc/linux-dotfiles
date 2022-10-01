@@ -40,7 +40,7 @@ Keys                                                | Action
 <kbd>alt</kbd>+<kbd>t</kbd>                         | Change layout mode to tile (Default).
 <kbd>alt</kbd>+<kbd>f</kbd>                         | Change layout mode to floating (`NULL`).
 <kbd>alt</kbd>+<kbd>m</kbd>                         | Change layout mode to monocle (Fulscreen).
-<kbd>alt</kbd>+<kbd>space</kbd>                     | Set the current window's layout to monocle (Fulscreen).
+<kbd>alt</kbd>+<kbd>space</kbd>                     | Change to the last layout mode.
 <kbd>alt</kbd>+<kbd>shift</kbd>+<kbd>space</kbd>    | Set the current window's layout to floating.
 <kbd>alt</kbd>+<kbd>h</kbd>                         | Decrease the main region (←)
 <kbd>alt</kbd>+<kbd>l</kbd>                         | Increase the main region (→)
@@ -66,7 +66,8 @@ Keys                                                | Action
 Keys                                            | Action
 ------------------------------------------------|--------
 <kbd>alt</kbd>+<kbd>b</kbd>                     | Toggle hide/show bar.
-<kbd>alt</kbd>+<kbd>F12</kbd>                   | Run `maim ~/screenshot.png -d 1` (Save screenshot with 1s delay).
+<kbd>alt</kbd>+<kbd>F12</kbd>                   | Run `maim ~/screenshot.png -s` (Save a screenshot of the selected region).
+<kbd>alt</kbd>+<kbd>shift</kbd>+<kbd>F12</kbd>  | Run `maim ~/screenshot.png` (Save a screenshot of the full screen).
 <kbd>alt</kbd>+<kbd>shift</kbd>+<kbd>l</kbd>    | Lock screen (run [`slock`](https://github.com/r4v10l1/arch-dotfiles#slock)).
 
 ## Extra
@@ -74,5 +75,3 @@ All this is based on my `config.def.h`. Which can be found in [here](https://git
 - By default, dwm will start the window in your main side (left) and will transfer your previous main window to your right side, at the top. If you transfer all your windows to the right or left side using `alt + i` or `alt + d`, it will create a *stack* layout.
 - You can scroll the terminal with <kbd>Shift</kbd>+<kbd>Mouse Wheel</kbd>
 
-## Screenshots
-![Stack layout](https://raw.githubusercontent.com/r4v10l1/arch-dotfiles/main/images/dwm-3.png)
