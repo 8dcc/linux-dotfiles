@@ -1,5 +1,10 @@
-st
-dwm
+/apps/ST-0.8.2/st
+/apps/DWM-6.2/dwm
+/apps/DMENU/dmenu
+/apps/DMENU/stest
+/apps/SLOCK/slock
+/apps/XMENU/xmenu
+
 config.h
 !/app/XMENU/config.h
 
