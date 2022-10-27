@@ -323,6 +323,6 @@ settings = {
   "fe-common/core" = { theme = "pandemonium"; };
 };
 keyboard = (
-  { key = "^[[6;5~"; id = "next_window"; data = ""; },
-  { key = "^[[5;5~"; id = "previous_window"; data = ""; }
+  { key = "meta2-6;5~"; id = "next_window"; data = ""; },
+  { key = "meta2-5;5~"; id = "previous_window"; data = ""; }
 );
