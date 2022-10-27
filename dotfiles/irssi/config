@@ -322,3 +322,7 @@ settings = {
   "fe-text" = { window_default_hidelevel = "hidden joins parts quits"; };
   "fe-common/core" = { theme = "pandemonium"; };
 };
+keyboard = (
+  { key = "^[[6;5~"; id = "next_window"; data = ""; },
+  { key = "^[[5;5~"; id = "previous_window"; data = ""; }
+);
