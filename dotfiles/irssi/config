@@ -317,7 +317,7 @@ settings = {
     real_name = "x8dcc";
     user_name = "x8dcc";
     nick = "x8dcc";
-    cmdchars = "/ :";
+    cmdchars = "/:";
   };
   "fe-text" = { window_default_hidelevel = "hidden joins parts quits"; };
   "fe-common/core" = { theme = "pandemonium"; };
