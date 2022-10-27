@@ -103,8 +103,8 @@ static Key keys[] = {
     { MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
     { MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
     { MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-    { MODKEY,                       XK_F12,    spawn,          SHCMD("maim -s | tee ~/screenshot.png | xclip -selection clipboard -t image/png") },
-    { MODKEY|ShiftMask,             XK_F12,    spawn,          SHCMD("maim | tee ~/screenshot.png | xclip -selection clipboard -t image/png") },
+    { MODKEY,                       XK_F12,    spawn,          SHCMD("maim -s | tee ~/ss-$(date +%s).png | xclip -selection clipboard -t image/png") },
+    { MODKEY|ShiftMask,             XK_F12,    spawn,          SHCMD("maim | tee ~/ss-$(date +%s).png | xclip -selection clipboard -t image/png") },
     { MODKEY|ShiftMask,             XK_l,      spawn,          SHCMD("slock") },
 };
 
