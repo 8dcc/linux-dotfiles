@@ -9,7 +9,7 @@
 # Fujitsu T4215
 # =====================================
 "rotatescreen"  # XMENU command
-  XF86RotateWindows
+    XF86RotateWindows
 
 # =====================================
 # Lenovo ThinkPad T480
