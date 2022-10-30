@@ -42,6 +42,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
+
 # --------- Bash completion ---------
 if ! shopt -oq posix; then
     if [ -f /usr/share/bash-completion/bash_completion ]; then
@@ -51,27 +52,23 @@ if ! shopt -oq posix; then
     fi
 fi
 # --------- Custom aliases ----------
-ADMIN_COMMAND='doas'    # Change for sudo if you use it
 
-alias sn="$ADMIN_COMMAND shutdown -f now"  # Shutdown now
-alias vim='nvim'
+alias emerge='emerge --ask'
 alias tree='tree -Aaq'
+#alias vim='nvim'
 # alias ls='exa -l --no-icons --git --color=auto --sort=type --time-style=iso'
 
 format() {
     clang-format $1 > buff && mv buff $1
 }
 
-#tsurf() {
-#    # tabbed: close tabbed when we exit the program and pass tabbed's window id as 2nd arg for surf
-#    # surf: Use the 2nd arg as window id, enable developer tools and open the tsurf args as website
-#    tabbed -c -r 2 surf -e '' -N "$@"
-#}
+# For tsurf see the '/usr/local/bin/tsurf' bash script
 
 # alias gcco='bash ~/.gcco'
 # alias nasmo='bash ~/.nasmo'
 alias xclipp='xclip -sel clip'
 alias yt2mp3='youtube-dl -x --audio-format mp3 --prefer-ffmpeg'
+
 # --------- Custom exports ----------
 if [ -f bat ]; then
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"

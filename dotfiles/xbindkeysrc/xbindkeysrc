@@ -1,15 +1,24 @@
-# For the benefit of emacs users: -*- shell-script -*-
-###########################
-# xbindkeys configuration #
-###########################
+##################################
+#    xbindkeys configuration     #
+##################################
+# To see the name of a key, run: #
+# xbindkeys --key                #
+##################################
 
+# =====================================
+# Fujitsu T4215
+# =====================================
 "rotatescreen"  # XMENU command
-   XF86WWW
+    XF86RotateWindows
 
-# Example: Different key and using autorotation instead of xmenu
-# --------------------------------------
-#"bash ~/.rotatescreen.sh; sleep 2"
-#   XF86RotateWindows
+# =====================================
+# Lenovo ThinkPad T480
+# =====================================
+# Brightness using xbacklight
+"xbacklight -inc 10"
+    XF86MonBrightnessUp
+"xbacklight -dec 10"
+    XF86MonBrightnessDown
 
 ##################################
 # End of xbindkeys configuration #

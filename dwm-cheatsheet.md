@@ -33,6 +33,8 @@ Keys                                            | Action
 <kbd>alt</kbd>+<kbd>shift</kbd>+<kbd>tab</kbd>  | Switch to previous window.
 <kbd>alt</kbd>+<kbd>j</kbd>                     | Switch to next window.
 <kbd>alt</kbd>+<kbd>k</kbd>                     | Switch to previous window.
+<kbd>alt</kbd>+<kbd>.</kbd>                     | Switch to next monitor.
+<kbd>alt</kbd>+<kbd>,</kbd>                     | Switch to previous monitor.
 
 #### Change window layout
 Keys                                                | Action
