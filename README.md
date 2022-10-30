@@ -1,17 +1,17 @@
 <div align="center">
-    <h1>Linux dotfiles</h1>
-	<b>My dotfiles, configurations and custom sources for linux</b>
-	(Mainly <a href="https://archlinux.org/">Arch</a> and <a href="https://nixos.org//">NixOS</a>)<br>
-	Simple version <a href="https://github.com/r4v10l1/dwm-lite">here</a>.<br><br>
-	<a href="https://github.com/r4v10l1/arch-dotfiles/network/members"><img src="https://img.shields.io/github/forks/r4v10l1/arch-dotfiles.svg?style=for-the-badge&logo=linux&color=00ffff&logoColor=00ffff" alt="Forks"></a>
-	<a href="https://github.com/r4v10l1/arch-dotfiles/stargazers"><img src="https://img.shields.io/github/stars/r4v10l1/arch-dotfiles.svg?style=for-the-badge&logo=linux&color=00ffff&logoColor=00ffff" alt="Stars"></a>
+    <h1>GNU/Linux dotfiles</h1>
+	<b>My dotfiles, configurations and custom sources for GNU/Linux</b>
 </div>
 
 ## Table of contents
-1. [Keys](#keys)
-1. [Installation](#installation)
+1. [Notes](#notes)
+2. [Keys](#keys)
+3. [Installation](#installation)
 4. [Todo](#todo)
 5. [Screenshots](#screenshots)
+
+## Notes:
+- The repo URL has changed so make sure you do: `git remote set-url origin https://github.com/r4v10l1/linux-dotfiles`
 
 ## Keys:
 All the keys and shortcuts can be found [here](https://github.com/r4v10l1/arch-dotfiles/blob/main/dwm-cheatsheet.md).
