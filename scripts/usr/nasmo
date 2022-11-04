@@ -3,8 +3,8 @@
 #--------- SETTINGS ---------
 EXECUTE=false               # Execute after compilation
 RM_OBJ=true                 # Remove object file after linking
-NASM_F="elf"                # Compiler
-LD_M="elf_i386"             # Linker
+NASM_OPTS="-f elf"          # Compiler
+LD_OPTS="-m elf_i386"       # Linker
 #----------------------------
 
 if [[ -f $1 ]]; then
@@ -18,14 +18,14 @@ if [[ -f $1 ]]; then
         rm $out_file
     fi
 
-    nasm -f $NASM_F $1
+    nasm $NASM_OPTS $1
 
     if ! [[ -f $obj_file ]]; then        # Object file does not exist
         echo "[nasmo] Error. Can't find the object file after compilation."
         exit 1;
     fi
 
-    ld -m $LD_M -o $out_file $obj_file
+    ld $LD_OPTS -o $out_file $obj_file
 
     if [[ $RM_OBJ == true ]]; then
         rm $obj_file                    # Remove object file after linking
