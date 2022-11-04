@@ -320,7 +320,11 @@ settings = {
     cmdchars = "/:";
   };
   "fe-text" = { window_default_hidelevel = "hidden joins parts quits"; };
-  "fe-common/core" = { theme = "pandemonium"; autolog = "yes"; };
+  "fe-common/core" = {
+    theme = "pandemonium";
+    autolog = "yes";
+    autolog_path = "~/.irssi/log/$tag-$0.log";
+  };
 };
 keyboard = (
   # Ctrl+PageDown
