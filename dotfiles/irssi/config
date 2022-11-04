@@ -320,9 +320,11 @@ settings = {
     cmdchars = "/:";
   };
   "fe-text" = { window_default_hidelevel = "hidden joins parts quits"; };
-  "fe-common/core" = { theme = "pandemonium"; };
+  "fe-common/core" = { theme = "pandemonium"; autolog = "yes"; };
 };
 keyboard = (
+  # Ctrl+PageDown
   { key = "meta2-6;5~"; id = "next_window"; data = ""; },
-  { key = "meta2-5;5~"; id = "previous_window"; data = ""; }
+  # Ctrl+PageUp
+  { key = "meta2-5;5~"; id = "previous_window"; data = ""; },
 );
