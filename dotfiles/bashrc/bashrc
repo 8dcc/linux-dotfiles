@@ -56,16 +56,15 @@ fi
 alias emerge='emerge --ask'
 alias tree='tree -Aaq'
 #alias vim='nvim'
-# alias ls='exa -l --no-icons --git --color=auto --sort=type --time-style=iso'
+#alias ls='exa -l --no-icons --git --color=auto --sort=type --time-style=iso'
 
 format() {
-    clang-format $1 > buff && mv buff $1
+    clang-format -i $1
 }
 
-# For tsurf see the '/usr/local/bin/tsurf' bash script
+# For tsurf, see the '/usr/local/bin/tsurf' bash script
+# For gcco and nasmo, see '/usr/local/bin/*'
 
-# alias gcco='bash ~/.gcco'
-# alias nasmo='bash ~/.nasmo'
 alias xclipp='xclip -sel clip'
 alias yt2mp3='youtube-dl -x --audio-format mp3 --prefer-ffmpeg'
 
