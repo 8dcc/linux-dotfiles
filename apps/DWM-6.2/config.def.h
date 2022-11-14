@@ -1,29 +1,29 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const unsigned int gappx     = 3;        /* gaps between windows */
-static const unsigned int snap      = 32;       /* snap pixel */
-static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 1;        /* 0 means bottom bar */
-static const int vertpad            = 0;        /* vertical padding of bar */
-static const int sidepad            = 0;        /* horizontal padding of bar */
-static const char *fonts[]          = { "dina:size=10" };
+static const unsigned int borderpx = 1;  /* border pixel of windows */
+static const unsigned int gappx    = 3;  /* gaps between windows */
+static const unsigned int snap     = 32; /* snap pixel */
+static const int showbar           = 1;  /* 0 means no bar */
+static const int topbar            = 1;  /* 0 means bottom bar */
+static const int vertpad           = 0;  /* vertical padding of bar */
+static const int sidepad           = 0;  /* horizontal padding of bar */
+static const char* fonts[]         = { "dina:size=10" };
 
-static const char dmenufont[]       = "dina:size=10";
-static const char dmenux[]          = "0";
-static const char dmenuy[]          = "0";
-static const char dmenuz[]          = "1924";
+static const char dmenufont[] = "dina:size=10";
+static const char dmenux[]    = "0";
+static const char dmenuy[]    = "0";
+static const char dmenuz[]    = "1924";
 
-static const char col_gray1[]       = "#222222"; // Background color
-static const char col_gray2[]       = "#541414"; // Inactive window border
-static const char col_gray3[]       = "#bbbbbb"; // Font color
-static const char col_gray4[]       = "#eeeeee"; // Current tag and window FONT color
-static const char col_cyan[]        = "#af2626"; // Current tag and window color
-static const char *colors[][3]      = {
+static const char col_gray1[]  = "#222222";    // Background color
+static const char col_gray2[]  = "#541414";    // Inactive window border
+static const char col_gray3[]  = "#bbbbbb";    // Font color
+static const char col_gray4[]  = "#eeeeee";    // Current tag and window FONT color
+static const char col_cyan[]   = "#cc1414";    // Current tag and window color
+static const char* colors[][3] = {
     /*               fg         bg         border   */
     [SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-    [SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+    [SchemeSel]  = { col_gray4, col_cyan, col_cyan },
 };
 
 /* tagging */
@@ -59,13 +59,22 @@ static const Layout layouts[] = {
 { MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
-#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+#define SHCMD(cmd)                     \
+    {                                  \
+        .v = (const char*[]) {         \
+            "/bin/sh", "-c", cmd, NULL \
+        }                              \
+    }
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-x", dmenux, "-y", dmenuy, "-z", dmenuz, "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "st", NULL };
-static const char *layoutmenu_cmd = "layoutmenu.sh";
+static const char* dmenucmd[] = { "dmenu_run", "-x",  dmenux,    "-y",
+                                  dmenuy,      "-z",  dmenuz,    "-m",
+                                  dmenumon,    "-fn", dmenufont, "-nb",
+                                  col_gray1,   "-nf", col_gray3, "-sb",
+                                  col_cyan,    "-sf", col_gray4, NULL };
+static const char* termcmd[] = { "st", NULL };
+static const char* layoutmenu_cmd = "layoutmenu.sh";
 
 static Key keys[] = {
     /* modifier                     key        function        argument */
