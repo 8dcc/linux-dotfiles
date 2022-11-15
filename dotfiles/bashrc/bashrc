@@ -60,6 +60,10 @@ alias tree='tree -Aaq'
 #alias vim='nvim'
 #alias ls='exa -l --no-icons --git --color=auto --sort=type --time-style=iso'
 
+IMAGE_DIR="~/Images"
+alias archive-ss='mv ~/screenshot.png $IMAGE_DIR/ss-$(date +%s).png'
+alias archive-sss='mv ~/ss-*.png $IMAGE_DIR'
+
 format() {
     clang-format -i $1
 }
@@ -72,7 +76,7 @@ alias xclipp='xclip -sel clip'
 alias yt2mp3='youtube-dl -x --audio-format mp3 --prefer-ffmpeg'
 
 # --------- Custom exports ----------
-if [ -f bat ]; then
+if command -v bat &> /dev/null; then
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 fi
 export PYTHONDONTWRITEBYTECODE=1
