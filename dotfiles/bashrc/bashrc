@@ -11,11 +11,13 @@ HISTCONTROL=ignoreboth      # idk
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)     # For identifying the chroot
 fi
+
 # ---------- History -----------
 shopt -s histappend
 HISTSIZE=1000
 HISTFILESIZE=2000
 shopt -s checkwinsize
+
 # ------------ PS1 -------------
 PS1='${debian_chroot:+($debian_chroot)}\[\033[1;032m\]\u\[\033[00;37m\] at \[\e[1m\e[38;5;105m\]\h\[\033[01;37m\]:\[\033[01;34m\]\w\[\033[00m\]\[$(check_git_color)\]$(__git_ps1 " (%s)")\[\033[00m\]\$ '
 PS2="> "
@@ -27,6 +29,7 @@ case "$TERM" in
     *)
         ;;
 esac
+
 # --------- Default aliases ---------
 test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"   # idk
 alias ls='ls --color=auto -lh'
@@ -51,9 +54,8 @@ if ! shopt -oq posix; then
         . /etc/bash_completion
     fi
 fi
-# --------- Custom aliases ----------
 
-alias emerge='emerge --ask'
+# --------- Custom aliases ----------
 alias tree='tree -Aaq'
 #alias vim='nvim'
 #alias ls='exa -l --no-icons --git --color=auto --sort=type --time-style=iso'
@@ -64,6 +66,7 @@ format() {
 
 # For tsurf, see the '/usr/local/bin/tsurf' bash script
 # For gcco and nasmo, see '/usr/local/bin/*'
+# Instead of using an alias for emerge, see EMERGE_DEFAULT_OPTS. https://wiki.gentoo.org/wiki/EMERGE_DEFAULT_OPTS
 
 alias xclipp='xclip -sel clip'
 alias yt2mp3='youtube-dl -x --audio-format mp3 --prefer-ffmpeg'
@@ -73,6 +76,7 @@ if [ -f bat ]; then
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 fi
 export PYTHONDONTWRITEBYTECODE=1
+
 # -------------- Git ----------------
 source ~/.git-prompt.sh
 check_git_color() {
@@ -86,5 +90,6 @@ check_git_color() {
 }
 # Alternate version (gets only branch name):
 #git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+
 # ------------- Funny ---------------
 echo "( ._.)"
