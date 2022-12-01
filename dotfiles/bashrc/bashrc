@@ -57,6 +57,7 @@ fi
 
 # --------- Custom aliases ----------
 alias tree='tree -Aaq'
+alias diff='diff -u --color=auto'
 #alias vim='nvim'
 #alias ls='exa -l --no-icons --git --color=auto --sort=type --time-style=iso'
 
