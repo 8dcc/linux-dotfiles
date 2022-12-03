@@ -1,2 +1,5 @@
 # Display instructions in Intel format
 set disassembly-flavor intel
+
+# Alias for printing 20 bytes of the stack
+alias stk = x/20b $esp
