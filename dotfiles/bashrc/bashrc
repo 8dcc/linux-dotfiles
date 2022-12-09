@@ -19,7 +19,7 @@ HISTFILESIZE=2000
 shopt -s checkwinsize
 
 # ------------ PS1 -------------
-PS1='${debian_chroot:+($debian_chroot)}\[\033[1;032m\]\u\[\033[00;37m\] at \[\e[1m\e[38;5;105m\]\h\[\033[01;37m\]:\[\033[01;34m\]\w\[\033[00m\]\[$(check_git_color)\]$(__git_ps1 " (%s)")\[\033[00m\]\$ '
+PS1='\[\033[1;032m\]\u\[\033[00;37m\] at \[\e[1m\e[38;5;105m\]\h\[\033[01;37m\]:\[\033[01;34m\]\w\[\033[00m\]\[$(check_git_color)\]$(__git_ps1 " (%s)")\[\033[00m\]\$ '
 PS2="> "
 
 case "$TERM" in
