@@ -6,9 +6,9 @@
 # awesome font from the aur (ttf-font-awesome)
 
 #####################
-multibattery=true   #
+multibattery=false  #
 hourchange=true     #
-hourdiff=-2         # Ignored if !hourchange
+hourdiff=-1         # Ignored if !hourchange
 #####################
 
 dte() {
@@ -77,8 +77,19 @@ vol() {
 
 batt() {
     if [[ $multibattery == false ]]; then
-        batt1=$(acpi | awk '{print $4}' | sed s/,//)
-        echo " $batt1"
+        if [[ $(acpi | awk '{print $3}') == "Charging," ]]; then
+            # If battery is being charged we display a different icon
+            batt1=" $(acpi | awk '{print $4}')"
+        else
+            batt1=" $(acpi | awk '{print $4}' | sed s/,//)"
+        fi
+
+        # Check for weird commas
+        if [[ $batt1 == *","* ]]; then
+            batt1=${batt1::-1}
+        fi
+
+        echo "$batt1"
     else
         # First battery
         if [[ $(acpi | head -n 1 | awk '{print $3}') == "Charging," ]]; then
