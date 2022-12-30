@@ -33,7 +33,7 @@ fi
 
 
 # Background
-feh --bg-scale ~/.wallpaper.png
+feh --bg-scale --no-fehbg ~/.wallpaper.png
 
 # Statusbar loop
 bash ~/.dwmbar 2>/dev/null
