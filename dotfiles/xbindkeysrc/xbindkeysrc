@@ -20,6 +20,12 @@
 "xbacklight -dec 10"
     XF86MonBrightnessDown
 
+# =====================================
+# Lenovo ThinkPad X220
+# =====================================
+#"sleep_command"
+#   XF86Sleep
+
 ##################################
 # End of xbindkeys configuration #
 ##################################
