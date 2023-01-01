@@ -1,6 +1,15 @@
+
+# See scripts/usr
 ras
 
+# See dotfiles/xbindkeysrc
 #xbindkeys
 
-bash ~/.change-layout.sh  # Scripts/Group2
+# See scripts/home
+bash ~/.change-layout.sh
+
+# You might need to use the following line if using pipewire on gentoo. See gentoo's 
+# pipewire wiki page.
+#exec dbus-launch --exit-with-session dwm
 exec dwm
+
