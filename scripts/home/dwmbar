@@ -80,8 +80,12 @@ batt() {
         if [[ $(acpi | awk '{print $3}') == "Charging," ]]; then
             # If battery is being charged we display a different icon
             batt1=" $(acpi | awk '{print $4}')"
+        elif [[ $(acpi | awk '{print $3}') == "Not" ]]; then
+            # If battery is not being charged we use the 5th field
+            batt1=" $(acpi | awk '{print $5}')"
         else
-            batt1=" $(acpi | awk '{print $4}' | sed s/,//)"
+            # If battery is being discharged we use the 4th field
+            batt1=" $(acpi | awk '{print $4}')"
         fi
 
         # Check for weird commas
