@@ -1,0 +1,10 @@
+# ====================================
+# /etc/portage/package.use/package.use
+# ====================================
+
+# Needed for building the surf browser 
+app-crypt/gcr gtk
+
+# For 32bit qemu support
+app-emulation/qemu i386
+
