@@ -3,7 +3,7 @@
 ### `linux-config-*`
 Move the appropriate config to `/usr/src/linux/.config`.
 
-### `m̀ake.conf`
+### `make.conf`
 Move to `/etc/portage/make.conf`.
 
 ### `package.license`
