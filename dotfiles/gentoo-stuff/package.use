@@ -5,6 +5,9 @@
 # Needed for building the surf browser 
 app-crypt/gcr gtk
 
-# For 32bit qemu support
-app-emulation/qemu i386
+# For 32bit qemu support and graphical display
+app-emulation/qemu qemu_user_targets_i386 qemu_softmmu_targets_i386 sdl spice usbredir
+
+# Use pulseaudio as daemon
+media-sound/pulseaudio daemon
 
