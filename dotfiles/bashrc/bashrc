@@ -7,10 +7,8 @@
 
 # ----------- Misc -------------
 HISTCONTROL=ignoreboth      # idk
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"    # make less more friendly for non-text input files
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)     # For identifying the chroot
-fi
+# Make less more friendly for non-text input files
+#[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # ---------- History -----------
 shopt -s histappend
@@ -24,7 +22,7 @@ PS2="> "
 
 case "$TERM" in
     xterm*|rxvt*)   # If this is an xterm set the title to user@host:dir
-        PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+        PS1="\[\e]0;\u@\h: \w\a\]$PS1"
         ;;
     *)
         ;;
