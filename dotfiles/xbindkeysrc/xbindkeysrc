@@ -25,6 +25,12 @@
 # =====================================
 #"sleep_command"
 #   XF86Sleep
+"amixer sset Master playback toggle"
+    XF86AudioMute
+"amixer sset Master playback 5%-"
+    XF86AudioLowerVolume
+"amixer sset Master playback 5%+"
+    XF86AudioRaiseVolume
 
 ##################################
 # End of xbindkeys configuration #
