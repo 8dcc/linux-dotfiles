@@ -59,7 +59,7 @@ alias diff='diff -u --color=auto'
 #alias vim='nvim'
 #alias ls='exa -l --no-icons --git --color=auto --sort=type --time-style=iso'
 
-IMAGE_DIR="/home/$(whoami)/Images"      # Can't use '~'
+IMAGE_DIR="$HOME/Images"      # Can't use '~'
 alias archive-ss='mv ~/screenshot.png $IMAGE_DIR/ss-$(date +%s).png'
 alias archive-sss='mv ~/ss-*.png $IMAGE_DIR'
 
