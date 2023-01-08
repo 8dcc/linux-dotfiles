@@ -6,8 +6,11 @@
 app-crypt/gcr gtk
 
 # For 32bit qemu support and graphical display
-app-emulation/qemu qemu_user_targets_i386 qemu_softmmu_targets_i386 sdl spice usbredir
+app-emulation/qemu qemu_user_targets_i386 qemu_softmmu_targets_i386 sdl spice usbredir gtk
 
 # Use pulseaudio as daemon
 media-sound/pulseaudio daemon
+
+# Being able to debug 32bit stuff
+sys-devel/gdb multitarget xml
 
