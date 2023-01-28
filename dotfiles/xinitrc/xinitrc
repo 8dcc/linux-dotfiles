@@ -1,12 +1,15 @@
 
 # See scripts/usr
-ras
+[[ $(command -v ras) ]] && ras
 
 # See dotfiles/xbindkeysrc
-#xbindkeys
+[[ $(command -v xbindkeys) ]] && xbindkeys
 
 # See scripts/home
-bash ~/.change-layout.sh
+[[ -f ~/.change-layout.sh ]] && bash ~/.change-layout.sh
+
+# See dotfiles/xmodmap
+[[ -f ~/.xmodmap ]] && xmodmap ~/.xmodmap
 
 # You might need to use the following line if using pipewire on gentoo. See gentoo's 
 # pipewire wiki page.
