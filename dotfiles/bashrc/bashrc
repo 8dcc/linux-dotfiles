@@ -1,6 +1,6 @@
 # ==================================================
 # My personal .bashrc
-# https://github.com/r4v10l1/arch-dotfiles
+# https://github.com/8dcc/arch-dotfiles
 # ==================================================
 
 [ -z "$PS1" ] && return     # If not running interactively, don't do anything

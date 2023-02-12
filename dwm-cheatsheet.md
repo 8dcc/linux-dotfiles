@@ -1,6 +1,6 @@
 <div align="center">
   <h1>dwm shortcuts</h1>
-  <b><a href="https://dwm.suckless.org/">dwm</a> shortcuts for the <a href="https://github.com/r4v10l1/arch-dotfiles">arch-dotfiles</a> repository.</b>
+  <b><a href="https://dwm.suckless.org/">dwm</a> shortcuts for the <a href="https://github.com/8dcc/linux-dotfiles">linux-dotfiles</a> repository.</b>
 </div>
 
 ## Table of contents
@@ -15,7 +15,7 @@
 4. [Screenshots](#screenshots)
 
 ## Key meanings
-Just to clarify the contents of the [`config.def.h`](https://github.com/r4v10l1/arch-dotfiles/blob/main/DWM-6.2/config.def.h) file.
+Just to clarify the contents of the [`config.def.h`](https://github.com/8dcc/linux-dotfiles/blob/main/DWM-6.2/config.def.h) file.
 
 Config name         | Key 
 --------------------|-------------
@@ -63,8 +63,8 @@ Keys                                            | Action
 Keys                                                | Action
 ----------------------------------------------------|--------
 <kbd>alt</kbd>+<kbd>p</kbd>                         | Execute menu.
-<kbd>alt</kbd>+<kbd>shift</kbd>+<kbd>enter</kbd>    | Open a terminal. In my config is [`st`](https://github.com/r4v10l1/arch-dotfiles/blob/main/DWM-6.2/config.def.h#L69).
-<kbd>alt</kbd>+<kbd>shift</kbd>+<kbd>q</kbd>        | Open the [`pmenu`](https://github.com/r4v10l1/arch-dotfiles/blob/main/Scripts/Group1/pmenu). To log-out, etc.
+<kbd>alt</kbd>+<kbd>shift</kbd>+<kbd>enter</kbd>    | Open a terminal. In my config is [`st`](https://github.com/8dcc/linux-dotfiles/blob/main/DWM-6.2/config.def.h#L69).
+<kbd>alt</kbd>+<kbd>shift</kbd>+<kbd>q</kbd>        | Open the [`pmenu`](https://github.com/8dcc/linux-dotfiles/blob/main/Scripts/Group1/pmenu). To log-out, etc.
 
 #### Misc.
 Keys                                            | Action
@@ -72,10 +72,10 @@ Keys                                            | Action
 <kbd>alt</kbd>+<kbd>b</kbd>                     | Toggle hide/show bar.
 <kbd>alt</kbd>+<kbd>F12</kbd>                   | Run `maim ~/screenshot.png -s` (Save a screenshot of the selected region).
 <kbd>alt</kbd>+<kbd>shift</kbd>+<kbd>F12</kbd>  | Run `maim ~/screenshot.png` (Save a screenshot of the full screen).
-<kbd>alt</kbd>+<kbd>shift</kbd>+<kbd>l</kbd>    | Lock screen (run [`slock`](https://github.com/r4v10l1/arch-dotfiles#slock)).
+<kbd>alt</kbd>+<kbd>shift</kbd>+<kbd>l</kbd>    | Lock screen (run [`slock`](https://github.com/8dcc/linux-dotfiles#slock)).
 
 ## Extra
-All this is based on my `config.def.h`. Which can be found in [here](https://github.com/r4v10l1/arch-dotfiles).
+All this is based on my `config.def.h`. Which can be found in [here](https://github.com/8dcc/linux-dotfiles).
 - By default, dwm will start the window in your main side (left) and will transfer your previous main window to your right side, at the top. If you transfer all your windows to the right or left side using `alt + i` or `alt + d`, it will create a *stack* layout.
 - You can scroll the terminal with <kbd>Shift</kbd>+<kbd>Mouse Wheel</kbd>
 

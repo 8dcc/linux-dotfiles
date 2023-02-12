@@ -22,17 +22,17 @@
 4. [Extra](#extra)
 
 ## Keys:
-All the keys and shortcuts can be found [here](https://github.com/r4v10l1/arch-dotfiles/blob/main/dwm-cheatsheet.md).
+All the keys and shortcuts can be found [here](https://github.com/8dcc/linux-dotfiles/blob/main/dwm-cheatsheet.md).
 
 ## Installation requirements:
 ### Files:
 This file structure will be used in the process explanation.
 
-1. Clone the repo to `~/arch-dotfiles`.
+1. Clone the repo to `~/linux-dotfiles`.
 	
 	```bash
 	cd ~
-	git clone https://github.com/r4v10l1/arch-dotfiles
+	git clone https://github.com/8dcc/linux-dotfiles
 	```
 
 ### Packages:
@@ -57,7 +57,7 @@ yay -S ttf-font-awesome dina-font
 ### dwm
 We will install dwm 6.2.
 ```bash
-cd ~/arch-dotfiles/apps/DWM-6.2
+cd ~/linux-dotfiles/apps/DWM-6.2
 
 # Optional: Remove config.h because the custom config is config.def.h
 #rm config.h
@@ -68,14 +68,14 @@ sudo make clean install
 ### st
 Make the `.font` folder and copy the powerline font in there.
 ```bash
-cd ~/arch-dotfiles/fonts
+cd ~/linux-dotfiles/fonts
 mkdir ~/.fonts
 cp -r powerline-fonts ~/.fonts
 c-list | grep power  # Check that all is fine
 ```
 We will install 0.8.2 because of the extensions.
 ```bash
-cd ~/arch-dotfiles/apps/ST-0.8.2
+cd ~/linux-dotfiles/apps/ST-0.8.2
 
 # Same as dwm
 #rm config.h
@@ -87,21 +87,21 @@ You can scroll the terminal with <kbd>Shift</kbd>+<kbd>Mouse Wheel</kbd>.
 ### dmenu
 Enter the `DMENU` folder and install.
 ```bash
-cd ~/arch-dotfiles/apps/DMENU/
+cd ~/linux-dotfiles/apps/DMENU/
 sudo make clean install
 ```
 
 ### xmenu
 Enter the `XMENU` folder and install.
 ```bash
-cd ~/arch-dotfiles/apps/XMENU/
+cd ~/linux-dotfiles/apps/XMENU/
 sudo make clean install
 ```
 
 ### slock
 Enter the `SLOCK` folder and install.
 ```bash
-cd ~/arch-dotfiles/apps/SLOCK/
+cd ~/linux-dotfiles/apps/SLOCK/
 sudo make clean install
 ```
 
@@ -109,13 +109,13 @@ sudo make clean install
 Make a backup and copy the `.bashrc` to `~/.bashrc`
 ```bash
 cp ~/.bashrc ~/.bashrc.bak              # Make a backup just in case
-cd ~/arch-dotfiles/dotfiles/bashrc      # bashrc is the folder name
+cd ~/linux-dotfiles/dotfiles/bashrc      # bashrc is the folder name
 cp bashrc ~/.bashrc                     # Copy the actual file
 ```
 Need to ~~download~~ copy `.git-prompt.sh`
 ```bash
 #curl -o ~/.git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
-cp ~/arch-dotfiles/dotfiles/bashrc/git-prompt.sh ~/.git-prompt.sh
+cp ~/linux-dotfiles/dotfiles/bashrc/git-prompt.sh ~/.git-prompt.sh
 ```
 Add it to the `.bashrc` if you use your own:
 ```bash
@@ -126,7 +126,7 @@ echo "source ~/.git-prompt.sh" >> ~/.bashrc
 Make a backup and copy the `.xinitrc` to `~/.xinitrc`
 ```bash
 cp ~/.xinitrc ~/.xinitrc.bak            # Make a backup (The file might not exist, just ignore then)
-cd ~/arch-dotfiles/dotfiles/xinitrc     # xinitrc is the folder name
+cd ~/linux-dotfiles/dotfiles/xinitrc    # xinitrc is the folder name
 cp xinitrc ~/.xinitrc                   # Copy the actual file
 ```
 Add `startx` to the `~/.bash_profile`
@@ -136,7 +136,7 @@ echo "startx" >> ~/.bash_profile  # Append to the file
 
 ### ssh
 Configuring ssh depends on your needs, but I recommend what the [install gentoo wiki](https://wiki.installgentoo.com/wiki/Home_server/Remote_access) recommends.  
-For my configuration file make sure you have ssh installed and enabled, and follow the [`README.md`](https://github.com/r4v10l1/arch-dotfiles/tree/main/dotfiles/ssh) in the ssh folder.  
+For my configuration file make sure you have ssh installed and enabled, and follow the [`README.md`](https://github.com/8dcc/linux-dotfiles/tree/main/dotfiles/ssh) in the ssh folder.  
 Copy the `sshd_config` file to `/etc/ssh/sshd_config`. Make sure you change the `AllowUsers` part to allow login only with the user you want.
 
 ### Scripts
@@ -144,17 +144,17 @@ Copy the `sshd_config` file to `/etc/ssh/sshd_config`. Make sure you change the 
 
 	```bash
     # just do what the readme says
-	cat ~/arch-dotfiles/scripts/home/README.txt
+	cat ~/linux-dotfiles/scripts/home/README.txt
 	```
 - usr
 
 	```bash
     # just do what the readme says
-	cat ~/arch-dotfiles/scripts/usr/README.txt
+	cat ~/linux-dotfiles/scripts/usr/README.txt
     ```
 
 ### nvim
-[Go to the vim-dotfiles repository.](https://github.com/r4v10l1/vim-dotfiles)
+[Go to the vim-dotfiles repository.](https://github.com/8dcc/vim-dotfiles)
 
 ## Extra
 - You might need to edit the grub config to launch garuda linux in terminal mode. [Help here.](https://forum.garudalinux.org/t/how-to-open-garuda-linux-in-text-console/7613)
@@ -163,7 +163,7 @@ Copy the `sshd_config` file to `/etc/ssh/sshd_config`. Make sure you change the 
 
 	```conf
 	Section "InputClass"
-		Identifier "r4v10l1-rocks"
+		Identifier "8dcc-rocks"
 		Driver "libinput"
 		Option "Tapping" "on"
 		Option "NaturalScrolling" "true"
@@ -186,11 +186,11 @@ Copy the `sshd_config` file to `/etc/ssh/sshd_config`. Make sure you change the 
 	# Save the screenshot to a file with a 2 second delay.
 	maim FILENAME.png -d 2
 	```
-- Added low battery alerts using [xmenu](https://github.com/r4v10l1/arch-dotfiles/tree/main/apps/XMENU) and [acpi](https://github.com/r4v10l1/arch-dotfiles/blob/main/scripts/usr/poweralert.sh#L7)
+- Added low battery alerts using [xmenu](https://github.com/8dcc/linux-dotfiles/tree/main/apps/XMENU) and [acpi](https://github.com/8dcc/linux-dotfiles/blob/main/scripts/usr/poweralert.sh#L7)
 - For custom keys like XF86NNNNNNNNN, install `xbindkeys`, run `xbindkeys -d > ~/.xbindkeysrc` and copy `xbindkeysrc` to `~/.xbindkeysrc`.
 
 	```bash
 	sudo pacman -S xbindkeys
 	xbindkeys -d > ~/.xbindkeysrc
-	cp ~/arch-dotfiles/dotfiles/xbindkeysrc/xbindkeysrc ~/.xbindkeysrc
+	cp ~/linux-dotfiles/dotfiles/xbindkeysrc/xbindkeysrc ~/.xbindkeysrc
 	```

@@ -11,10 +11,10 @@
 5. [Screenshots](#screenshots)
 
 ## Notes:
-- The repo URL has changed so make sure you do: `git remote set-url origin https://github.com/r4v10l1/linux-dotfiles`
+- The repo URL has changed so make sure you do: `git remote set-url origin https://github.com/8dcc/linux-dotfiles`
 
 ## Keys:
-All the keys and shortcuts can be found [here](https://github.com/r4v10l1/arch-dotfiles/blob/main/dwm-cheatsheet.md).
+All the keys and shortcuts can be found [here](https://github.com/8dcc/linux-dotfiles/blob/main/dwm-cheatsheet.md).
 
 ## Installation
 For installing in arch, check [`arch-installation.md`](arch-installation.md).
