@@ -1,0 +1,10 @@
+
+# GitHub CLI
+dev-util/github-cli ~amd64
+
+# ThinkFinger
+sys-auth/thinkfinger ~amd64
+
+# Bochs
+app-emulation/bochs ~amd64
+
