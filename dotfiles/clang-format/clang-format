@@ -16,7 +16,7 @@ AlwaysBreakAfterReturnType: None
 BinPackArguments: 'true'
 BinPackParameters: 'true'
 BreakBeforeBraces: Attach
-ColumnLimit: '85'
+ColumnLimit: '80'
 CompactNamespaces: 'false'
 Cpp11BracedListStyle: 'false'
 IncludeBlocks: Preserve
