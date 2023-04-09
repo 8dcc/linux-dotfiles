@@ -12,9 +12,9 @@ static char *font = "dina:pixelsize=11:antialias=true:aut hint=true";
 static int borderpx = 2;
 
 /* disable bold, italic and roman fonts globally */
-int disablebold   = 1;
-int disableitalic = 1;
-int disableroman  = 1;
+int disablebold   = 0;
+int disableitalic = 0;
+int disableroman  = 0;
 
 /*
  * What program is execed by st depends of these precedence rules:
