@@ -4,6 +4,9 @@
  * appearance
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
+ * font list:
+ *   - "dina:pixelsize=11:antialias=true:aut hint=true"
+ *   - "creep2:pixelsize=11"
  */
 static char *font = "dina:pixelsize=11:antialias=true:aut hint=true";
 static int borderpx = 2;
