@@ -14,3 +14,9 @@ media-sound/pulseaudio daemon
 # Being able to debug 32bit stuff
 sys-devel/gdb multitarget xml
 
+# Opengl support for sdl
+media-libs/libsdl opengl
+media-libs/libsdl2 opengl
+
+# texlive-latexextra
+>=media-libs/gd-2.3.3-r3 fontconfig truetype
