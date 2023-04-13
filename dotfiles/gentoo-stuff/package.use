@@ -20,3 +20,7 @@ media-libs/libsdl2 opengl
 
 # texlive-latexextra
 >=media-libs/gd-2.3.3-r3 fontconfig truetype
+
+# Enable emacs GUI
+app-editors/emacs gui xft
+>=app-emacs/emacs-common-1.8 gui
