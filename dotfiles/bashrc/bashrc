@@ -56,9 +56,12 @@ fi
 # --------- Custom aliases ----------
 alias tree='tree -Aaq'
 alias diff='diff -u --color=auto'
-#alias vim='nvim'
 #alias ls='exa -l --no-icons --git --color=auto --sort=type --time-style=iso'
 alias disassemble='objdump --disassembler-color=terminal -M intel -d'
+
+#alias vim='nvim'
+#alias emacsd='~/.config/emacs/bin/doom run --daemon'
+#alias emacs='emacsclient -c'  # Also alt+e in my dwm
 
 IMAGE_DIR="$HOME/Images"      # Can't use '~'
 alias archive-ss='mv ~/screenshot.png $IMAGE_DIR/ss-$(date +%s).png'
