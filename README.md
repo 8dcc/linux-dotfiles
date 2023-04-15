@@ -1,30 +1,40 @@
 <div align="center">
     <h1>GNU/Linux dotfiles</h1>
-	<b>My dotfiles, configurations and custom sources for GNU/Linux</b>
+    <b>My dotfiles, configurations and custom sources for GNU/Linux</b>
 </div>
 
 ## Table of contents
-1. [Notes](#notes)
+1. [Description](#description)
 2. [Keys](#keys)
 3. [Installation](#installation)
-4. [Todo](#todo)
 5. [Screenshots](#screenshots)
 
-## Notes:
-- The repo URL has changed so make sure you do: `git remote set-url origin https://github.com/8dcc/linux-dotfiles`
+## Description:
+This repository contains my configuration files and app builds for my usual
+GNU/Linux installations.
+
+The [`apps/`](apps) folder contains custom forks and configured builds for the
+apps I use (most of them from [sucless.org](https://suckless.org/)).
+
+The [`dotfiles/`](dotfiles) folder contains configuration files for various
+files, including my `.bashrc`, `.gdbinit`, `.clang-format`, etc.
+
+The [`fonts/`](fonts) folder contains some fonts that usually have to be
+installed manually.
+
+The [`scripts/`](scripts) folder contains simple shell scripts for running
+various commands or automating simple tasks.
 
 ## Keys:
-All the keys and shortcuts can be found [here](https://github.com/8dcc/linux-dotfiles/blob/main/dwm-cheatsheet.md).
+All the keys and shortcuts can be found
+[here](https://github.com/8dcc/linux-dotfiles/blob/main/dwm-cheatsheet.md).
 
 ## Installation
 For installing in arch, check [`arch-installation.md`](arch-installation.md).
 
-## Todo
-- [ ] NixOS guide.
-- [ ] Add [tag-previews](https://dwm.suckless.org/patches/tag-previews/) to dwm.
-
 ## Screenshots
-*Note: Some screenshots might be a bit outdated.*
+> **Note**  
+> Some screenshots might be a bit outdated.
 
 ![dwm-1](https://user-images.githubusercontent.com/29655971/184676058-3b21db3a-724b-4469-bc03-4af3b329740f.png)
 ![dwm-2](https://user-images.githubusercontent.com/29655971/205071911-3a023757-7499-452a-9a90-b1ae02531004.png)
