@@ -1,13 +1,22 @@
 #!/bin/bash
 
-ADMIN_CMD='sudo'
 DMENU='dmenu -x 0 -y 0 -z 1920 -fn dina:size=9 -nb #222222 -nf #bbbbbb -sb #af2626 -sf #eeeeee -i -l 5'
 choice=$(echo -e "Root terminal\nPower off\nReboot\nLog-out\nExit menu" | $DMENU)
 
 case "$choice" in
-	Root\ terminal) st -e su - ;;
-	Power\ off) st -i -g "50x5-900+50" -t "Power off" -e $ADMIN_CMD poweroff ;;
-	Reboot) st -i -g "50x5-900+50" -t "Reboot" -e $ADMIN_CMD reboot ;;
-	Log-out) pkill dwm ;;
-	Exit-menu) exit 0 ;;
+	Root\ terminal)
+		st -e su -
+		;;
+	Power\ off)
+		st -i -g "50x5-900+50" -t "Power off" -e loginctl poweroff
+		;;
+	Reboot)
+		st -i -g "50x5-900+50" -t "Reboot" -e loginctl reboot
+		;;
+	Log-out)
+		pkill dwm
+		;;
+	Exit-menu)
+		exit 0
+		;;
 esac
