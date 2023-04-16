@@ -8,10 +8,10 @@ case "$choice" in
 		st -e su -
 		;;
 	Power\ off)
-		st -i -g "50x5-900+50" -t "Power off" -e loginctl poweroff
+		loginctl poweroff
 		;;
 	Reboot)
-		st -i -g "50x5-900+50" -t "Reboot" -e loginctl reboot
+		loginctl reboot
 		;;
 	Log-out)
 		pkill dwm
