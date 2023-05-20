@@ -56,9 +56,8 @@ fi
 # --------- Custom aliases ----------
 alias tree='tree -Aaq'
 alias diff='diff -u --color=auto'
-#alias ls='exa -l --no-icons --git --color=auto --sort=type --time-style=iso'
 alias disassemble='objdump --disassembler-color=terminal -M intel -d'
-
+#alias ls='exa -l --no-icons --git --color=auto --sort=type --time-style=iso'
 #alias vim='nvim'
 #alias emacsd='~/.config/emacs/bin/doom run --daemon'
 #alias emacs='emacsclient -c'  # Also alt+e in my dwm
@@ -69,6 +68,10 @@ alias archive-sss='mv ~/ss-*.png $IMAGE_DIR'
 
 format() {
     clang-format -i $1
+}
+
+yays() {
+    yay -Ss $1 | grep "^\w" | grep $1
 }
 
 # For tsurf, see the '/usr/local/bin/tsurf' bash script
