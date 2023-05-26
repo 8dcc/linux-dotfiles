@@ -1,0 +1,11 @@
+[Unit]
+Description=Mount a disk
+
+[Mount]
+What=/dev/sda2
+Where=/run/media/username/Disk
+Type=ntfs
+Options=nls=iso8859-1,permissions,users,exec,uid=username,gid=username
+
+[Install]
+WantedBy=multi-user.target
