@@ -8,6 +8,9 @@
 # See scripts/home
 [[ -f ~/.change-layout.sh ]] && bash ~/.change-layout.sh
 
+# Saved with arandr
+[[ -f ~/.screenlayout/main.sh ]] && bash ~/.screenlayout/main.sh
+
 # See dotfiles/xmodmap
 [[ -f ~/.xmodmap ]] && xmodmap ~/.xmodmap
 

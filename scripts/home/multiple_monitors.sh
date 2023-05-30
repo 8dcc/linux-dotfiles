@@ -1,10 +1,2 @@
-#!/bin/bash
-
-#MAIN_RESOLUTION='1920x1080'
-SECCOND_RESOLUTION='1920x1080'
-MAIN_DEVICE='eDP1'
-SECCOND_DEVICE='HDMI2'
-POSITION='right'		# right / left / ...
-
-xrandr --auto --output $SECCOND_DEVICE --mode $SECCOND_RESOLUTION --$POSITION-of $MAIN_DEVICE
-
+#!/bin/sh
+xrandr --output DP-0 --off --output DP-1 --off --output DP-2 --off --output DP-3 --off --output HDMI-0 --mode 1920x1080 --pos 0x0 --rotate normal --output DP-4 --rate 144.00 --mode 1920x1080 --pos 1920x0 --rotate normal --output DP-5 --off
