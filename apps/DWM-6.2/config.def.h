@@ -13,7 +13,7 @@ static const char* fonts[]         = { "dina:size=10" };
 static const char dmenufont[] = "dina:size=10";
 static const char dmenux[]    = "0";
 static const char dmenuy[]    = "0";
-static const char dmenuz[]    = "1924";
+static const char dmenuz[]    = "1920";
 
 static const char col_gray1[]  = "#222222";    // Background color
 static const char col_gray2[]  = "#541414";    // Inactive window border
