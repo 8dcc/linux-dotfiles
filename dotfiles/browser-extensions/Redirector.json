@@ -1,6 +1,6 @@
 {
     "createdBy": "Redirector v3.5.3",
-    "createdAt": "2023-08-10T09:51:19.472Z",
+    "createdAt": "2023-08-10T11:24:22.667Z",
     "redirects": [
         {
             "description": "Example redirect, try going to http://example.com/anywordhere",
@@ -27,6 +27,23 @@
             "includePattern": ".*://github.com/(.*)",
             "excludePattern": "",
             "patternDesc": "All Github pages to BloatCat",
+            "redirectUrl": "https://gh.bloatcat.tk/$1",
+            "patternType": "R",
+            "processMatches": "noProcessing",
+            "disabled": true,
+            "grouped": false,
+            "appliesTo": [
+                "main_frame"
+            ]
+        },
+        {
+            "description": "GitHub code view -> BloatCat code view",
+            "exampleUrl": "https://github.com/8dcc/dotfiles/blob/main/README.md",
+            "exampleResult": "https://gh.bloatcat.tk/8dcc/dotfiles/blob/main/README.md",
+            "error": null,
+            "includePattern": ".+://github.com/(.+/.+/blob/.+)",
+            "excludePattern": "",
+            "patternDesc": "Github code view pages to BloatCat",
             "redirectUrl": "https://gh.bloatcat.tk/$1",
             "patternType": "R",
             "processMatches": "noProcessing",
