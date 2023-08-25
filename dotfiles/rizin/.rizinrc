@@ -1,0 +1,49 @@
+#-----------------------------------------------------------------------------
+# Performance
+
+e asm.slow=true             # Perform slow analysis operations in disasm
+
+#-----------------------------------------------------------------------------
+# Visual
+
+e scr.confirmquit=true      # Confirm quit
+e scr.color.grep=true       # Color in grep (cmd~term) output
+e scr.highlight.grep=true   # Invert grepped words
+eco monokai                 # Color scheme
+
+e asm.syntax=intel          # Intel syntax
+e asm.ucase=false           # Lowercase
+
+e asm.flags=true            # Show flags (symbols, etc.)
+e asm.flags.offset=true     # Show offset before flags
+
+e asm.var=true              # Show local function variables in asm 
+e asm.var.summary=0         # Show full list, not just a summary 
+e asm.sub.var=true          # Substitute variables in the assembly 
+e asm.sub.varonly=false     # Also show [ebp - VAR], not just [VAR]
+
+e asm.offset=true           # Show absolute offsets
+e asm.reloff=true           # Show offsets relative to functions instead of absolute
+e asm.reloff.flags=true     # Offsets relative to flags instead of functions
+e asm.lines=true            # Show jump lines
+e asm.lines.width=5         # Reserved space for lines
+
+e asm.stackptr=false        # Don't show stack pointer
+
+e asm.bytes=true            # Show assembly opcode bytes
+e asm.lbytes=true           # Align bytes to the left
+e asm.bytes.space=true      # Separate bytes by space
+e asm.nbytes=8              # Display N bytes
+
+e asm.comments=true         # Basic comments
+e asm.usercomments=true     # User comments
+e asm.describe=false        # Comment opcode information, can be overwhelming
+e asm.xrefs=true            # xref comments
+e asm.cmt.col=80            # Comment column
+
+#-----------------------------------------------------------------------------
+# Debugger
+
+e dbg.bep=main              # Break on entry point
+e dbg.trace=true            # Break on entry point
+
