@@ -166,37 +166,21 @@ static unsigned int defaultattr = 11;
 const unsigned int mousescrollincrement = 2;
 static MouseShortcut mshortcuts[] = {
 	/* button               mask            string */
-	{ Button4,              XK_NO_MOD,      "\031" },
-	{ Button5,              XK_NO_MOD,      "\005" },
+	{ Button4,              ControlMask,    "\031" },
+	{ Button5,              ControlMask,    "\005" },
 };
 
 MouseKey mkeys[] = {
 	/* button               mask            function        argument */
-	{ Button4,              ShiftMask,      kscrollup,      {.i =  mousescrollincrement} },
-	{ Button5,              ShiftMask,      kscrolldown,    {.i =  mousescrollincrement} },
+	{ Button4,              ShiftMask,      kscrollup,      {.i =  mousescrollincrement} }, /* Scroll with Shift+MWheel */
+	{ Button5,              ShiftMask,      kscrolldown,    {.i =  mousescrollincrement} }, /* Scroll with Shift+MWheel */
+	{ Button4,              XK_NO_MOD,      kscrollup,      {.i =  mousescrollincrement} }, /* Scroll with just MWheel */
+	{ Button5,              XK_NO_MOD,      kscrolldown,    {.i =  mousescrollincrement} }, /* Scroll with just MWheel */
 };
 
 /* Internal keyboard shortcuts. */
 #define MODKEY Mod1Mask
 #define TERMMOD (ControlMask|ShiftMask)
-
-static Shortcut shortcuts[] = {
-	/* mask                 keysym          function        argument */
-	{ XK_ANY_MOD,           XK_Break,       sendbreak,      {.i =  0} },
-	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
-	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
-	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
-	{ ControlMask,          XK_plus,        zoom,           {.f = +1} },  /* Increase zoom with Ctrl and + */
-	{ ControlMask,          XK_minus,       zoom,           {.f = -1} },  /* Decrease zoom with Ctrl and - */
-	{ ControlMask,          XK_Home,        zoomreset,      {.f =  0} },  /* Reset zoom level with Ctrl and Home */
-	{ TERMMOD,              XK_C,           clipcopy,       {.i =  0} },
-	{ TERMMOD,              XK_V,           clippaste,      {.i =  0} },
-	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
-	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
-	{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
-	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
-	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
-};
 
 /*
  * Special keys (change & recompile st.info accordingly)
@@ -222,6 +206,23 @@ static Shortcut shortcuts[] = {
  * this table sequentially, so any XK_ANY_MOD must be in the last
  * position for a key.
  */
+static Shortcut shortcuts[] = {
+	/* mask                 keysym          function        argument */
+	{ XK_ANY_MOD,           XK_Break,       sendbreak,      {.i =  0} },
+	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
+	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
+	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
+	{ ControlMask,          XK_plus,        zoom,           {.f = +1} },  /* Increase zoom with Ctrl and + */
+	{ ControlMask,          XK_minus,       zoom,           {.f = -1} },  /* Decrease zoom with Ctrl and - */
+	{ ControlMask,          XK_Home,        zoomreset,      {.f =  0} },  /* Reset zoom level with Ctrl and Home */
+	{ TERMMOD,              XK_C,           clipcopy,       {.i =  0} },
+	{ TERMMOD,              XK_V,           clippaste,      {.i =  0} },
+	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
+	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
+	{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
+	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
+	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
+};
 
 /*
  * If you want keys other than the X11 function keys (0xFD00 - 0xFFFF)
