@@ -25,3 +25,5 @@ media-libs/libsdl2 opengl
 app-editors/emacs gui xft dynamic-loading games
 >=app-emacs/emacs-common-1.8 gui games
 
+# dev-python/pyside2 (for compiling rz-cutter)
+>=dev-qt/qtgui-5.15.10-r1 jpeg
