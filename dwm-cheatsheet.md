@@ -35,6 +35,8 @@ Keys                                            | Action
 <kbd>alt</kbd>+<kbd>k</kbd>                     | Switch to previous window.
 <kbd>alt</kbd>+<kbd>.</kbd>                     | Switch to next monitor.
 <kbd>alt</kbd>+<kbd>,</kbd>                     | Switch to previous monitor.
+<kbd>alt</kbd>+<kbd>shift</kbd>+<kbd>0</kbd>    | Make your current window appear in all workspaces.
+<kbd>alt</kbd>+<kbd>shift</kbd>+<kbd>1..9</kbd> | Move current window to workspace N.
 <kbd>alt</kbd>+<kbd>shift</kbd>+<kbd>.</kbd>    | Move current window to next monitor.
 <kbd>alt</kbd>+<kbd>shift</kbd>+<kbd>,</kbd>    | Move current window to previous monitor.
 
@@ -55,9 +57,8 @@ Keys                                                | Action
 #### Change workspaces
 Keys                                            | Action
 ------------------------------------------------|--------
-<kbd>alt</kbd>+<kbd>0</kbd>                     | Go to the *temp* workspace. Shows all your active windows.
-<kbd>alt</kbd>+<kbd>shift</kbd>+<kbd>0</kbd>    | Make your current window appear in all workspaces.
-<kbd>alt</kbd>+<kbd>0..9</kbd>                  | Change to workspace N.
+<kbd>alt</kbd>+<kbd>0</kbd>                     | Go to the *all* workspace. Shows all your active windows.
+<kbd>alt</kbd>+<kbd>1..9</kbd>                  | Change to workspace N.
 
 #### Spawn
 Keys                                                | Action
