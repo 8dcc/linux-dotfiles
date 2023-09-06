@@ -7,7 +7,7 @@
 
 #####################
 multibattery=false  #
-hourchange=true     #
+hourchange=false    #
 hourdiff=-1         # Ignored if !hourchange
 #####################
 
@@ -32,17 +32,19 @@ dte() {
             dte="$(date +"%d-%b %R")"
     fi
 
-    echo " $dte"
+    echo "$dte"
 }
 
-hdd() {
+dsk() {
     hdd="$(df -h /home | grep dev | awk '{print$5}')"
-    echo " $hdd"
+    echo "$hdd"
 }
 
 mem() {
-    mem="$(free -h | awk '/Mem:/ {printf $3 "-" $2}')"
-    echo " $mem"
+    mem=$(free -h | grep "Mem:" | tr -s ' ')
+    mem_t=$(echo $mem | cut -d " " -f 2)
+    mem_c=$(echo $mem | cut -d " " -f 3)
+    echo "$mem_c/$mem_t"
 }
 
 cpu() {
@@ -52,26 +54,26 @@ cpu() {
     read cpu a b c idle rest < /proc/stat
     total=$((a+b+c+idle))
     cpu=$((100*( (total-prevtotal) - (idle-previdle) ) / (total-prevtotal) ))
-    echo " $cpu%"
+    echo "$cpu%"
 }
 
 pkgs() {
     pkgs="$(apt list --installed | wc -l)"
-    echo " $pkgs"
+    echo "$pkgs"
 }
 
 vpn() {
     vpn="$(ip a | grep tun0 | grep inet | wc -l)"
-    echo " VPN: $vpn"
+    echo "$vpn"
 }
 
 vol() {
     vol="$(amixer -D pulse get Master | awk -F'[][]' 'END{print $2}')"
     muted="$(amixer -D pulse get Master | awk -F'[][]' 'END{print $4}')"
     if [[ $muted == off ]]; then
-        echo " Muted"
+        echo "Muted"
     else
-        echo " $vol"
+        echo "$vol"
     fi
 }
 
@@ -82,10 +84,10 @@ batt() {
             batt1=" $(acpi | awk '{print $4}')"
         elif [[ $(acpi | awk '{print $3}') == "Not" ]]; then
             # If battery is not being charged we use the 5th field
-            batt1=" $(acpi | awk '{print $5}')"
+            batt1="$(acpi | awk '{print $5}')"
         else
             # If battery is being discharged we use the 4th field
-            batt1=" $(acpi | awk '{print $4}')"
+            batt1="$(acpi | awk '{print $4}')"
         fi
 
         # Check for weird commas
@@ -101,18 +103,18 @@ batt() {
             batt1=" $(acpi | head -n 1 | awk '{print $4}')"
         elif [[ $(acpi | head -n 1 | awk '{print $3}') == "Not" ]]; then
             # If battery is not being charged we use the 5th field
-            batt1=" $(acpi | head -n 1 | awk '{print $5}')"
+            batt1="$(acpi | head -n 1 | awk '{print $5}')"
         else
-            batt1=" $(acpi | head -n 1 | awk '{print $4}')"
+            batt1="$(acpi | head -n 1 | awk '{print $4}')"
         fi
 
         # Second battery
         if [[ $(acpi | tail -n 1 | awk '{print $3}') == "Charging," ]]; then
-            batt2=" $(acpi | tail -n 1 | awk '{print $4}')"
+            batt2="$(acpi | tail -n 1 | awk '{print $4}')"
         elif [[ $(acpi | tail -n 1 | awk '{print $3}') == "Not" ]];then
-            batt2=" $(acpi | tail -n 1 | awk '{print $5}')"
+            batt2="$(acpi | tail -n 1 | awk '{print $5}')"
         else
-            batt2=" $(acpi | tail -n 1 | awk '{print $4}')"
+            batt2="$(acpi | tail -n 1 | awk '{print $4}')"
         fi
 
         # Check for weird commas
@@ -128,9 +130,8 @@ batt() {
 }
 
 status() {
-    echo " $(cpu) | $(mem) | $(hdd) | $(vol) | $(batt) | $(dte) "
+    echo " Cpu: $(cpu) | Mem: $(mem) | Disk: $(dsk) | Batt: $(batt) | Vol: $(vol) | $(dte) "
 }
-
 
 while true; do
     xsetroot -name "$(status)"
