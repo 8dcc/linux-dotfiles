@@ -1,6 +1,0 @@
-.env
-*.log
-logs/
-*.exe
-*.out
-*.o
