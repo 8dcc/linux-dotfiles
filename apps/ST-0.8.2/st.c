@@ -27,6 +27,9 @@
 #elif defined(__FreeBSD__) || defined(__DragonFly__)
  #include <libutil.h>
 #endif
+#if defined(__OpenBSD__)
+ #include <sys/sysctl.h>
+#endif
 
 /* Arbitrary sizes */
 #define UTF_INVALID   0xFFFD
@@ -238,6 +241,22 @@ static uchar utfbyte[UTF_SIZ + 1] = {0x80,    0, 0xC0, 0xE0, 0xF0};
 static uchar utfmask[UTF_SIZ + 1] = {0xC0, 0x80, 0xE0, 0xF0, 0xF8};
 static Rune utfmin[UTF_SIZ + 1] = {       0,    0,  0x80,  0x800,  0x10000};
 static Rune utfmax[UTF_SIZ + 1] = {0x10FFFF, 0x7F, 0x7FF, 0xFFFF, 0x10FFFF};
+
+int
+subprocwd(char *path)
+{
+#if   defined(__linux)
+	if (snprintf(path, PATH_MAX, "/proc/%d/cwd", pid) < 0)
+		return -1;
+	return 0;
+#elif defined(__OpenBSD__)
+	size_t sz = PATH_MAX;
+	int name[3] = {CTL_KERN, KERN_PROC_CWD, pid};
+	if (sysctl(name, 3, path, &sz, 0, 0) == -1)
+		return -1;
+	return 0;
+#endif
+}
 
 ssize_t
 xwrite(int fd, const char *s, size_t len)
@@ -819,7 +838,7 @@ ttynew(char *line, char *cmd, char *out, char **args)
 		break;
 	default:
 #ifdef __OpenBSD__
-		if (pledge("stdio rpath tty proc", NULL) == -1)
+		if (pledge("stdio rpath tty proc ps exec", NULL) == -1)
 			die("pledge\n");
 #endif
 		close(s);
