@@ -29,12 +29,12 @@ char *utmp = NULL;
 char *stty_args = "stty raw pass8 nl -echo -iexten -cstopb 38400";
 
 /*
- * plumb_cmd is run on mouse button 3 click, with argument set to
+ * plumb_cmd is run on mouse button 3 click (right mouse), with argument set to
  * current selection and with cwd set to the cwd of the active shell
  *
- * NOTE: In our case used for browser, a more flexible tool would be ideal.
+ * NOTE: In my case, I use my own plumber at https://github.com/8dcc/plumber
  */
-static char *plumb_cmd = "surf";
+static char *plumb_cmd = "plumber";
 
 /* identification sequence returned in DA and DECID */
 char *vtiden = "\033[?6c";
