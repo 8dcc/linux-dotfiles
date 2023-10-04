@@ -115,8 +115,7 @@ static Key keys[] = {
     { MODKEY,           XK_F12,    spawn,          SHCMD("maim --hidecursor -s | tee ~/ss-$(date +%s).png | xclip -selection clipboard -t image/png") },
     { MODKEY|ShiftMask, XK_F12,    spawn,          SHCMD("maim --hidecursor | tee ~/ss-$(date +%s).png | xclip -selection clipboard -t image/png") },
     { MODKEY|ShiftMask, XK_l,      spawn,          SHCMD("slock") },
-    { MODKEY,           XK_e,      spawn,          SHCMD("/home/username/.config/emacs/bin/doom run") },
-    { MODKEY|ShiftMask, XK_e,      spawn,          SHCMD("emacsclient -c") },
+    { MODKEY,           XK_e,      spawn,          SHCMD("emacsclient -c") },
 };
 
 /* button definitions */
