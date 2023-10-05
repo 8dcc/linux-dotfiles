@@ -669,7 +669,9 @@ plumb(char *sel) {
 				exit(1);
 			exit(0);
 		default:
-			waitpid(child, NULL, 0);
+			/* NOTE: Uncomment if you want to pause parent while plumbing */
+			/* waitpid(child, NULL, 0); */
+			return;
 	}
 }
 
