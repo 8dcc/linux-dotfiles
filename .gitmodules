@@ -4,3 +4,6 @@
 [submodule "dotfiles/vim-dotfiles"]
 	path = dotfiles/vim-dotfiles
 	url = https://github.com/8dcc/vim-dotfiles
+[submodule "apps/plumber"]
+	path = apps/plumber
+	url = https://github.com/8dcc/plumber
