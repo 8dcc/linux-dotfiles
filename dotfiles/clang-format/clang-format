@@ -3,6 +3,7 @@ BasedOnStyle: Mozilla
 AlignAfterOpenBracket: Align
 AlignConsecutiveMacros: 'true'
 AlignConsecutiveAssignments: 'true'
+AlignConsecutiveDeclarations: 'false'
 AlignEscapedNewlines: Left
 AlignOperands: 'true'
 AlignTrailingComments: 'true'
@@ -24,6 +25,7 @@ IndentWidth: '4'
 IndentWrappedFunctionNames: 'false'
 NamespaceIndentation: Inner
 PenaltyBreakBeforeFirstCallParameter: '1000'
+PointerAlignment: Left
 SortIncludes: 'false'
 SpaceBeforeAssignmentOperators: 'true'
 SpaceBeforeParens: ControlStatements
