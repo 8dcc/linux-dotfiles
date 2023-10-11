@@ -15,15 +15,15 @@ static const char dmenux[]    = "0";
 static const char dmenuy[]    = "0";
 static const char dmenuz[]    = "1920";
 
-static const char col_gray1[]  = "#222222";    // Background color
-static const char col_gray2[]  = "#541414";    // Inactive window border
-static const char col_gray3[]  = "#bbbbbb";    // Font color
-static const char col_gray4[]  = "#eeeeee";    // Current tag and window FONT color
-static const char col_cyan[]   = "#cc1414";    // Current tag and window color
+static const char col_gray1[]  = "#222222";
+static const char col_gray2[]  = "#541414";
+static const char col_gray3[]  = "#bbbbbb";
+static const char col_gray4[]  = "#eeeeee";
+static const char col_cyan[]   = "#cc1414";
 static const char* colors[][3] = {
     /*               fg         bg         border   */
     [SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-    [SchemeSel]  = { col_gray4, col_cyan, col_cyan },
+    [SchemeSel]  = { col_gray4, col_cyan,  col_cyan },
 };
 
 /* tagging */
@@ -45,9 +45,9 @@ static const int resizehints = 0;    /* 1 means respect size hints in tiled resi
 
 static const Layout layouts[] = {
     /* symbol     arrange function */
-    { "-  ",      tile },    /* first entry is default */
-    { "-  ",      NULL },    /* no layout function means floating behavior */
-    { "-  [M]",      monocle },
+    { "-  T",     tile },    /* first entry is default */
+    { "-  F",     NULL },    /* no layout function means floating behavior */
+    { "-  M",     monocle },
 };
 
 /* key definitions */
