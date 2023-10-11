@@ -100,7 +100,7 @@ batt() {
         # First battery
         if [[ $(acpi | head -n 1 | awk '{print $3}') == "Charging," ]]; then
             # If battery is being charged we display a different icon
-            batt1=" $(acpi | head -n 1 | awk '{print $4}')"
+            batt1="+$(acpi | head -n 1 | awk '{print $4}')"
         elif [[ $(acpi | head -n 1 | awk '{print $3}') == "Not" ]]; then
             # If battery is not being charged we use the 5th field
             batt1="$(acpi | head -n 1 | awk '{print $5}')"
@@ -110,7 +110,7 @@ batt() {
 
         # Second battery
         if [[ $(acpi | tail -n 1 | awk '{print $3}') == "Charging," ]]; then
-            batt2="$(acpi | tail -n 1 | awk '{print $4}')"
+            batt2="+$(acpi | tail -n 1 | awk '{print $4}')"
         elif [[ $(acpi | tail -n 1 | awk '{print $3}') == "Not" ]];then
             batt2="$(acpi | tail -n 1 | awk '{print $5}')"
         else
@@ -125,7 +125,7 @@ batt() {
             batt2=${batt2::-1}
         fi
 
-        echo "$batt1 - $batt2"
+        echo "$batt1, $batt2"
     fi
 }
 
