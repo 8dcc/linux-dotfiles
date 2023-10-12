@@ -1,10 +1,9 @@
 #!/bin/sh
 
-font="monospace:size=15"
 cat <<EOF | xmenu
 
-[] - Tiled Layout	0
-[] - Floating Layout	1
-[M] - Monocle Layout	2
+[T] - Tiled layout	0
+[F] - Floating layout	1
+[M] - Monocle layout	2
 
 EOF
