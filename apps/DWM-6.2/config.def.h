@@ -74,7 +74,7 @@ static const char* dmenucmd[] = { "dmenu_run", "-x",  dmenux,    "-y",
                                   col_gray3,   "-nf", col_gray2, "-sb",
                                   col_red,     "-sf", col_gray1, NULL };
 static const char* termcmd[] = { "st", NULL };
-static const char* layoutmenu_cmd = "layoutmenu.sh";
+static const char* layoutmenu_cmd = "layoutmenu";
 
 static Key keys[] = {
     /* modifier         key        function        argument */
