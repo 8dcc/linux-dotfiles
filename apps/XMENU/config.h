@@ -1,6 +1,6 @@
 static struct Config config = {
     /* font, separate different fonts with comma */
-    .font = "dina:size=8,monospace:size=10",
+    .font = "dina:size=8",
 
     /* colors */
     .background_color    = "#222222",
