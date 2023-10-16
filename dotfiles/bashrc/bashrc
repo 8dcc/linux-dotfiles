@@ -1,29 +1,32 @@
-# ==================================================
+#===============================================================================
 # My personal .bashrc
 # https://github.com/8dcc/linux-dotfiles
-# ==================================================
+#===============================================================================
 
-[ -z "$PS1" ] && return     # If not running interactively, don't do anything
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
 
-# ----------- Misc -------------
+# --- Misc ---------------------------------------------------------------------
 
-HISTCONTROL=ignoreboth      # idk
+# ???
+HISTCONTROL=ignoreboth
+
 # Make less more friendly for non-text input files
 #[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# ---------- History -----------
+# --- History ------------------------------------------------------------------
 
 shopt -s histappend
 HISTSIZE=1000
 HISTFILESIZE=2000
 shopt -s checkwinsize
 
-# ------------ PS1 -------------
+# --- PS1 ----------------------------------------------------------------------
 
 PS1='\033[0;32m\u \033[1;34m\w\033[0m$(check_git_color)$(__git_ps1 " (%s)") \033[0m\$ '
 PS2='> '
 
-# --------- Bash completion ---------
+# --- Bash completion ----------------------------------------------------------
 
 if ! shopt -oq posix; then
     if [ -f /usr/share/bash-completion/bash_completion ]; then
@@ -33,14 +36,18 @@ if ! shopt -oq posix; then
     fi
 fi
 
-# --------- Basic aliases ---------
+# --- Basic aliases ------------------------------------------------------------
 
-test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"  # idk
+# ???
+test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+
+# Add color
 alias ls='ls --color=auto -lh'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
+# Unused
 #alias ll='ls -alF'
 #alias la='ls -A'
 #alias l='ls -CF'
@@ -49,10 +56,11 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-# --------- Custom aliases ----------
+# --- Custom aliases -----------------------------------------------------------
 
 # For other bash scripts, see ../../scripts/usr/
-# Instead of using an alias for emerge, see EMERGE_DEFAULT_OPTS. https://wiki.gentoo.org/wiki/EMERGE_DEFAULT_OPTS
+# Instead of using an alias for emerge, see EMERGE_DEFAULT_OPTS:
+#   https://wiki.gentoo.org/wiki/EMERGE_DEFAULT_OPTS
 
 alias tree='tree -Aaq'
 alias diff='diff -u --color=auto'
@@ -67,7 +75,7 @@ IMAGE_DIR="$HOME/Images"  # Can't use '~'
 alias archive-ss='mv ~/ss-*.png $IMAGE_DIR'
 alias archive-sss='archive-ss'
 
-# --------- Custom exports ----------
+# --- Custom exports -----------------------------------------------------------
 
 if command -v bat &> /dev/null; then
     export MANPAGER="less"
@@ -75,7 +83,7 @@ fi
 
 export PYTHONDONTWRITEBYTECODE=1  # Remove pycache stuff
 
-# -------------- Git ----------------
+# --- Git ----------------------------------------------------------------------
 
 source ~/.git-prompt.sh
 check_git_color() {
@@ -91,6 +99,6 @@ check_git_color() {
 # Alternate version (gets only branch name):
 #git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 
-# ------------- Welcome messages, etc. ---------------
+# --- Welcome messages, etc. ---------------------------------------------------
 
 echo "( ._.)"
