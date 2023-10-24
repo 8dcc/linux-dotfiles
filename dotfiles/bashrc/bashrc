@@ -65,7 +65,7 @@ fi
 alias tree='tree -Aaq'
 alias diff='diff -u --color=auto'
 alias disassemble='objdump --disassembler-color=terminal -M intel -d'
-alias ls='exa -l --no-icons --git --color=auto --sort=type --time-style=iso'
+alias ls='exa -l --git --color=auto --sort=type --time-style=iso'
 alias vim='nvim'
 alias emacs='~/.config/emacs/bin/doom run'
 alias emacsd='~/.config/emacs/bin/doom run --daemon'
