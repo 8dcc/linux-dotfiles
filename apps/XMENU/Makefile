@@ -14,7 +14,7 @@ ${OBJS}: config.h ${PROG}.h
 	${CC} ${CFLAGS} -c $<
 
 clean:
-	-rm ${OBJS} ${PROG}
+	rm -f ${OBJS} ${PROG}
 
 cleaner: clean
 
