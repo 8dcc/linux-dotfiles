@@ -5,11 +5,12 @@
  *
  * NOTE: See http://freedesktop.org/software/fontconfig/fontconfig-user.html
  * NOTE: Font list:
- *   - "dina:pixelsize=11"
+ *   - "Dina:pixelsize=11"
  *   - "creep2:pixelsize=11"
  *   - "Cozette:pixelsize=11"
  */
-static char *font = "dina:pixelsize=11";
+static char *font = "Dina:pixelsize=11";
+
 static int borderpx = 2;
 
 /* disable bold, italic and roman fonts globally */
