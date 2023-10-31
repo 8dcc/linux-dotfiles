@@ -10,11 +10,11 @@ static const int vertpad           = 0;  /* vertical padding of bar */
 static const int sidepad           = 0;  /* horizontal padding of bar */
 
 static const char* fonts[] = {
-    "dina:pixelsize=8",
+    "dina:pixelsize=10",
     "Cozette:pixelsize=11",
 };
 
-static const char dmenufont[] = "dina:size=8";
+static const char dmenufont[] = "dina:pixelsize=10";
 static const char dmenux[]    = "0";
 static const char dmenuy[]    = "0";
 static const char dmenuz[]    = "1920";
