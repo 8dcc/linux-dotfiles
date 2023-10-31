@@ -147,6 +147,7 @@ static void xhints(void);
 static int xloadcolor(int, const char *, Color *);
 static int xloadfont(Font *, FcPattern *);
 static void xloadfonts(char *, double);
+static void xloadsparefont(void);
 static void xunloadfont(Font *);
 static void xunloadfonts(void);
 static void xsetenv(void);
@@ -298,6 +299,7 @@ zoomabs(const Arg *arg)
 {
 	xunloadfonts();
 	xloadfonts(usedfont, arg->f);
+	xloadsparefont();
 	cresize(0, 0);
 	redraw();
 	xhints();
@@ -1020,6 +1022,73 @@ xloadfonts(char *fontstr, double fontsize)
 }
 
 void
+xloadsparefont()
+{
+    FcPattern *fontpattern, *match;
+    FcResult result;
+
+    /* add font2 to font cache as first 4 entries */
+    if (font2[0] == '-')
+        fontpattern = XftXlfdParse(font2, False, False);
+    else
+        fontpattern = FcNameParse((FcChar8*)font2);
+    if (fontpattern) {
+#if 0
+        /* FIXME: This patch is for a newer version than 0.8.2, where frc is
+         * allocated at runtime with a new frccap variable. Commenting this is
+         * probably not ideal. */
+
+		/* Allocate memory for the new cache entries. */
+		frccap += 4;
+		frc = xrealloc(frc, frccap * sizeof(Fontcache));
+#endif
+        /* add Normal */
+        match = FcFontMatch(NULL, fontpattern, &result);
+        if (match)
+            frc[frclen].font = XftFontOpenPattern(xw.dpy, match);
+        if (frc[frclen].font) {
+            frc[frclen].flags = FRC_NORMAL;
+            frclen++;
+        } else
+            FcPatternDestroy(match);
+        /* add Italic */
+        FcPatternDel(fontpattern, FC_SLANT);
+        FcPatternAddInteger(fontpattern, FC_SLANT, FC_SLANT_ITALIC);
+        match = FcFontMatch(NULL, fontpattern, &result);
+        if (match)
+            frc[frclen].font = XftFontOpenPattern(xw.dpy, match);
+        if (frc[frclen].font) {
+            frc[frclen].flags = FRC_ITALIC;
+            frclen++;
+        } else
+            FcPatternDestroy(match);
+        /* add Italic Bold */
+        FcPatternDel(fontpattern, FC_WEIGHT);
+        FcPatternAddInteger(fontpattern, FC_WEIGHT, FC_WEIGHT_BOLD);
+        match = FcFontMatch(NULL, fontpattern, &result);
+        if (match)
+            frc[frclen].font = XftFontOpenPattern(xw.dpy, match);
+        if (frc[frclen].font) {
+            frc[frclen].flags = FRC_ITALICBOLD;
+            frclen++;
+        } else
+            FcPatternDestroy(match);
+        /* add Bold */
+        FcPatternDel(fontpattern, FC_SLANT);
+        FcPatternAddInteger(fontpattern, FC_SLANT, FC_SLANT_ROMAN);
+        match = FcFontMatch(NULL, fontpattern, &result);
+        if (match)
+            frc[frclen].font = XftFontOpenPattern(xw.dpy, match);
+        if (frc[frclen].font) {
+            frc[frclen].flags = FRC_BOLD;
+            frclen++;
+        } else
+            FcPatternDestroy(match);
+        FcPatternDestroy(fontpattern);
+    }
+}
+
+void
 xunloadfont(Font *f)
 {
 	XftFontClose(xw.dpy, f->match);
@@ -1061,6 +1130,9 @@ xinit(int cols, int rows)
 
 	usedfont = (opt_font == NULL)? font : opt_font;
 	xloadfonts(usedfont, 0);
+
+	/* spare fonts */
+	xloadsparefont();
 
 	/* colors */
 	xw.cmap = XDefaultColormap(xw.dpy, xw.scr);

@@ -10,6 +10,7 @@
  *   - "Cozette:pixelsize=11"
  */
 static char *font = "Dina:pixelsize=11";
+static char *font2 = "Cozette:pixelsize=11";
 
 static int borderpx = 2;
 
