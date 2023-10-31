@@ -8,22 +8,26 @@ static const int showbar           = 1;  /* 0 means no bar */
 static const int topbar            = 1;  /* 0 means bottom bar */
 static const int vertpad           = 0;  /* vertical padding of bar */
 static const int sidepad           = 0;  /* horizontal padding of bar */
-static const char* fonts[]         = { "dina:size=8" };
+
+static const char* fonts[] = {
+    "dina:pixelsize=8",
+    "Cozette:pixelsize=11",
+};
 
 static const char dmenufont[] = "dina:size=8";
 static const char dmenux[]    = "0";
 static const char dmenuy[]    = "0";
 static const char dmenuz[]    = "1920";
 
-static const char col_gray1[]  = "#eeeeee"; /* Light */
-static const char col_gray2[]  = "#bbbbbb"; /* Mid */
-static const char col_gray3[]  = "#222222"; /* Dark */
-static const char col_red[]    = "#cc1414"; /* Bright */
-static const char col_red2[]   = "#541414"; /* Dark */
+static const char col_gray1[]  = "#eeeeee"; /* Light gray */
+static const char col_gray2[]  = "#bbbbbb"; /* Medium gray */
+static const char col_gray3[]  = "#222222"; /* Dark gray */
+static const char col_red[]    = "#cc1414"; /* Bright red */
+static const char col_red2[]   = "#541414"; /* Dark red */
 static const char* colors[][3] = {
     /*               fg         bg         border   */
     [SchemeNorm] = { col_gray2, col_gray3, col_red2 },
-    [SchemeSel]  = { col_gray1, col_red,   col_red },
+    [SchemeSel]  = { col_gray1, col_red,   col_red  },
 };
 
 /* tagging */
