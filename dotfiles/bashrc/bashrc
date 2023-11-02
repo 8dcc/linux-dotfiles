@@ -67,8 +67,6 @@ alias diff='diff -u --color=auto'
 alias disassemble='objdump --disassembler-color=terminal -M intel -d'
 alias ls='exa -l --git --color=auto --sort=type --time-style=iso'
 alias vim='nvim'
-alias emacs='~/.config/emacs/bin/doom run'
-alias emacsd='~/.config/emacs/bin/doom run --daemon'
 alias ghidra='_JAVA_AWT_WM_NONREPARENTING=1 ghidra'
 
 IMAGE_DIR="$HOME/Images"  # Can't use '~'
