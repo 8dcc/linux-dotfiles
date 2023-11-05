@@ -55,8 +55,10 @@ Keys                                             | Action
 <kbd>alt</kbd>+<kbd>h</kbd>                      | Decrease the main region (←)
 <kbd>alt</kbd>+<kbd>l</kbd>                      | Increase the main region (→)
 <kbd>alt</kbd>+<kbd>enter</kbd>                  | Move current window to the main side.
-<kbd>alt</kbd>+<kbd>i</kbd>                      | Change window from right side to left side.
-<kbd>alt</kbd>+<kbd>d</kbd>                      | Change window from left side to right side.
+<!--
+<kbd>alt</kbd>+<kbd>i</kbd>                      | Increase number of windows in master side.
+<kbd>alt</kbd>+<kbd>d</kbd>                      | Decrease number of windows in master side.
+-->
 
 #### Change workspaces
 Keys                           | Action
