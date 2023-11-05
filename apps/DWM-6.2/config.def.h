@@ -86,7 +86,9 @@ static Key keys[] = {
     { MODKEY|ShiftMask, XK_Return, spawn,          {.v = termcmd } },
     { MODKEY,           XK_b,      togglebar,      {0} },
     { MODKEY,           XK_Tab,    focusstack,     {.i = +1 } },
+    /*
     { MODKEY|ShiftMask, XK_Tab,    focusstack,     {.i = -1 } },
+    */
     { MODKEY,           XK_i,      incnmaster,     {.i = +1 } },
     { MODKEY,           XK_d,      incnmaster,     {.i = -1 } },
     { MODKEY,           XK_Return, zoom,           {0} },
@@ -94,7 +96,9 @@ static Key keys[] = {
     { MODKEY,           XK_t,      setlayout,      {.v = &layouts[0]} },
     { MODKEY,           XK_f,      setlayout,      {.v = &layouts[1]} },
     { MODKEY,           XK_m,      setlayout,      {.v = &layouts[2]} },
+    /*
     { MODKEY,           XK_space,  setlayout,      {0} },
+    */
     { MODKEY|ShiftMask, XK_space,  togglefloating, {0} },
     { MODKEY,           XK_0,      view,           {.ui = ~0 } }, /* Show all windows */
     { MODKEY|ShiftMask, XK_0,      tag,            {.ui = ~0 } }, /* Move to all tags */
@@ -112,8 +116,10 @@ static Key keys[] = {
     TAGKEYS(            XK_8,                      7)
     TAGKEYS(            XK_9,                      8)
     { MODKEY|ShiftMask, XK_q,      spawn,          SHCMD("pmenu") },
+    /*
     { MODKEY,           XK_j,      focusstack,     {.i = +1 } },
     { MODKEY,           XK_k,      focusstack,     {.i = -1 } },
+    */
     { MODKEY,           XK_h,      setmfact,       {.f = -0.05} },
     { MODKEY,           XK_l,      setmfact,       {.f = +0.05} },
     { MODKEY,           XK_F12,    spawn,          SHCMD("maim --hidecursor -s | tee ~/ss-$(date +%s).png | xclip -selection clipboard -t image/png") },
