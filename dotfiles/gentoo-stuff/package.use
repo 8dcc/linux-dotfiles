@@ -27,3 +27,9 @@ app-editors/emacs gui xft dynamic-loading games
 
 # dev-python/pyside2 (for compiling rz-cutter)
 >=dev-qt/qtgui-5.15.10-r1 jpeg
+
+# syntax-highlighting (for compiling rz-cutter)
+>=app-text/xmlto-0.0.28-r10 text
+
+# filezilla
+>=dev-libs/libpcre2-10.42-r1 pcre32
