@@ -33,3 +33,6 @@ app-editors/emacs gui xft dynamic-loading games
 
 # filezilla
 >=dev-libs/libpcre2-10.42-r1 pcre32
+
+# xdg-utils (xdg-open, etc.)
+>=app-text/xmlto-0.0.28-r11 text
