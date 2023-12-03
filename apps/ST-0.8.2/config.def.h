@@ -9,8 +9,8 @@
  *   - "creep2:pixelsize=11"
  *   - "Cozette:pixelsize=11"
  */
-static char *font = "Dina:pixelsize=8";
-static char *font2 = "Cozette:pixelsize=8";
+static char *font = "Dina:pixelsize=11";
+static char *font2 = "Cozette:pixelsize=11";
 
 static int borderpx = 2;
 
