@@ -42,7 +42,7 @@ fi
 test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 
 # Add color
-alias ls='ls --color=auto -lh'
+alias ls='ls --color=auto --group-directories-first --human-readable -l'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
@@ -62,22 +62,17 @@ fi
 # Instead of using an alias for emerge, see EMERGE_DEFAULT_OPTS:
 #   https://wiki.gentoo.org/wiki/EMERGE_DEFAULT_OPTS
 
-alias tree='tree -Aaq'
-alias diff='diff -u --color=auto'
-alias disassemble='objdump --disassembler-color=terminal -M intel -d'
-alias ls='exa -l --git --color=auto --sort=type --time-style=iso'
-alias vim='nvim'
-alias ghidra='_JAVA_AWT_WM_NONREPARENTING=1 ghidra'
+[[ $(command -v tree) ]]    && alias tree='tree -Aaq'
+[[ $(command -v diff) ]]    && alias diff='diff -u --color=auto'
+[[ $(command -v objdump) ]] && alias disassemble='objdump --disassembler-color=terminal -M intel -d'
+[[ $(command -v nvim) ]]    && alias vim='nvim'
+[[ $(command -v ghidra) ]]  && alias ghidra='_JAVA_AWT_WM_NONREPARENTING=1 ghidra'
 
 IMAGE_DIR="$HOME/Images"  # Can't use '~'
 alias archive-ss='mv ~/ss-*.png $IMAGE_DIR'
 alias archive-sss='archive-ss'
 
 # --- Custom exports -----------------------------------------------------------
-
-if command -v bat &> /dev/null; then
-    export MANPAGER="less"
-fi
 
 export PYTHONDONTWRITEBYTECODE=1  # Remove pycache stuff
 

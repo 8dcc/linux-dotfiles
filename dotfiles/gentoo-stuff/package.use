@@ -22,7 +22,7 @@ media-libs/libsdl2 opengl
 >=media-libs/gd-2.3.3-r3 fontconfig truetype
 
 # Enable emacs GUI
-app-editors/emacs gui xft dynamic-loading games
+app-editors/emacs gui xft dynamic-loading games jpeg png
 >=app-emacs/emacs-common-1.8 gui games
 
 # dev-python/pyside2 (for compiling rz-cutter)
@@ -33,3 +33,6 @@ app-editors/emacs gui xft dynamic-loading games
 
 # filezilla
 >=dev-libs/libpcre2-10.42-r1 pcre32
+
+# xdg-utils (xdg-open, etc.)
+>=app-text/xmlto-0.0.28-r11 text
