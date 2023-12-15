@@ -14,9 +14,16 @@ media-sound/pulseaudio daemon
 # Being able to debug 32bit stuff
 sys-devel/gdb multitarget xml
 
-# Opengl support for sdl
+# Opengl and 32-bit support for sdl
 media-libs/libsdl opengl
-media-libs/libsdl2 opengl
+media-libs/libsdl2 opengl abi_x86_32
+
+# 32-bit support for GLEW
+media-libs/glew abi_x86_32
+
+# For fixing steam games
+sys-libs/glibc stack-realign
+media-libs/mesa vulkan
 
 # texlive-latexextra
 >=media-libs/gd-2.3.3-r3 fontconfig truetype
