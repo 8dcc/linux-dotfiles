@@ -30,6 +30,7 @@ e asm.lines.width=5         # Reserved space for lines
 
 e asm.stackptr=false        # Don't show stack pointer
 
+e asm.tabs=8                # Spaces between instruction names and operands
 e asm.bytes=true            # Show assembly opcode bytes
 e asm.lbytes=true           # Align bytes to the left
 e asm.bytes.space=true      # Separate bytes by space
@@ -44,6 +45,6 @@ e asm.cmt.col=100           # Comment column
 #-----------------------------------------------------------------------------
 # Debugger
 
-e dbg.bep=main              # Break on entry point
-e dbg.trace=true            # Break on entry point
+e dbg.bep=loader            # Break on entry point
+e dbg.trace=true            # Trace program execution
 
