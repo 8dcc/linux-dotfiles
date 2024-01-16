@@ -38,6 +38,9 @@ app-editors/emacs gui xft dynamic-loading games jpeg png
 # syntax-highlighting (for compiling rz-cutter)
 >=app-text/xmlto-0.0.28-r10 text
 
+# For graph support in rz-cutter
+dev-util/cutter graphviz
+
 # filezilla
 >=dev-libs/libpcre2-10.42-r1 pcre32
 
