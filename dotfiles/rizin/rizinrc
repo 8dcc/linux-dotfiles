@@ -41,7 +41,7 @@ e asm.comments=true         # Basic comments
 e asm.usercomments=true     # User comments
 e asm.describe=false        # Comment opcode information, can be overwhelming
 e asm.xrefs=true            # xref comments
-e asm.cmt.col=100           # Comment column
+e asm.cmt.col=0             # Comment column. Zero puts it next to the instructions (so it takes less space)
 
 #-----------------------------------------------------------------------------
 # Debugger
