@@ -19,7 +19,7 @@ e asm.flags.offset=true     # Show offset before flags
 
 e asm.var=true              # Show local function variables in asm 
 e asm.var.summary=0         # Show full list, not just a summary 
-e asm.sub.var=true          # Substitute variables in the assembly 
+e asm.sub.var=false         # Don't substitute symbols in the assembly
 e asm.sub.varonly=false     # Also show [ebp - VAR], not just [VAR]
 
 e asm.offset=true           # Show absolute offsets
