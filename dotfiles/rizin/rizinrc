@@ -15,6 +15,7 @@ e asm.syntax=intel          # Intel syntax
 e asm.ucase=false           # Lowercase
 
 e asm.flags=true            # Show flags (symbols, etc.)
+e asm.flags.real=true       # Show real flag names (strlen instead of sym.imp.strlen)
 e asm.flags.offset=true     # Show offset before flags
 
 e asm.var=true              # Show local function variables in asm 
