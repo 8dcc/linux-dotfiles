@@ -6,10 +6,10 @@
 [[ $(command -v xbindkeys) ]] && xbindkeys
 
 # See scripts/home
-[[ -f ~/.change-layout.sh ]] && bash ~/.change-layout.sh
+[[ -f ~/.my-scripts/change-layout.sh ]] && bash ~/.my-scripts/change-layout.sh
 
 # Saved with arandr
-[[ -f ~/.screenlayout/main.sh ]] && bash ~/.screenlayout/main.sh
+[[ -f ~/.my-scripts/multiple-monitors.sh ]] && bash ~/.my-scripts/multiple-monitors.sh
 
 # See dotfiles/xmodmap
 [[ -f ~/.xmodmap ]] && xmodmap ~/.xmodmap
