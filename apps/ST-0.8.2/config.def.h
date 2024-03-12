@@ -15,7 +15,7 @@ static char *font2 = "Cozette:pixelsize=11";
 static int borderpx = 2;
 
 /* disable bold, italic and roman fonts globally */
-int disablebold   = 1;
+int disablebold   = 0;
 int disableitalic = 0;
 int disableroman  = 0;
 
