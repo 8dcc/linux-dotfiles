@@ -1,6 +1,6 @@
 ### Fonts
 
-Copy these fonts to `~/.fonts/`.
+Copy these fonts to `/usr/local/share/fonts/` or `~/.fonts/`.
 
 To check if the fonts are installed, use:
 ```console
