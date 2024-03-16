@@ -9,11 +9,6 @@ cp bashrc ~/.bashrc         # Copy the actual file
 # Copy the `git-prompt.sh` file to `~/.git-prompt.sh`
 cp git-prompt.sh ~/.git-prompt.sh
 
-# Copy the `gcco` file (previously a function in the `.bashrc`) to `~/.gcco`
-cp gcco ~/.gcco
-sudo chmod +x ~/.gcco       # Should not be necesary anymore if pulling from the repo
-
-# Copy the `nasmo` file to `~/.nasmo`
-cp nasmo ~/.nasmo
-sudo chmod +x ~/.nasmo
+# Copy the bash_profile, that will start Xorg server on login
+cp bash_profile ~/.bash_profile
 ```
