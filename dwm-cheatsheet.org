@@ -1,0 +1,68 @@
+#+title: DWM Cheatsheet
+#+startup: showeverything
+#+author: 8dcc
+
+Simple cheatsheet explaining the keybinds used in my own DWM build. See
+[[file:apps/DWM-6.2/config.def.h][config.def.h]].
+
+* Keybinds
+
+** Changing the current window
+
+| Keybind        | Action                                             |
+|----------------+----------------------------------------------------|
+| =Alt+Shift+c=    | Kill current window.                               |
+| =Alt+Tab=        | Switch to next window.                             |
+| =Alt+.=          | Switch to next monitor.                            |
+| =Alt+,=          | Switch to previous monitor.                        |
+| =Alt+Shift+0=    | Make your current window appear in all workspaces. |
+| =Alt+Shift+1..9= | Move current window to workspace /N/.                |
+| =Alt+Shift+.=    | Move current window to next monitor.               |
+| =Alt+Shift+,=    | Move current window to previous monitor.           |
+
+** Change window layout
+
+| Keybind         | Action                                      |
+|-----------------+---------------------------------------------|
+| =Alt+t=           | Change layout mode to tile (Default).       |
+| =Alt+f=           | Change layout mode to floating.             |
+| =Alt+m=           | Change layout mode to monocle (Fullscreen). |
+| =Alt+Shift+Space= | Toggle floating for the current window.     |
+| =Alt+h=           | Decrease the main region (<-)               |
+| =Alt+l=           | Increase the main region (->)               |
+| =Alt+Enter=       | Move current window to the main region.     |
+
+** Changing workspaces
+
+| Keybind  | Action                                                  |
+|----------+---------------------------------------------------------|
+| =Alt+0=    | Go to the /All/ workspace. Shows all your active windows. |
+| =Alt+1..9= | Change to workspace /N/.                                  |
+
+** Spawning
+
+| Keybind         | Action                                   |
+|-----------------+------------------------------------------|
+| =Alt+p=           | Spawn the /Execute/ menu (Uses =dmenu_run=). |
+| =Alt+Shift+Enter= | Open a terminal. In my case, [[https://github.com/8dcc/linux-dotfiles/blob/cb8ad0d7b53d8a68ac3911e039d33792030064d8/apps/DWM-6.2/config.def.h#L81][st]].         |
+| =Alt+Shift+q=     | Launch [[file:scripts/usr/dwm-quit-menu][dwm-quit-menu]].                    |
+
+** Misc.
+
+| Keybind       | Action                                                                                      |
+|---------------+---------------------------------------------------------------------------------------------|
+| =Alt+b=         | Toggle top bar display.                                                                     |
+| =Alt+F12=       | Take a screenshot of the selected region, and save it to =~= and to clipboard. Requires =maim=. |
+| =Alt+Shift+F12= | Take a screenshot of the whole screen, and save it to =~= and to clipboard. Requires =maim=.    |
+| =Alt+Shift+l=   | Lock screen. Requires [[file:apps/SLOCK/][slock]].                                                                |
+
+* Macro meanings
+
+These are the meanings of the macros that are used in the config.
+
+| Config name           | Key       |
+|-----------------------+-----------|
+| =MODKEY=                | =Alt=       |
+| =MODKEY (OR) ShiftMask= | =Alt+Shift= |
+| =XK_x=                  | =x=         |
+| =XK_F1..XK_F12=         | =F1..F12=   |
