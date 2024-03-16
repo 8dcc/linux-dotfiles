@@ -1,9 +1,15 @@
 
-# See scripts/usr
-[[ $(command -v ras) ]] && ras
-
 # See dotfiles/xbindkeysrc
 [[ $(command -v xbindkeys) ]] && xbindkeys
+
+# See dotfiles/xmodmap
+[[ -f ~/.xmodmap ]] && xmodmap ~/.xmodmap
+
+# Background
+[[ $(command -v feh) && -f ~/.wallpaper.png ]] && feh --bg-scale --no-fehbg ~/.wallpaper.png
+
+# DWM statusbar loop
+[[ -f ~/.my-scripts/dwmbar ]] && bash ~/.my-scripts/dwmbar 2>/dev/null
 
 # See scripts/home
 [[ -f ~/.my-scripts/change-layout.sh ]] && bash ~/.my-scripts/change-layout.sh
@@ -11,11 +17,9 @@
 # Saved with arandr
 [[ -f ~/.my-scripts/multiple-monitors.sh ]] && bash ~/.my-scripts/multiple-monitors.sh
 
-# See dotfiles/xmodmap
-[[ -f ~/.xmodmap ]] && xmodmap ~/.xmodmap
-
-# You might need to use the following line if using pipewire on gentoo. See gentoo's 
-# pipewire wiki page.
-#exec dbus-launch --exit-with-session dwm
+# You might need to use the following line if using pipewire on gentoo. See
+# gentoo's pipewire wiki page.
+#     exec dbus-launch --exit-with-session dwm
+# Otherwise, just launch normally
 exec dwm
 
