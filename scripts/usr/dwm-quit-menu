@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DMENU='dmenu -x 0 -y 0 -z 1920 -fn dina:size=8 -nb #222222 -nf #bbbbbb -sb #af2626 -sf #eeeeee -i -l 5'
+DMENU='dmenu -x 0 -y 0 -z 1920 -fn dina:pixelsize=10 -nb #222222 -nf #bbbbbb -sb #af2626 -sf #eeeeee -i -l 5'
 choice=$(echo -e "Root terminal\nPower off\nReboot\nLog-out\nExit menu" | $DMENU)
 
 case "$choice" in
