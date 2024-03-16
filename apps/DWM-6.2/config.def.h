@@ -116,7 +116,7 @@ static Key keys[] = {
     TAGKEYS(            XK_7,                      6)
     TAGKEYS(            XK_8,                      7)
     TAGKEYS(            XK_9,                      8)
-    { MODKEY|ShiftMask, XK_q,      spawn,          SHCMD("pmenu") },
+    { MODKEY|ShiftMask, XK_q,      spawn,          SHCMD("dwm-quit-menu") },
     /*
     { MODKEY,           XK_j,      focusstack,     {.i = +1 } },
     { MODKEY,           XK_k,      focusstack,     {.i = -1 } },
