@@ -1,11 +1,10 @@
 
 .PHONY: all
 
+FILES=layoutmenu dwm-quit-menu ras tsurf
 INSTALL_DIR=/usr/local/bin
 
-all: install
-install:
-	install -m 755 ./layoutmenu $(INSTALL_DIR)/layoutmenu
-	install -m 755 ./pmenu $(INSTALL_DIR)/pmenu
-	install -m 755 ./ras $(INSTALL_DIR)/ras
-	install -m 755 ./tsurf $(INSTALL_DIR)/tsurf
+all: $(addprefix $(INSTALL_DIR)/, $(FILES))
+
+$(INSTALL_DIR)/% : %
+	install -m 755 $< $@
