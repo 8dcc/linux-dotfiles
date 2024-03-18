@@ -43,7 +43,6 @@ IndentPPDirectives: 'AfterHash'
 IndentWidth: '4'
 IndentWrappedFunctionNames: 'false'
 KeepEmptyLinesAtTheStartOfBlocks: 'false'
-Language: Cpp
 NamespaceIndentation: Inner
 PenaltyBreakBeforeFirstCallParameter: '1000'
 PointerAlignment: Left
