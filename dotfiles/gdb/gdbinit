@@ -1,3 +1,6 @@
+# Don't ask for stupid debuginfod prompt when running
+set debuginfod enabled off
+
 # Display instructions in Intel format
 set disassembly-flavor intel
 
