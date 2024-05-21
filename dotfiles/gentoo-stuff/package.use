@@ -28,6 +28,10 @@ media-libs/mesa vulkan
 # texlive-latexextra
 >=media-libs/gd-2.3.3-r3 fontconfig truetype
 
+# app-text/texlive
+app-text/texlive png graphics extra truetype
+>=app-text/texlive-core-2021-r7 xetex
+
 # Enable emacs GUI
 app-editors/emacs gui xft dynamic-loading games jpeg png
 >=app-emacs/emacs-common-1.8 gui games
