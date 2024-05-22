@@ -83,7 +83,7 @@ source ~/.git-prompt.sh
 check_git_color() {
     if [[ $(git status -s 2> /dev/null) ]]; then
         echo -e "\033[0;33m"
-    elif [[ $(git diff --stat $(git remote 2> /dev/null)/$(git rev-parse --abbrev-ref HEAD 2> /dev/null) 2> /dev/null) ]]; then
+    elif [[ $(git diff --stat $(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2> /dev/null) 2> /dev/null) ]]; then
         echo -e "\033[0;35m"
     else
         echo -e "\033[0;32m"
