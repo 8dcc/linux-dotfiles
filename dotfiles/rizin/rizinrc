@@ -32,7 +32,7 @@ e asm.lines.width=5         # Reserved space for lines
 e asm.stackptr=false        # Don't show stack pointer
 
 e asm.tabs=8                # Spaces between instruction names and operands
-e asm.bytes=true            # Show assembly opcode bytes
+e asm.bytes=true            # Show assembly instruction bytes
 e asm.lbytes=true           # Align bytes to the left
 e asm.bytes.space=true      # Separate bytes by space
 e asm.nbytes=8              # Display N bytes
