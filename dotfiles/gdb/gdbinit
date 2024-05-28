@@ -1,3 +1,11 @@
+# Some inspiration for this config:
+#   https://interrupt.memfault.com/blog/advanced-gdb
+
+# Persist history across sessions
+set history save on
+set history size 10000
+set history filename ~/.gdb_history
+
 # Don't ask for stupid debuginfod prompt when running
 set debuginfod enabled off
 
@@ -6,3 +14,13 @@ set disassembly-flavor intel
 
 # Alias for printing 20 bytes of the stack
 alias stk = x/20b $esp
+
+define xxd
+  dump binary memory /tmp/gdb-xdd-dump.bin $arg0 ((char *)$arg0)+$arg1
+  shell xxd /tmp/gdb-xdd-dump.bin
+end
+document xxd
+  Runs xxd on a memory ADDR and LENGTH
+
+  xxd ADDR LENTH
+end
