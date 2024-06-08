@@ -68,6 +68,7 @@ fi
 [[ $(command -v rz-asm) ]]  && alias bytes2asm='rz-asm -s intel -D -C'
 [[ $(command -v nvim) ]]    && alias vim='nvim'
 [[ $(command -v ghidra) ]]  && alias ghidra='_JAVA_AWT_WM_NONREPARENTING=1 ghidra'
+[[ $(command -v yt-dlp) ]]  && alias yt-dlp='yt-dlp --embed-metadata --embed-subs --merge-output-format mkv'
 
 IMAGE_DIR="$HOME/Images"  # Can't use '~'
 alias archive-ss='mv ~/ss-*.png $IMAGE_DIR'
