@@ -123,6 +123,7 @@ static Key keys[] = {
     */
     { MODKEY,           XK_h,      setmfact,       {.f = -0.05} },
     { MODKEY,           XK_l,      setmfact,       {.f = +0.05} },
+    { MODKEY|ShiftMask, XK_F11,    spawn,          SHCMD("maim --hidecursor -s | tee ~/ss-$(date +%s).png /tmp/highlighted-screenshot.png && hl-png -fF /tmp/highlighted-screenshot.png") },
     { MODKEY,           XK_F12,    spawn,          SHCMD("maim --hidecursor -s | tee ~/ss-$(date +%s).png | xclip -selection clipboard -t image/png") },
     { MODKEY|ShiftMask, XK_F12,    spawn,          SHCMD("maim --hidecursor | tee ~/ss-$(date +%s).png | xclip -selection clipboard -t image/png") },
     { MODKEY|ShiftMask, XK_l,      spawn,          SHCMD("slock") },
@@ -144,4 +145,3 @@ static Button buttons[] = {
     { ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
     { ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
-
