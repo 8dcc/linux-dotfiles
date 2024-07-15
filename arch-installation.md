@@ -176,8 +176,16 @@ Copy the `sshd_config` file to `/etc/ssh/sshd_config`. Make sure you change the 
 	alsamixer
 	speaker-test -c 8       # Test the speakers
 	```
+
 	- You can use `mvp` to play videos.
-	- You can use `musikcube` for music.
+
+- If you want to use pipewire instead, you can use the following commands. (See [Link](https://forum.endeavouros.com/t/how-to-replace-pulseaudio-with-pipewire/43269))
+    
+    ```bash
+    sudo pacman -S pipewire pipewire-alsa pipewire-jack pipewire-pulse wireplumber pipewire-zeroconf pipewire-audio
+    systemctl --user daemon-reload && systemctl --user --now enable pipewire pipewire-pulse wireplumber
+    ```
+
 - For screenshots you can use `maim`.
 
 	```bash
@@ -186,6 +194,7 @@ Copy the `sshd_config` file to `/etc/ssh/sshd_config`. Make sure you change the 
 	# Save the screenshot to a file with a 2 second delay.
 	maim FILENAME.png -d 2
 	```
+
 - Added low battery alerts using [xmenu](https://github.com/8dcc/linux-dotfiles/tree/main/apps/XMENU) and [acpi](https://github.com/8dcc/linux-dotfiles/blob/main/scripts/usr/poweralert.sh#L7)
 - For custom keys like XF86NNNNNNNNN, install `xbindkeys`, run `xbindkeys -d > ~/.xbindkeysrc` and copy `xbindkeysrc` to `~/.xbindkeysrc`.
 
