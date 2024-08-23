@@ -11,5 +11,3 @@ source-highlight          \
     --out-format="esc256" \
     --failsafe            \
     ${@:2}
-
-echo
