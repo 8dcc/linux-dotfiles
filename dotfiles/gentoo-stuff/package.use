@@ -50,3 +50,9 @@ dev-util/cutter graphviz
 
 # xdg-utils (xdg-open, etc.)
 >=app-text/xmlto-0.0.28-r11 text
+
+# cups-filters (printing PDF files, etc.)
+>=app-text/ghostscript-gpl-10.03.1 cups
+
+# hplip
+>=net-dns/avahi-0.9_rc1 python
