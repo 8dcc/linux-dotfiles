@@ -1,0 +1,21 @@
+#!/bin/bash
+
+HEXDUMP=xxd
+DIFF=diff
+
+if [ $# -ne 2 ]; then
+    echo "Usage: $0 BIN1 BIN2" 1>&2
+    exit 1
+fi
+
+if [ ! $(command -v $HEXDUMP) ]; then
+    echo "The '$HEXDUMP' command is not installed." 1>&2
+    exit 1
+fi
+
+if [ ! $(command -v $DIFF) ]; then
+    echo "The '$DIFF' command is not installed." 1>&2
+    exit 1
+fi
+
+$DIFF <($HEXDUMP $1) <($HEXDUMP $2)

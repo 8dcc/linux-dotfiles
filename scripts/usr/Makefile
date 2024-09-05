@@ -1,7 +1,7 @@
 
 .PHONY: all
 
-FILES=layoutmenu dwm-quit-menu tsurf scat
+FILES=layoutmenu dwm-quit-menu tsurf scat bin-diff
 INSTALL_DIR=/usr/local/bin
 
 all: $(addprefix $(INSTALL_DIR)/, $(FILES))
