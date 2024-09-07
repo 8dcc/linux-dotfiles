@@ -33,8 +33,10 @@ app-text/texlive png graphics extra truetype
 >=app-text/texlive-core-2021-r7 xetex
 
 # Enable emacs GUI
-app-editors/emacs gui xft dynamic-loading games jpeg png
+# TODO: "jit" flag fails at configuration stage (2024/09/08)
+app-editors/emacs gui xft dynamic-loading gmp games jpeg png svg webp
 >=app-emacs/emacs-common-1.8 gui games
+>=sys-devel/gcc-13.3.1 jit
 
 # dev-python/pyside2 (for compiling rz-cutter)
 >=dev-qt/qtgui-5.15.10-r1 jpeg
@@ -55,4 +57,4 @@ dev-util/cutter graphviz
 >=app-text/ghostscript-gpl-10.03.1 cups
 
 # hplip
->=net-dns/avahi-0.9_rc1 python
+>=net-dns/avahi-0.9 python
