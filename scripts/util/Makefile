@@ -1,6 +1,6 @@
 
 
-FILES=bin-diff randomize-mac scat
+FILES=archive-website bin-diff randomize-mac scat
 INSTALL_DIR=/usr/local/bin
 
 .PHONY: all
