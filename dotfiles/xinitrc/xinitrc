@@ -9,7 +9,7 @@
 [[ $(command -v feh) && -f ~/.wallpaper.png ]] && feh --bg-scale --no-fehbg ~/.wallpaper.png
 
 # DWM statusbar loop
-[[ -f ~/.my-scripts/dwmbar ]] && bash ~/.my-scripts/dwmbar 2>/dev/null
+[[ -f ~/.my-scripts/dwmbar.sh ]] && bash ~/.my-scripts/dwmbar.sh 2>/dev/null
 
 # See scripts/home
 [[ -f ~/.my-scripts/change-layout.sh ]] && bash ~/.my-scripts/change-layout.sh

@@ -1,6 +1,6 @@
 
-FILES=change-layout.sh dwmbar multiple-monitors.sh randomize-mac.sh
-INSTALL_DIR=~/.my-scripts
+FILES=change-layout.sh dwmbar.sh multiple-monitors.sh
+INSTALL_DIR=$(HOME)/.my-scripts
 
 .PHONY: all
 

@@ -79,7 +79,7 @@ static const char* dmenucmd[] = { "dmenu_run", "-x",  dmenux,    "-y",
                                   col_gray3,   "-nf", col_gray2, "-sb",
                                   col_red,     "-sf", col_gray1, NULL };
 static const char* termcmd[] = { "st", NULL };
-static const char* layoutmenu_cmd = "layoutmenu";
+static const char* layoutmenu_cmd = "dwm-menu-layout";
 
 static Key keys[] = {
     /* modifier         key        function        argument */
@@ -116,7 +116,7 @@ static Key keys[] = {
     TAGKEYS(            XK_7,                      6)
     TAGKEYS(            XK_8,                      7)
     TAGKEYS(            XK_9,                      8)
-    { MODKEY|ShiftMask, XK_q,      spawn,          SHCMD("dwm-quit-menu") },
+    { MODKEY|ShiftMask, XK_q,      spawn,          SHCMD("dwm-menu-quit") },
     /*
     { MODKEY,           XK_j,      focusstack,     {.i = +1 } },
     { MODKEY,           XK_k,      focusstack,     {.i = -1 } },
