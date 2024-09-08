@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if [ $# -lt 3 ]; then
+    echo "Usage: $0 PAGE-START PAGE-END FILE [OPTIONS ...]" >&2
+    exit 1
+fi
+
+if [ ! $(command -v lpr) ]; then
+    echo "The 'lpr' command is not installed." 1>&2
+    exit 1
+fi
+
+PAGE_INC=2
+
+PAGE_START=$1
+PAGE_END=$2
+FILE=$3
+LPR_OPTS=${@:4}
+
+for (( i=$PAGE_START; i<=$PAGE_END; i+=$PAGE_INC )); do
+    echo "Sending to queue: $i"
+    lpr $LPR_OPTS -o page-ranges=$i "$FILE"
+done

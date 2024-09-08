@@ -1,5 +1,4 @@
 
-
 FILES=dwm-menu-layout dwm-menu-quit
 INSTALL_DIR=/usr/local/bin
 
