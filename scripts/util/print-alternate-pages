@@ -10,14 +10,25 @@ if [ ! $(command -v lpr) ]; then
     exit 1
 fi
 
-PAGE_INC=2
+PAGE_STEP=2
 
 PAGE_START=$1
 PAGE_END=$2
 FILE=$3
 LPR_OPTS=${@:4}
 
-for (( i=$PAGE_START; i<=$PAGE_END; i+=$PAGE_INC )); do
-    echo "Sending to queue: $i"
-    lpr $LPR_OPTS -o page-ranges=$i "$FILE"
-done
+print_page() {
+    echo "Sending to queue: $1"
+    lpr $LPR_OPTS -o page-ranges=$1 "$FILE"
+}
+
+echo "Note: Printing in the specified order ($PAGE_START -> $PAGE_END) with a step of $PAGE_STEP."
+if [ $PAGE_START -le $PAGE_END ]; then
+    for (( i=$PAGE_START; i<=$PAGE_END; i+=$PAGE_STEP )); do
+        print_page $i
+    done
+else
+    for (( i=$PAGE_START; i>=$PAGE_END; i-=$PAGE_STEP )); do
+        print_page $i
+    done
+fi
