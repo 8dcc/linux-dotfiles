@@ -1,0 +1,56 @@
+#!/bin/bash
+
+PROGRAM_NAME="$(basename $0)"
+
+info() {
+    echo -n "$PROGRAM_NAME: " 1>&2
+    echo -e $1 1>&2
+}
+
+if [ $# -ne 1 ] && [ $# -ne 2 ]; then
+    echo "Usage:"                  1>&2
+    echo "    $PROGRAM_NAME RECIPIENT"        1>&2
+    echo "    $PROGRAM_NAME RECIPIENT FILE"   1>&2
+    echo "    $PROGRAM_NAME RECIPIENT < FILE" 1>&2
+    exit 1
+fi
+
+RECIPIENT=$1
+
+if [ $# -ge 2 ]; then
+    # If we got two arguments, the second one is the target file.
+    FILE_INPUT="$2"
+elif [ ! -t 0 ]; then
+    # If the file is being piped to us (stdin is not a terminal), pass "-"
+    # to gpg as input (stdin) and output (stdout).
+    FILE_INPUT="-"
+    FILE_OUTPUT="-"
+else
+    # Otherwise, open a temporal file on the default editor and use that.
+    #
+    # First, check if the EDITOR environment variable is set. If it is, use
+    # it. Otherwise, use "nvim".
+    editor=${EDITOR:-nvim}
+
+    # Create a temporal file using mktemp(1)
+    tmp_file="$(mktemp --tmpdir "gpg-enc.XXXX")"
+
+    FILE_INPUT="$tmp_file"
+    FILE_OUTPUT="gpg-encrypted.asc"
+
+    info "Opening temporal file '$tmp_file' in the '$editor' editor..."
+    $editor $tmp_file
+    info "Done editing. Encrypting to '$FILE_OUTPUT'"
+fi
+
+# If we are not overwriting the output, skip the "--output" argument
+if [ -z "$FILE_OUTPUT" ]; then
+    gpg --armor --recipient "$RECIPIENT" --encrypt "$FILE_INPUT"
+else
+    gpg --armor --recipient "$RECIPIENT" --output "$FILE_OUTPUT" --encrypt "$FILE_INPUT"
+fi
+
+if [ ! -z "$tmp_file" ]; then
+    info "Done encrypting. Deleting temporal file '$tmp_file'"
+    rm "$tmp_file"
+fi

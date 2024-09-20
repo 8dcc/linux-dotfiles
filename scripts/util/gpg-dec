@@ -1,0 +1,53 @@
+#!/bin/bash
+
+PROGRAM_NAME="$(basename $0)"
+
+info() {
+    echo -n "$PROGRAM_NAME: " 1>&2
+    echo -e $1 1>&2
+}
+
+if [ $# -gt 1 ]; then
+    echo "Usage:"        1>&2
+    echo "    $PROGRAM_NAME"        1>&2
+    echo "    $PROGRAM_NAME FILE"   1>&2
+    echo "    $PROGRAM_NAME < FILE" 1>&2
+    exit 1
+fi
+
+if [ $# -ge 1 ]; then
+    # If we got two arguments, the second one is the target file.
+    FILE_INPUT="$1"
+elif [ ! -t 0 ]; then
+    # If the file is being piped to us (stdin is not a terminal), pass "-"
+    # to gpg as input (stdin) and output (stdout).
+    FILE_INPUT="-"
+    FILE_OUTPUT="-"
+else
+    # Otherwise, open a temporal file on the default editor and use that.
+    #
+    # First, check if the EDITOR environment variable is set. If it is, use
+    # it. Otherwise, use "nvim".
+    editor=${EDITOR:-nvim}
+
+    # Create a temporal file using mktemp(1)
+    tmp_file="$(mktemp --tmpdir "gpg-dec.XXXX")"
+
+    FILE_INPUT="$tmp_file"
+
+    info "Opening temporal file '$tmp_file' in the '$editor' editor..."
+    $editor $tmp_file
+    info "Done editing."
+fi
+
+# If we are not overwriting the output, skip the "--output" argument
+if [ -z "$FILE_OUTPUT" ]; then
+    gpg --decrypt "$FILE_INPUT"
+else
+    gpg --output "$FILE_OUTPUT" --decrypt "$FILE_INPUT"
+fi
+
+if [ ! -z "$tmp_file" ]; then
+    info "Done decrypting. Deleting temporal file '$tmp_file'"
+    rm "$tmp_file"
+fi

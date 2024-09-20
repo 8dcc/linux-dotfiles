@@ -1,5 +1,5 @@
 
-FILES=archive-website bin-diff randomize-mac scat print-alternate-pages
+FILES=archive-website bin-diff gpg-enc gpg-dec randomize-mac scat print-alternate-pages
 INSTALL_DIR=/usr/local/bin
 
 .PHONY: all
