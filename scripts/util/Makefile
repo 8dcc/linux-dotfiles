@@ -2,12 +2,18 @@
 FILES=archive-website bin-diff gpg-enc gpg-dec randomize-mac scat print-alternate-pages
 INSTALL_DIR=/usr/local/bin
 
-.PHONY: all
+.PHONY: install
 
 # About the comma prefix, see:
 # https://rhodesmill.org/brandon/2009/commands-with-comma/
 COMMA=,
-all: $(addprefix $(INSTALL_DIR)/, $(addprefix $(COMMA), $(FILES)))
+install: $(addprefix $(INSTALL_DIR)/, $(addprefix $(COMMA), $(FILES)))
 
-$(INSTALL_DIR)/$(COMMA)% : %
+$(INSTALL_DIR)/% : %
+ifneq ($(shell id -u), 0)
+	@echo "These scripts must be installed as root."
+	@exit 1
+else
+	mkdir -p $@
 	install -m 755 $< $@
+endif
