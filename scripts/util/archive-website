@@ -10,13 +10,15 @@ if [ ! $(command -v wget) ]; then
     exit 1
 fi
 
-URL=$1
+URL="$1"
 USER_AGENT="Mozilla/5.0 (X11; Linux i686; rv:126.0) Gecko/20100101 Firefox/126.0"
 QUOTA="500m"
+WGET_OPTS="--mirror --no-parent --convert-links --wait=1 --random-wait --execute robots=off"
 
 echo "URL.......: $URL"
 echo "User-Agent: $USER_AGENT"
 echo "Max. quota: $QUOTA"
+echo "Extra opts: $WGET_OPTS"
 read -p "Press any key to continue..."
 
-wget --quota $QUOTA --recursive --convert-links "$URL" --user-agent=$USER_AGENT
+wget $WGET_OPTS --quota "$QUOTA" --user-agent="$USER_AGENT" "$URL"
