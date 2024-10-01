@@ -1,9 +1,14 @@
 # Some inspiration for this config:
 #   https://interrupt.memfault.com/blog/advanced-gdb
 
+# Allow loading of project-specific gdbinit. See section 2.1.4.4 "Local
+# directory initialization file" of GDB Manual.
+set auto-load local-gdbinit
+add-auto-load-safe-path ~
+
 # Persist history across sessions
 set history save on
-set history size 10000
+set history size 1000
 set history filename ~/.gdb_history
 
 # Don't ask for stupid debuginfod prompt when running
