@@ -26,6 +26,13 @@ shopt -s checkwinsize
 PS1='\[\033[0;32m\]\u \[\033[1;34m\]\w\[\033[0m\]\[$(check_git_color)\]$(__git_ps1 " (%s)") \[\033[0m\]\$ '
 PS2='> '
 
+# Automatically added by the Guix install script.
+if [ -n "$GUIX_ENVIRONMENT" ]; then
+    if [[ $PS1 =~ (.*)"\\$" ]]; then
+        PS1="${BASH_REMATCH[1]} [env]\\\$ "
+    fi
+fi
+
 # --- Bash completion ----------------------------------------------------------
 
 if ! shopt -oq posix; then
@@ -73,7 +80,6 @@ fi
 
 IMAGE_DIR="$HOME/Images"  # Can't use '~'
 alias archive-ss='mv ~/ss-*.png $IMAGE_DIR'
-alias archive-sss='archive-ss'
 
 # --- Custom exports -----------------------------------------------------------
 
