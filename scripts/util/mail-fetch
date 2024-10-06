@@ -29,12 +29,12 @@ set -e
 
 # If the file is encrypted (as it should be), decrypt it.
 if [[ $CREDFILE == *.gpg ]]; then 
-    contents=$(gpg --output "-" --decrypt "$CREDFILE" 2> /dev/null)
+    mapfile -t contents < <(gpg --output "-" --decrypt "$CREDFILE" 2>/dev/null)
 else
-    contents=$(cat "$CREDFILE")
+    mapfile -t contents < "$CREDFILE"
 fi
 
 # Iterate each line in the file, i.e. each credential.
-echo $contents | while read -r cred; do
+for cred in "${contents[@]}"; do
     $MOVEMAIL $MOVEMAILFLAGS "$cred" "$DESTFILE"
 done
