@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# From the `mailutils' package.
+MOVEMAIL="movemail"
+
+# Flags for `movemail'.
+MOVEMAILFLAGS="--preserve"
+
+# Custom file where the inbox URIs are stored. Each line will be used for the
+# `inbox-url' argument of `movemail', and usually haves the following format:
+#
+#   pops://user:pass@pop.example.net
+#
+# More specifically:
+#
+#   [protocol]://[user[:pass]@]hostname[:port]
+#
+# See also: https://mailutils.org/wiki/Fetching_Mail_with_Movemail
+CREDFILE="$HOME/Mail/credentials.gpg"
+
+# Destination file for the incoming mail. Used for the `destfile' argument of
+# `movemail'.
+DESTFILE="/var/mail/$USER"
+
+#-------------------------------------------------------------------------------
+
+# If part of the script fails, stop everything.
+set -e
+
+# If the file is encrypted (as it should be), decrypt it.
+if [[ $CREDFILE == *.gpg ]]; then 
+    contents=$(gpg --output "-" --decrypt "$CREDFILE" 2> /dev/null)
+else
+    contents=$(cat "$CREDFILE")
+fi
+
+# Iterate each line in the file, i.e. each credential.
+echo $contents | while read -r cred; do
+    $MOVEMAIL $MOVEMAILFLAGS "$cred" "$DESTFILE"
+done
