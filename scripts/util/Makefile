@@ -9,11 +9,11 @@ INSTALL_DIR=/usr/local/bin
 COMMA=,
 install: $(addprefix $(INSTALL_DIR)/, $(addprefix $(COMMA), $(FILES)))
 
-$(INSTALL_DIR)/% : %
+$(INSTALL_DIR)/$(COMMA)% : %
 ifneq ($(shell id -u), 0)
 	@echo "These scripts must be installed as root."
 	@exit 1
 else
-	mkdir -p $@
+	mkdir -p $(dir $@)
 	install -m 755 $< $@
 endif

@@ -11,6 +11,6 @@ ifneq ($(shell id -u), 0)
 	@echo "These scripts must be installed as root."
 	@exit 1
 else
-	mkdir -p $@
+	mkdir -p $(dir $@)
 	install -m 755 $< $@
 endif
