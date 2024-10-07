@@ -4,7 +4,7 @@
 MOVEMAIL="movemail"
 
 # Flags for `movemail'.
-MOVEMAILFLAGS="--preserve"
+MOVEMAILFLAGS="--preserve --verbose"
 
 # Custom file where the inbox URIs are stored. Each line will be used for the
 # `inbox-url' argument of `movemail', and usually haves the following format:
@@ -35,6 +35,10 @@ else
 fi
 
 # Iterate each line in the file, i.e. each credential.
+i=0
 for cred in "${contents[@]}"; do
     $MOVEMAIL $MOVEMAILFLAGS "$cred" "$DESTFILE"
+
+    ((i+=1))
+    echo "mail-fetch: Fetched entry $i."
 done
