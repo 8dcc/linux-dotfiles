@@ -1,7 +1,9 @@
 #!/bin/bash
 
 HEXDUMP=xxd
+HEXDUMPFLAGS=
 DIFF=diff
+DIFFFLAGS='--color=auto'
 
 if [ $# -ne 2 ]; then
     echo "Usage: $0 BIN1 BIN2" 1>&2
@@ -18,4 +20,4 @@ if [ ! $(command -v $DIFF) ]; then
     exit 1
 fi
 
-$DIFF <($HEXDUMP $1) <($HEXDUMP $2)
+$DIFF $DIFFFLAGS <($HEXDUMP $HEXDUMPFLAGS "$1") <($HEXDUMP $HEXDUMPFLAGS "$2")
