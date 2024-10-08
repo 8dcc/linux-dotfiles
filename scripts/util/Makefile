@@ -1,5 +1,5 @@
 
-FILES=archive-website bin-diff gpg-enc gpg-dec randomize-mac scat print-alternate-pages mail-fetch
+FILES=archive-website bin-diff gpg-enc gpg-dec randomize-mac scat mpv-sub print-alternate-pages mail-fetch
 INSTALL_DIR=/usr/local/bin
 
 .PHONY: install

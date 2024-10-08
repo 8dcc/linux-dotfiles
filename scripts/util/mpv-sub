@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ $# -ne 2 ]; then
+    echo "Usage: $0 SUBFILE FILE" 1>&2
+    exit 1
+fi
+
+# Because it's annoying to specify subtitle files without bash completion.
+mpv --sub-file="$1" "$2"
