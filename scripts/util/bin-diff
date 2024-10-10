@@ -6,19 +6,25 @@ HEXDUMPFLAGS=
 DIFF=diff
 DIFFFLAGS='--color=auto'
 
+#-------------------------------------------------------------------------------
+
 if [ $# -ne 2 ]; then
     echo "Usage: $(basename "$0") BIN1 BIN2" 1>&2
     exit 1
 fi
 
-if [ ! $(command -v $HEXDUMP) ]; then
-    echo "The '$HEXDUMP' command is not installed." 1>&2
-    exit 1
-fi
+assert_cmd() {
+    if [ ! $(command -v "$1") ]; then
+        echo "The '$1' command is not installed." 1>&2
+        exit 1
+    fi
+}
 
-if [ ! $(command -v $DIFF) ]; then
-    echo "The '$DIFF' command is not installed." 1>&2
-    exit 1
-fi
+assert_cmd "$HEXDUMP"
+assert_cmd "$DIFF"
 
+#-------------------------------------------------------------------------------
+
+# For more information on the <(...) syntax, see:
+# https://www.gnu.org/software/bash/manual/html_node/Process-Substitution.html
 $DIFF $DIFFFLAGS <($HEXDUMP $HEXDUMPFLAGS "$1") <($HEXDUMP $HEXDUMPFLAGS "$2")

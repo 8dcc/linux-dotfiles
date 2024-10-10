@@ -1,6 +1,11 @@
 #!/bin/bash
 set -e
 
+# Print one of every N pages. Used for increasing or decreasing the page number.
+PAGE_STEP=2
+
+#-------------------------------------------------------------------------------
+
 if [ $# -lt 3 ]; then
     echo "Usage: $(basename "$0") PAGE-START PAGE-END FILE [OPTIONS ...]" 1>&2
     exit 1
@@ -11,7 +16,7 @@ if [ ! $(command -v lpr) ]; then
     exit 1
 fi
 
-PAGE_STEP=2
+#-------------------------------------------------------------------------------
 
 PAGE_START=$1
 PAGE_END=$2

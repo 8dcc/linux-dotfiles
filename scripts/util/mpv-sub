@@ -1,10 +1,19 @@
 #!/bin/bash
 set -e
 
+# Simple wrapper for `mpv', because it's annoying to specify subtitle files
+# without bash completion.
+
 if [ $# -ne 2 ]; then
     echo "Usage: $(basename "$0") SUBFILE FILE" 1>&2
     exit 1
 fi
 
-# Because it's annoying to specify subtitle files without bash completion.
+if [ ! $(command -v "mpv") ]; then
+    echo "The 'mpv' command is not installed." 1>&2
+    exit 1
+fi
+
+#-------------------------------------------------------------------------------
+
 mpv --sub-file="$1" "$2"

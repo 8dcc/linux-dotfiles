@@ -1,6 +1,19 @@
 #!/bin/bash
 set -e
 
+# Browser user agent, to appear more human.
+USER_AGENT="Mozilla/5.0 (X11; Linux i686; rv:126.0) Gecko/20100101 Firefox/126.0"
+
+# Max. quota for downloading multiple files. Note that the quota is checked only
+# at the end of each downloaded file, so it will never result in a partially
+# downloaded file.
+QUOTA="500m"
+
+# Extra options for `wget'.
+WGET_OPTS="--mirror --no-parent --convert-links --wait=1 --random-wait --execute robots=off"
+
+#-------------------------------------------------------------------------------
+
 if [ $# -ne 1 ]; then
     echo "Usage: $(basename "$0") \"URL\"" 1>&2
     exit 1
@@ -11,10 +24,9 @@ if [ ! $(command -v wget) ]; then
     exit 1
 fi
 
+#-------------------------------------------------------------------------------
+
 URL="$1"
-USER_AGENT="Mozilla/5.0 (X11; Linux i686; rv:126.0) Gecko/20100101 Firefox/126.0"
-QUOTA="500m"
-WGET_OPTS="--mirror --no-parent --convert-links --wait=1 --random-wait --execute robots=off"
 
 echo "URL.......: $URL"
 echo "User-Agent: $USER_AGENT"

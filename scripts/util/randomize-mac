@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-interface="enp7s0"
+INTERFACE="enp7s0"
 
 #-------------------------------------------------------------------------------
 
@@ -12,9 +12,9 @@ fi
 
 #-------------------------------------------------------------------------------
 
-assert_command() {
-    if [ ! $(command -v $1) ]; then
-        echo "The \"$1\" command is not installed."
+assert_cmd() {
+    if [ ! $(command -v '$1') ]; then
+        echo "The '$1' command is not installed." 1>&2
         exit 1
     fi
 }
@@ -26,14 +26,14 @@ assert_command "macchanger"
 
 ip a
 echo
-read -p "Randomizing interface \"$interface\". Press any key to continue..."
+read -p "Randomizing interface '$INTERFACE'. Press any key to continue..."
 
 echo -n "Bringing interface down... "
-ip link set $interface down
+ip link set "$INTERFACE" down
 echo "Done."
 
-macchanger -a $interface
+macchanger -a "$INTERFACE"
 
 echo -n "Bringing interface up... "
-ip link set $interface up
+ip link set "$INTERFACE" up
 echo "Done."

@@ -25,8 +25,15 @@ DESTFILE="/var/mail/$USER"
 
 #-------------------------------------------------------------------------------
 
+if [ ! $(command -v "$MOVEMAIL") ]; then
+    echo "The '$MOVEMAIL' command is not installed." 1>&2
+    exit 1
+fi
+
+#-------------------------------------------------------------------------------
+
 # If the file is encrypted (as it should be), decrypt it.
-if [[ $CREDFILE == *.gpg ]]; then 
+if [[ $CREDFILE == *.gpg ]]; then
     mapfile -t contents < <(gpg --output "-" --decrypt "$CREDFILE" 2>/dev/null)
 else
     mapfile -t contents < "$CREDFILE"
