@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # From the `mailutils' package.
 MOVEMAIL="movemail"
@@ -23,9 +24,6 @@ CREDFILE="$HOME/Mail/credentials.gpg"
 DESTFILE="/var/mail/$USER"
 
 #-------------------------------------------------------------------------------
-
-# If part of the script fails, stop everything.
-set -e
 
 # If the file is encrypted (as it should be), decrypt it.
 if [[ $CREDFILE == *.gpg ]]; then 

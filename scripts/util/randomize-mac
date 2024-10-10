@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 interface="enp7s0"
 
