@@ -7,7 +7,7 @@ DIFF=diff
 DIFFFLAGS='--color=auto'
 
 if [ $# -ne 2 ]; then
-    echo "Usage: $0 BIN1 BIN2" 1>&2
+    echo "Usage: $(basename "$0") BIN1 BIN2" 1>&2
     exit 1
 fi
 

@@ -2,7 +2,7 @@
 set -e
 
 if [ $# -ne 2 ]; then
-    echo "Usage: $0 SUBFILE FILE" 1>&2
+    echo "Usage: $(basename "$0") SUBFILE FILE" 1>&2
     exit 1
 fi
 
