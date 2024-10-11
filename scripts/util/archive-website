@@ -26,12 +26,12 @@ fi
 
 #-------------------------------------------------------------------------------
 
-URL="$1"
+url="$1"
 
-echo "URL.......: $URL"
+echo "URL.......: $url"
 echo "User-Agent: $USER_AGENT"
 echo "Max. quota: $QUOTA"
 echo "Extra opts: $WGET_OPTS"
 read -p "Press any key to continue..."
 
-wget $WGET_OPTS --quota "$QUOTA" --user-agent="$USER_AGENT" "$URL"
+wget $WGET_OPTS --quota "$QUOTA" --user-agent="$USER_AGENT" "$url"
