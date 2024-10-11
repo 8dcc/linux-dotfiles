@@ -2,28 +2,40 @@
 set -e
 
 PROGRAM_NAME="$(basename "$0")"
+DEFAULT_OUTPUT="-"
 
-info() {
+#-------------------------------------------------------------------------------
+
+if [ $# -gt 2 ]; then
+    echo "Usage:"                           1>&2
+    echo "    $PROGRAM_NAME"                1>&2
+    echo "    $PROGRAM_NAME < INPUT"        1>&2
+    echo "    $PROGRAM_NAME INPUT [OUTPUT]" 1>&2
+    exit 1
+fi
+
+#-------------------------------------------------------------------------------
+
+inform() {
     echo -n "$PROGRAM_NAME: " 1>&2
     echo -e $1 1>&2
 }
 
-if [ $# -gt 1 ]; then
-    echo "Usage:"        1>&2
-    echo "    $PROGRAM_NAME"        1>&2
-    echo "    $PROGRAM_NAME FILE"   1>&2
-    echo "    $PROGRAM_NAME < FILE" 1>&2
-    exit 1
-fi
-
 if [ $# -ge 1 ]; then
-    # If we got two arguments, the second one is the target file.
-    FILE_INPUT="$1"
+    # If we received an argument, use as input.
+    file_input="$1"
+
+    # If we got two arguments, the second one is the output file.
+    if [ $# -ge 2 ]; then
+        file_output="$2"
+    else
+        file_output="$DEFAULT_OUTPUT"
+    fi
 elif [ ! -t 0 ]; then
     # If the file is being piped to us (stdin is not a terminal), pass "-"
     # to gpg as input (stdin) and output (stdout).
-    FILE_INPUT="-"
-    FILE_OUTPUT="-"
+    file_input="-"
+    file_output="-"
 else
     # Otherwise, open a temporal file on the default editor and use that.
     #
@@ -33,22 +45,17 @@ else
 
     # Create a temporal file using mktemp(1)
     tmp_file="$(mktemp --tmpdir "gpg-dec.XXXX")"
+    file_input="$tmp_file"
+    file_output="$DEFAULT_OUTPUT"
 
-    FILE_INPUT="$tmp_file"
-
-    info "Opening temporal file '$tmp_file' in the '$editor' editor..."
+    inform "Opening temporal file '$tmp_file' in the '$editor' editor..."
     $editor $tmp_file
-    info "Done editing."
+    inform "Done editing."
 fi
 
-# If we are not overwriting the output, skip the "--output" argument
-if [ -z "$FILE_OUTPUT" ]; then
-    gpg --decrypt "$FILE_INPUT"
-else
-    gpg --output "$FILE_OUTPUT" --decrypt "$FILE_INPUT"
-fi
+gpg --output "$file_output" --decrypt "$file_input"
 
 if [ ! -z "$tmp_file" ]; then
-    info "Done decrypting. Deleting temporal file '$tmp_file'"
+    inform "Done decrypting. Deleting temporal file '$tmp_file'"
     rm "$tmp_file"
 fi
