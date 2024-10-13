@@ -92,6 +92,7 @@ void kscrollup(const Arg *);
 void printscreen(const Arg *);
 void printsel(const Arg *);
 void sendbreak(const Arg *);
+void togglewide(const Arg *);
 void toggleprinter(const Arg *);
 
 int tattrset(int);
@@ -127,6 +128,7 @@ extern char *stty_args;
 extern char *vtiden;
 extern char *worddelimiters;
 extern int allowaltscreen;
+extern int renderwide;
 extern char *termname;
 extern unsigned int tabspaces;
 extern unsigned int defaultfg;

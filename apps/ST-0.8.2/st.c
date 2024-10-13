@@ -59,6 +59,7 @@ enum term_mode {
 	MODE_PRINT       = 1 << 5,
 	MODE_UTF8        = 1 << 6,
 	MODE_SIXEL       = 1 << 7,
+	MODE_NOWIDE      = 1 << 8,
 };
 
 enum cursor_movement {
@@ -1058,6 +1059,8 @@ treset(void)
 	term.top = 0;
 	term.bot = term.row - 1;
 	term.mode = MODE_WRAP|MODE_UTF8;
+	if (!renderwide)
+		term.mode |= MODE_NOWIDE;
 	memset(term.trantbl, CS_USA, sizeof(term.trantbl));
 	term.charset = 0;
 
@@ -2058,6 +2061,12 @@ tprinter(char *s, size_t len)
 }
 
 void
+togglewide(const Arg *arg)
+{
+	term.mode ^= MODE_NOWIDE;
+}
+
+void
 toggleprinter(const Arg *arg)
 {
 	term.mode ^= MODE_PRINT;
@@ -2504,7 +2513,13 @@ check_control_code:
 	tsetchar(u, &term.c.attr, term.c.x, term.c.y);
 
 	if (width == 2) {
-		gp->mode |= ATTR_WIDE;
+		if (IS_SET(MODE_NOWIDE))  {
+			gp[0].u = '?';
+			gp[0].mode |= ATTR_FAINT;
+		} else {
+			gp[0].mode |= ATTR_WIDE;
+		}
+
 		if (term.c.x+1 < term.col) {
 			if (gp[1].mode == ATTR_WIDE && term.c.x+2 < term.col) {
 				gp[2].u = ' ';

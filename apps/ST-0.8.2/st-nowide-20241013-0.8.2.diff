@@ -1,0 +1,119 @@
+From 6fb87a9dbdbdc344fec14d026adf2c84853794b3 Mon Sep 17 00:00:00 2001
+From: 8dcc <8dcc.git@gmail.com>
+Date: Sun, 13 Oct 2024 14:45:12 +0200
+Subject: [PATCH] Allow user to not render wide characters
+
+This patch adds a new terminal mode, NOWIDE. If it's enabled, wide characters
+will be replaced with a faint question mark. This mode can be enabled or
+disabled by default with the `renderwide' variable in <config.def.h>, and can be
+toggled with a keybind (Ctrl+Shift+W by default).
+
+This mode is specially useful if your font doesn't support wide characters,
+since rendering them usually makes the terminal really, really slow, specially
+when scrolling.
+
+This patch is intended for ST 0.8.2, but it should be easy to port it to newer
+versions.
+---
+ config.def.h |  7 +++++++
+ st.c         | 17 ++++++++++++++++-
+ st.h         |  2 ++
+ 3 files changed, 25 insertions(+), 1 deletion(-)
+
+diff --git a/config.def.h b/config.def.h
+index 0e01717..bc3f06f 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -56,6 +56,12 @@ static unsigned int blinktimeout = 800;
+  */
+ static unsigned int cursorthickness = 2;
+ 
++/*
++ * should we render wide characters by default? Can be toggled with the
++ * `togglewide' shortcut below.
++ */
++int renderwide = 1;
++
+ /*
+  * bell volume. It must be a value between -100 and 100. Use 0 for disabling
+  * it
+@@ -178,6 +184,7 @@ static Shortcut shortcuts[] = {
+ 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
+ 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
+ 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
++	{ TERMMOD,              XK_W,           togglewide,     {.i =  0} },
+ };
+ 
+ /*
+diff --git a/st.c b/st.c
+index b8e6077..c583b5c 100644
+--- a/st.c
++++ b/st.c
+@@ -52,6 +52,7 @@ enum term_mode {
+ 	MODE_PRINT       = 1 << 5,
+ 	MODE_UTF8        = 1 << 6,
+ 	MODE_SIXEL       = 1 << 7,
++	MODE_NOWIDE      = 1 << 8,
+ };
+ 
+ enum cursor_movement {
+@@ -1029,6 +1030,8 @@ treset(void)
+ 	term.top = 0;
+ 	term.bot = term.row - 1;
+ 	term.mode = MODE_WRAP|MODE_UTF8;
++	if (!renderwide)
++		term.mode |= MODE_NOWIDE;
+ 	memset(term.trantbl, CS_USA, sizeof(term.trantbl));
+ 	term.charset = 0;
+ 
+@@ -1980,6 +1983,12 @@ tprinter(char *s, size_t len)
+ 	}
+ }
+ 
++void
++togglewide(const Arg *arg)
++{
++	term.mode ^= MODE_NOWIDE;
++}
++
+ void
+ toggleprinter(const Arg *arg)
+ {
+@@ -2427,7 +2436,13 @@ check_control_code:
+ 	tsetchar(u, &term.c.attr, term.c.x, term.c.y);
+ 
+ 	if (width == 2) {
+-		gp->mode |= ATTR_WIDE;
++		if (IS_SET(MODE_NOWIDE))  {
++			gp[0].u = '?';
++			gp[0].mode |= ATTR_FAINT;
++		} else {
++			gp[0].mode |= ATTR_WIDE;
++		}
++
+ 		if (term.c.x+1 < term.col) {
+ 			gp[1].u = '\0';
+ 			gp[1].mode = ATTR_WDUMMY;
+diff --git a/st.h b/st.h
+index 38c61c4..0691246 100644
+--- a/st.h
++++ b/st.h
+@@ -83,6 +83,7 @@ void draw(void);
+ void printscreen(const Arg *);
+ void printsel(const Arg *);
+ void sendbreak(const Arg *);
++void togglewide(const Arg *);
+ void toggleprinter(const Arg *);
+ 
+ int tattrset(int);
+@@ -116,6 +117,7 @@ extern char *stty_args;
+ extern char *vtiden;
+ extern char *worddelimiters;
+ extern int allowaltscreen;
++extern int renderwide;
+ extern char *termname;
+ extern unsigned int tabspaces;
+ extern unsigned int defaultfg;
+-- 
+2.46.2
+
