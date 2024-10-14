@@ -76,12 +76,6 @@ static unsigned int blinktimeout = 800;
 static unsigned int cursorthickness = 2;
 
 /*
- * should we render wide characters by default? Can be toggled with the
- * `togglewide' shortcut below.
- */
-int renderwide = 0;
-
-/*
  * bell volume. It must be a value between -100 and 100. Use 0 for disabling
  * it
  */
@@ -243,7 +237,7 @@ static Shortcut shortcuts[] = {
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
 #endif
-	{ TERMMOD,              XK_W,           togglewide,     {.i =  0} },
+	{ TERMMOD,              XK_A,          toggleasciionly, {.i =  0} },
 };
 
 /*
@@ -497,7 +491,13 @@ static uint selmasks[] = {
  * Printable characters in ASCII, used to estimate the advance width
  * of single wide characters.
  */
-static char ascii_printable[] =
+char ascii_printable[] =
 	" !\"#$%&'()*+,-./0123456789:;<=>?"
 	"@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_"
 	"`abcdefghijklmnopqrstuvwxyz{|}~";
+
+/*
+ * should we render non-ascii characters by default? Can be toggled with the
+ * `toggleasciionly' shortcut above.
+ */
+int asciionly = 1;

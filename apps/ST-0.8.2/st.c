@@ -59,7 +59,7 @@ enum term_mode {
 	MODE_PRINT       = 1 << 5,
 	MODE_UTF8        = 1 << 6,
 	MODE_SIXEL       = 1 << 7,
-	MODE_NOWIDE      = 1 << 8,
+	MODE_ASCIIONLY   = 1 << 8,
 };
 
 enum cursor_movement {
@@ -162,6 +162,9 @@ typedef struct {
 	char *args[STR_ARG_SIZ];
 	int narg;              /* nb of args */
 } STREscape;
+
+
+static inline int isasciiprintable(Rune u);
 
 static void execsh(char *, char **);
 static void stty(char **);
@@ -1059,8 +1062,8 @@ treset(void)
 	term.top = 0;
 	term.bot = term.row - 1;
 	term.mode = MODE_WRAP|MODE_UTF8;
-	if (!renderwide)
-		term.mode |= MODE_NOWIDE;
+	if (!asciionly)
+		term.mode |= MODE_ASCIIONLY;
 	memset(term.trantbl, CS_USA, sizeof(term.trantbl));
 	term.charset = 0;
 
@@ -2061,9 +2064,9 @@ tprinter(char *s, size_t len)
 }
 
 void
-togglewide(const Arg *arg)
+toggleasciionly(const Arg *arg)
 {
-	term.mode ^= MODE_NOWIDE;
+	term.mode ^= MODE_ASCIIONLY;
 }
 
 void
@@ -2379,6 +2382,18 @@ eschandle(uchar ascii)
 	return 1;
 }
 
+int
+isasciiprintable(Rune u)
+{
+	char* c;
+
+	for (c = ascii_printable; *c != '\0'; c++)
+		if (u == *c)
+			return 1;
+
+	return 0;
+}
+
 void
 tputc(Rune u)
 {
@@ -2512,19 +2527,15 @@ check_control_code:
 
 	tsetchar(u, &term.c.attr, term.c.x, term.c.y);
 
-	if (width == 2) {
-		if (IS_SET(MODE_NOWIDE))  {
+	if (IS_SET(MODE_ASCIIONLY))  {
+		if (!isasciiprintable(u)) {
 			gp[0].u = '?';
 			gp[0].mode |= ATTR_FAINT;
-		} else {
-			gp[0].mode |= ATTR_WIDE;
+			width = 1;
 		}
-
-		if (term.c.x+1 < term.col) {
-			if (gp[1].mode == ATTR_WIDE && term.c.x+2 < term.col) {
-				gp[2].u = ' ';
-				gp[2].mode &= ~ATTR_WDUMMY;
-			}
+	} else if (width == 2) {
+ 		gp->mode |= ATTR_WIDE;
+ 		if (term.c.x+1 < term.col) {
 			gp[1].u = '\0';
 			gp[1].mode = ATTR_WDUMMY;
 		}
