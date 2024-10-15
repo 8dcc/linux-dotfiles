@@ -19,22 +19,28 @@ static const char dmenux[]    = "0";
 static const char dmenuy[]    = "0";
 static const char dmenuz[]    = "1920";
 
-static const char col_gray1[]  = "#eeeeee"; /* Light gray */
-static const char col_gray2[]  = "#bbbbbb"; /* Medium gray */
-static const char col_gray3[]  = "#222222"; /* Dark gray */
-static const char col_red[]    = "#cc1414"; /* Bright red */
-static const char col_red2[]   = "#541414"; /* Dark red */
+static const char col_fg_sel[]        = "#ffffff";
+static const char col_bg_sel[]        = "#111111";
+static const char col_border_sel[]    = "#999999";
+static const char col_fg_unsel[]      = "#777777";
+static const char col_bg_unsel[]      = "#111111";
+static const char col_border_unsel[]  = "#111111";
+static const char col_fg_status[]     = "#999999";
+static const char col_bg_status[]     = "#111111";
+static const char col_border_status[] = "#111111";
 static const char* colors[][3] = {
-    /*               fg         bg         border   */
-    [SchemeNorm] = { col_gray2, col_gray3, col_red2 },
-    [SchemeSel]  = { col_gray1, col_red,   col_red  },
+    /*                 fg             bg             border   */
+    [SchemeNorm]   = { col_fg_unsel,  col_bg_unsel,  col_border_unsel },
+    [SchemeSel]    = { col_fg_sel,    col_bg_sel,    col_border_sel },
+    [SchemeStatus] = { col_fg_status, col_bg_status, col_border_status },
 };
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
-    /* xprop(1):
+    /*
+     * xprop(1):
      *	WM_CLASS(STRING) = instance, class
      *	WM_NAME(STRING) = title
      */
@@ -73,11 +79,13 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char* dmenucmd[] = { "dmenu_run", "-x",  dmenux,    "-y",
-                                  dmenuy,      "-z",  dmenuz,    "-m",
-                                  dmenumon,    "-fn", dmenufont, "-nb",
-                                  col_gray3,   "-nf", col_gray2, "-sb",
-                                  col_red,     "-sf", col_gray1, NULL };
+static const char* dmenucmd[] = {
+    "dmenu_run",
+    "-x",  dmenux,       "-y",  dmenuy,     "-z",  dmenuz,
+    "-m",  dmenumon,     "-fn", dmenufont,  "-nb", col_bg_unsel,
+    "-nf", col_fg_unsel, "-sb", col_bg_sel, "-sf", col_fg_sel,
+    NULL
+};
 static const char* termcmd[] = { "st", NULL };
 static const char* layoutmenu_cmd = "dwm-menu-layout";
 
