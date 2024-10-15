@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# https://github.com/8dcc/arch-dotfiles
-#----------------------------------------
-# It is important that you have installed the
-# awesome font from the aur (ttf-font-awesome)
-
 #####################
 multibattery=false  #
 hourchange=false    #
@@ -68,8 +63,8 @@ vpn() {
 }
 
 vol() {
-    vol="$(amixer -D pulse get Master | awk -F'[][]' 'END{print $2}')"
-    muted="$(amixer -D pulse get Master | awk -F'[][]' 'END{print $4}')"
+    vol="$(amixer get Master | awk -F'[][]' 'END{print $2}')"
+    muted="$(amixer get Master | awk -F'[][]' 'END{print $4}')"
     if [[ $muted == off ]]; then
         echo "Muted"
     else
