@@ -19,20 +19,23 @@ static const char dmenux[]    = "0";
 static const char dmenuy[]    = "0";
 static const char dmenuz[]    = "1920";
 
-static const char col_fg_sel[]        = "#ffffff";
-static const char col_bg_sel[]        = "#111111";
-static const char col_border_sel[]    = "#999999";
-static const char col_fg_unsel[]      = "#777777";
-static const char col_bg_unsel[]      = "#111111";
-static const char col_border_unsel[]  = "#111111";
-static const char col_fg_status[]     = "#999999";
-static const char col_bg_status[]     = "#111111";
-static const char col_border_status[] = "#111111";
+static const char* const col_unsel_fg      = "#777777";
+static const char* const col_unsel_bg      = "#111111";
+static const char* const col_unsel_border  = col_unsel_bg;
+static const char* const col_sel_title_fg  = "#ffffff";
+static const char* const col_sel_title_bg  = col_unsel_bg;
+static const char* const col_sel_tag_fg    = col_sel_title_bg;
+static const char* const col_sel_tag_bg    = "#aaaaaa";
+static const char* const col_sel_border    = col_sel_tag_bg;
+static const char* const col_status_fg     = "#999999";
+static const char* const col_status_bg     = col_unsel_bg;
+static const char* const col_status_border = col_unsel_border;
 static const char* colors[][3] = {
-    /*                 fg             bg             border   */
-    [SchemeNorm]   = { col_fg_unsel,  col_bg_unsel,  col_border_unsel },
-    [SchemeSel]    = { col_fg_sel,    col_bg_sel,    col_border_sel },
-    [SchemeStatus] = { col_fg_status, col_bg_status, col_border_status },
+    /*                   fg                bg                border   */
+    [SchemeNorm]     = { col_unsel_fg,     col_unsel_bg,     col_unsel_border },
+    [SchemeSelTag]   = { col_sel_tag_fg,   col_sel_tag_bg,   col_sel_border },
+    [SchemeSelTitle] = { col_sel_title_fg, col_sel_title_bg, col_sel_border },
+    [SchemeStatus]   = { col_status_fg,    col_status_bg,    col_status_border },
 };
 
 /* tagging */
@@ -81,9 +84,9 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char* dmenucmd[] = {
     "dmenu_run",
-    "-x",  dmenux,       "-y",  dmenuy,     "-z",  dmenuz,
-    "-m",  dmenumon,     "-fn", dmenufont,  "-nb", col_bg_unsel,
-    "-nf", col_fg_unsel, "-sb", col_bg_sel, "-sf", col_fg_sel,
+    "-x",  dmenux,       "-y",  dmenuy,         "-z",  dmenuz,
+    "-m",  dmenumon,     "-fn", dmenufont,      "-nb", col_unsel_bg,
+    "-nf", col_unsel_fg, "-sb", col_sel_tag_bg, "-sf", col_sel_tag_fg,
     NULL
 };
 static const char* termcmd[] = { "st", NULL };
