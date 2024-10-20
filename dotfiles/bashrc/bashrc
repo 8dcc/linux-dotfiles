@@ -78,8 +78,10 @@ fi
 [[ $(command -v valgrind) ]] && alias valgrind='valgrind --leak-check=full --track-origins=yes'
 [[ $(command -v yt-dlp) ]]   && alias yt-dlp='yt-dlp --embed-metadata --embed-subs --merge-output-format mkv'
 
-IMAGE_DIR="$HOME/Images"  # Can't use '~'
-alias archive-ss='mv ~/ss-*.png $IMAGE_DIR'
+archive-ss() {
+    IMAGE_DIR="$HOME/Images"  # Can't use '~'
+    mv ~/ss-*.png $IMAGE_DIR
+}
 
 # --- Custom exports -----------------------------------------------------------
 
