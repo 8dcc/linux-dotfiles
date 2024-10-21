@@ -1,0 +1,21 @@
+#!/bin/bash
+
+A2PSFLAGS="--portrait --columns=1 --no-header"
+
+if [ $# -lt 1 ] || [ $# -gt 2 ]; then
+    echo "Usage: $(basename "$0") INPUT [OUTPUT]" 1>&2
+    exit 1
+fi
+
+if [ ! $(command -v "a2ps") ]; then
+    echo "The 'a2ps' command is not installed." 1>&2
+    exit 1
+fi
+
+# Either second argument, or '-' (stdout). See:
+# https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html
+output=${2:--}
+input=$1
+
+echo "Converting '$input' to '$output' with flags '$A2PSFLAGS'." 1>&2
+a2ps $A2PSFLAGS --output="$output" "$input"
