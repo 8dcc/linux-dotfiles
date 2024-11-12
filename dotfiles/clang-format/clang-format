@@ -1,6 +1,7 @@
 ﻿---
 BasedOnStyle: Mozilla
 AlignAfterOpenBracket: Align
+AlignArrayOfStructures: None
 AlignConsecutiveMacros: 'true'
 AlignConsecutiveAssignments: 'true'
 AlignConsecutiveDeclarations: 'false'
@@ -30,8 +31,6 @@ BreakStringLiterals: 'true'
 ColumnLimit: '80'
 CompactNamespaces: 'false'
 Cpp11BracedListStyle: 'false'
-EmptyLineAfterAccessModifier: Leave
-EmptyLineBeforeAccessModifier: Leave
 ExperimentalAutoDetectBinPacking: 'false'
 ForEachMacros: ['FOREACH', 'FOR_EACH']
 IncludeBlocks: Preserve
@@ -39,11 +38,12 @@ IndentCaseBlocks: 'false'
 IndentCaseLabels: 'true'
 IndentExternBlock: NoIndent
 IndentGotoLabels: 'false'
-IndentPPDirectives: 'AfterHash'
 IndentWidth: '4'
 IndentWrappedFunctionNames: 'false'
 KeepEmptyLinesAtTheStartOfBlocks: 'false'
-NamespaceIndentation: Inner
+NamespaceIndentation: All
+IndentAccessModifiers: 'false'
+AccessModifierOffset: -4
 PenaltyBreakBeforeFirstCallParameter: '1000'
 PointerAlignment: Left
 ReflowComments: 'true'
@@ -57,6 +57,7 @@ SpaceBeforeParens: ControlStatements
 SpaceBeforeRangeBasedForLoopColon: 'true'
 SpaceInEmptyParentheses: 'false'
 SpacesBeforeTrailingComments: '4'
+SpacesInContainerLiterals: 'true'
 TabWidth: '4'
 UseTab: Never
 
