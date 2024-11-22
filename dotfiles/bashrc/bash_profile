@@ -2,11 +2,11 @@
 # ~/.bash_profile
 #-------------------------------------------------------------------------------
 
-if [ -d "$HOME/.guix-profile" ]; then
+if [ -e "$HOME/.guix-profile" ]; then
     # Load Guix profile
     GUIX_PROFILE="$HOME/.guix-profile"
     . "$GUIX_PROFILE/etc/profile"
-    if [ -d "$HOME/.config/guix/current" ]; then
+    if [ -e "$HOME/.config/guix/current" ]; then
         # Add another Guix profile for the actual `guix' command
         GUIX_PROFILE="$HOME/.config/guix/current"
         . "$GUIX_PROFILE/etc/profile"
