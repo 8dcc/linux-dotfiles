@@ -53,11 +53,7 @@ alias ls='ls --color=auto -l --sort=version --group-directories-first --human-re
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
-
-# Unused
-#alias ll='ls -alF'
-#alias la='ls -A'
-#alias l='ls -CF'
+alias ip='ip --color=auto'
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
