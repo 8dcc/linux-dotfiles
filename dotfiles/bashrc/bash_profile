@@ -2,19 +2,29 @@
 # ~/.bash_profile
 #-------------------------------------------------------------------------------
 
+# Guix stuff
+
 if [ -e "$HOME/.guix-profile" ]; then
     # Load Guix profile
     GUIX_PROFILE="$HOME/.guix-profile"
     . "$GUIX_PROFILE/etc/profile"
-    if [ -e "$HOME/.config/guix/current" ]; then
-        # Add another Guix profile for the actual `guix' command
-        GUIX_PROFILE="$HOME/.config/guix/current"
-        . "$GUIX_PROFILE/etc/profile"
-    fi
+fi
+if [ -e "$HOME/.config/guix/current" ]; then
+    # Add another Guix profile for the actual `guix' command
+    GUIX_PROFILE="$HOME/.config/guix/current"
+    . "$GUIX_PROFILE/etc/profile"
+fi
+if [ -e "$HOME/.profile" ]; then
+    # Written by `guix home reconfigure FILE.scm'
+    . "$HOME/.profile"
 fi
 
-# Load once
-[[ -f ~/.bashrc ]] && . ~/.bashrc
+#-------------------------------------------------------------------------------
+
+# Load bashrc once
+if [ -f "~/.bashrc" ]; then
+    . ~/.bashrc
+fi
 
 # Start Xorg server, see .xinitrc
 startx
