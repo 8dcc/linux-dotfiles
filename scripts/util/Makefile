@@ -1,19 +1,19 @@
 
 FILES=archive-website bin-diff emacs-tor git-log-short gpg-enc gpg-dec randomize-mac scat src2ps mpv-sub print-alternate-pages mail-fetch
-INSTALL_DIR=/usr/local/bin
+PREFIX=/usr/local/bin
 
 .PHONY: install
 
 # About the comma prefix, see:
 # https://rhodesmill.org/brandon/2009/commands-with-comma/
 COMMA=,
-install: $(addprefix $(INSTALL_DIR)/, $(addprefix $(COMMA), $(FILES)))
+install: $(addprefix $(PREFIX)/, $(addprefix $(COMMA), $(FILES)))
 
-$(INSTALL_DIR)/$(COMMA)% : %
+$(PREFIX)/$(COMMA)% : %
 ifneq ($(shell id -u), 0)
 	@echo "These scripts must be installed as root."
 	@exit 1
 else
-	mkdir -p $(dir $@)
+	@mkdir -p $(dir $@)
 	install -m 755 $< $@
 endif
