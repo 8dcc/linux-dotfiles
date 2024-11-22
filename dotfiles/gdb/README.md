@@ -1,2 +1,3 @@
 ### `gdbinit`
-Configuration for gdb. Move this file to `~/.gdbinit`
+
+Configuration for gdb. Move this file to `~/.config/gdb/gdbinit`.
