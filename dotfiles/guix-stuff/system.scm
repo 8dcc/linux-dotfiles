@@ -43,12 +43,15 @@
  ;; for packages and 'guix install PACKAGE' to install a package.
  (packages (append (list (specification->package "neovim")
                          (specification->package "bash-completion")
-                         (specification->package "git")
+                         (specification->package "gnupg")
+                         (specification->package "pinentry")
                          (specification->package "curl")
+                         (specification->package "git")
                          (specification->package "gcc-toolchain")
                          (specification->package "make")
                          (specification->package "gdb")
                          (specification->package "xxd")
+                         (specification->package "tree")
                          (specification->package "htop"))
                    %base-packages))
 
