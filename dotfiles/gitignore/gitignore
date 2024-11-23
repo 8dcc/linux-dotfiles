@@ -1,8 +1,0 @@
-###############################################################################
-# Global .gitignore                                                           #
-# Enable with:                                                                #
-#   git config --global core.excludesfile ~/.gitignore                        #
-###############################################################################
-
-# Rizin databases for debugging
-*.rzdb
