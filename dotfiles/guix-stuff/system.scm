@@ -8,8 +8,6 @@
 ;; used in this configuration.
 (use-modules (gnu)
              (gnu system privilege)
-             (gnu packages nfs)
-             (gnu packages cups)
              (gnu services base)
              (gnu services pm)
              (gnu services networking)
@@ -18,7 +16,10 @@
              (gnu services sound)
              (gnu services xorg)
              (gnu services desktop)
+             (gnu packages nfs)
+             (gnu packages cups)
              (gnu packages linux)
+             (gnu packages bash)
              (nongnu packages linux))
 
 (operating-system
@@ -85,7 +86,8 @@
    (service cups-service-type
 	        (cups-configuration
 	         (web-interface? #t)
-	         (extensions (list cups-filters hplip-minimal))))
+             (extensions (list cups-filters
+                               hplip-minimal))))
 
    ;; Connman for WiFi. We could use '(iwd) in `shepherd-requirement', but there
    ;; is currently no service that provides it.
@@ -103,6 +105,13 @@
    (set-xorg-configuration
     (xorg-configuration
      (keyboard-layout keyboard-layout)))
+
+   ;; List of special files to be symlinked. Specially useful for script
+   ;; shebangs. The first to entries, for `sh' and `env', are the default.
+   (service special-files-service-type
+            `(("/bin/sh" ,(file-append bash "/bin/sh"))
+              ("/usr/bin/env" ,(file-append coreutils "/bin/env"))
+              ("/bin/bash" ,(file-append bash "/bin/bash"))))
 
    ;; Base services. Note how we are using `cons*'
    %base-services))
