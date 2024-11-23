@@ -9,11 +9,8 @@ PREFIX    ?= /usr/local
 MANPREFIX ?= ${PREFIX}/share/man
 
 # includes and libs
-INCS = -I. -I/usr/include -I${X11INC} -I${FREETYPEINC}
-LIBS = -L/usr/lib -lc -lcrypt -L${X11LIB} -lX11 ${XINERAMALIBS} ${FREETYPELIBS} -lXext -lXrandr
-
-INCS = $(shell pkg-config --cflags x11 fontconfig freetype2)
-LIBS = -lc -lcrypt $(shell pkg-config --libs x11 fontconfig freetype2 xinerama xext xrandr)
+INCS = $(shell pkg-config --cflags x11 xft fontconfig freetype2 )
+LIBS = -lc $(shell pkg-config --libs x11 xft fontconfig freetype2 xinerama xext xrandr libcrypt)
 
 # flags
 CPPFLAGS  ?= -DVERSION=\"${VERSION}\" -D_DEFAULT_SOURCE -DHAVE_SHADOW_H -DXINERAMA
