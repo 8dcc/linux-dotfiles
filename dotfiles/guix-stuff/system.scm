@@ -46,6 +46,7 @@
  (packages (append (list (specification->package "neovim")
                          (specification->package "bash-completion")
                          (specification->package "man-pages")
+                         (specification->package "acpi")
                          (specification->package "gnupg")
                          (specification->package "pinentry")
                          (specification->package "curl")
@@ -64,9 +65,6 @@
   (cons*
    ;; Network Time Protocol, for time and date
    (service ntp-service-type)
-
-   ;; Power management
-   (service upower-service-type)
 
    ;; Login
    (service login-service-type)
