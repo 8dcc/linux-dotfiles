@@ -20,6 +20,7 @@
              (gnu packages cups)
              (gnu packages linux)
              (gnu packages bash)
+             (gnu packages man)
              (nongnu packages linux))
 
 (operating-system
@@ -44,6 +45,7 @@
  ;; for packages and 'guix install PACKAGE' to install a package.
  (packages (append (list (specification->package "neovim")
                          (specification->package "bash-completion")
+                         (specification->package "man-pages")
                          (specification->package "gnupg")
                          (specification->package "pinentry")
                          (specification->package "curl")
