@@ -9,6 +9,8 @@
   #:use-module (gnu home services)
   #:use-module (gnu services)
   #:use-module (gnu packages xorg)
+  #:use-module (gnu packages xdisorg)
+  #:use-module (gnu packages image-viewers)
   #:use-module (gnu packages emacs)
   #:use-module (gnu packages video)
   #:use-module ((x8dcc-channel packages suckless) #:prefix x8dcc-suckless:))
@@ -17,7 +19,8 @@
  (packages
   (list
 
-   ;; Desktop
+   ;; Desktop.
+   ;; See: https://lists.gnu.org/archive/html/help-guix/2018-07/msg00080.html
    xorg-server
    xinit
    xf86-input-libinput
@@ -25,16 +28,19 @@
    xf86-video-fbdev
    x8dcc-suckless:dwm
 
-   ;; Xorg utils
+   ;; Xorg utils.
    xmodmap
    setxkbmap
 
-   ;; Essentials
+   ;; Custom suckless builds.
    x8dcc-suckless:dmenu
    x8dcc-suckless:slock
    x8dcc-suckless:st
 
-   ;; Misc
+   ;; Misc.
+   maim
+   xclip
+   feh
    emacs
    mpv))
 
