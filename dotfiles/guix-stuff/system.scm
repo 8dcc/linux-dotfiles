@@ -35,10 +35,15 @@
  (users (cons* (user-account
                 (name "username")
                 (comment "username")
-                (group "users")
+                (group "username")
                 (home-directory "/home/username")
-                (supplementary-groups '("wheel" "netdev" "audio" "video")))
+                (supplementary-groups
+                 '("users" "wheel" "netdev" "audio" "video" "dialout")))
                %base-user-accounts))
+
+ (groups
+  (cons* (user-group (name "username"))
+         %base-groups))
 
  ;; Packages installed system-wide.  Users can also install packages
  ;; under their own account: use 'guix search KEYWORD' to search
