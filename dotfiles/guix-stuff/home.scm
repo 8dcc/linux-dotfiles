@@ -9,6 +9,7 @@
   #:use-module (gnu home services)
   #:use-module (gnu services)
   #:use-module (gnu packages xorg)
+  #:use-module (gnu packages pulseaudio)
   #:use-module (gnu packages fonts)
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages image-viewers)
@@ -21,8 +22,8 @@
  (packages
   (list
 
-   ;; Desktop.
-   ;; See: https://lists.gnu.org/archive/html/help-guix/2018-07/msg00080.html
+   ;; Window manager. For more information on Xorg, see:
+   ;; https://lists.gnu.org/archive/html/help-guix/2018-07/msg00080.html
    xorg-server
    xinit
    xf86-input-libinput
@@ -33,6 +34,10 @@
    ;; Xorg utils.
    xmodmap
    setxkbmap
+   xsetroot
+
+   ;; Audio (amixer).
+   alsa-utils
 
    ;; Custom suckless builds.
    x8dcc-suckless:dmenu
