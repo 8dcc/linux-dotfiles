@@ -9,11 +9,13 @@
   #:use-module (gnu home services)
   #:use-module (gnu services)
   #:use-module (gnu packages xorg)
+  #:use-module (gnu packages fonts)
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages image-viewers)
   #:use-module (gnu packages emacs)
   #:use-module (gnu packages video)
-  #:use-module ((x8dcc-channel packages suckless) #:prefix x8dcc-suckless:))
+  #:use-module ((x8dcc-channel packages suckless) #:prefix x8dcc-suckless:)
+  #:use-module ((x8dcc-channel packages fonts) #:prefix x8dcc-fonts:))
 
 (home-environment
  (packages
@@ -36,6 +38,10 @@
    x8dcc-suckless:dmenu
    x8dcc-suckless:slock
    x8dcc-suckless:st
+
+   ;; Fonts
+   font-cozette
+   x8dcc-fonts:font-dina
 
    ;; Misc.
    maim
