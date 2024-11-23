@@ -10,11 +10,11 @@
   #:use-module (gnu services))
 
 (home-environment
-  (services
-    (list
+ (services
+  (list
 
-      ;; Add the specified directory to $PATH. Used for many
-      ;; scripts and some binaries that are not packaged.
-      (simple-service 'x8dcc/path-extension 
-                      home-environment-variables-service-type
-                      '(("PATH" . "/usr/local/bin/:$PATH"))))))
+   ;; Add the specified directory to $PATH. Used for many
+   ;; scripts and some binaries that are not packaged.
+   (simple-service 'x8dcc/path-extension
+                   home-environment-variables-service-type
+                   '(("PATH" . "/usr/local/bin/:$PATH"))))))
