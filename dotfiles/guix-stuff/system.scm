@@ -6,8 +6,20 @@
 
 ;; Indicate which modules to import to access the variables
 ;; used in this configuration.
-(use-modules (gnu) (nongnu packages linux))
-(use-service-modules cups desktop networking ssh xorg)
+(use-modules (gnu)
+             (gnu system privilege)
+             (gnu packages nfs)
+             (gnu packages cups)
+             (gnu services base)
+             (gnu services pm)
+             (gnu services networking)
+             (gnu services ssh)
+             (gnu services cups)
+             (gnu services sound)
+             (gnu services xorg)
+             (gnu services desktop)
+             (gnu packages linux)
+             (nongnu packages linux))
 
 (operating-system
  (kernel linux)
@@ -37,34 +49,70 @@
                          (specification->package "make")
                          (specification->package "gdb")
                          (specification->package "xxd")
-                         (specification->package "htop")
-                         (specification->package "openbox"))
+                         (specification->package "htop"))
                    %base-packages))
 
  ;; Below is the list of system services.  To search for available
  ;; services, run 'guix system search KEYWORD' in a terminal.
  (services
-  (append (list (service openssh-service-type)
-                (service cups-service-type)
-                (service connman-service-type)
-                (set-xorg-configuration
-                 (xorg-configuration (keyboard-layout keyboard-layout))))
+  (cons*
+   ;; Network Time Protocol, for time and date
+   (service ntp-service-type)
 
-          ;; FIXME: It might be honestly better to remove `desktop-services'
-          ;; altogether and just add the useful packages manually.
-          (filter (lambda (serv)
-                    (not (member (service-kind serv)
-                                 (list gdm-service-type ; FIXME: Not getting removed
-                                       network-manager-service-type
-                                       modem-manager-service-type))))
-                  %desktop-services)))
+   ;; Power management
+   (service upower-service-type)
+
+   ;; Login
+   (service login-service-type)
+
+   ;; Port of systemd's logind. TODO: Needed?
+   (service elogind-service-type)
+
+   ;; Allow desktop users to also mount NTFS and NFS file systems without root.
+   ;; NOTE: Extracted from "gnu/services/desktop.scm" @ 8a7bd211d2.
+   (simple-service 'mount-setuid-helpers privileged-program-service-type
+                   (map file-like->setuid-program
+                        (list (file-append nfs-utils "/sbin/mount.nfs")
+                              (file-append ntfs-3g "/sbin/mount.ntfs-3g"))))
+
+   ;; OpenSSH server
+   (service openssh-service-type)
+
+   ;; Printing
+   (service cups-service-type
+	        (cups-configuration
+	         (web-interface? #t)
+	         (extensions (list cups-filters hplip-minimal))))
+
+   ;; Connman for WiFi. We could use '(iwd) in `shepherd-requirement', but there
+   ;; is currently no service that provides it.
+   (service wpa-supplicant-service-type)
+   (service connman-service-type
+            (connman-configuration
+             (shepherd-requirement '(wpa-supplicant))))
+
+   ;; Audio
+   (service alsa-service-type
+            (alsa-configuration
+             (pulseaudio? #t)))
+
+   ;; Configuration for Xorg
+   (set-xorg-configuration
+    (xorg-configuration
+     (keyboard-layout keyboard-layout)))
+
+   ;; Base services. Note how we are using `cons*'
+   %base-services))
+
  (bootloader (bootloader-configuration
               (bootloader grub-efi-bootloader)
               (targets (list "/boot/efi"))
               (keyboard-layout keyboard-layout)))
+
  (swap-devices (list (swap-space
                       (target (uuid
                                "XXX")))))
+
  (mapped-devices (list (mapped-device
                         (source (uuid
                                  "XXX"))
