@@ -10,9 +10,11 @@
   #:use-module (gnu services)
   #:use-module (gnu packages xorg)
   #:use-module (gnu packages pulseaudio)
+  #:use-module (gnu packages linux)
   #:use-module (gnu packages fonts)
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages image-viewers)
+  #:use-module (gnu packages syncthing)
   #:use-module (gnu packages emacs)
   #:use-module (gnu packages video)
   #:use-module ((x8dcc-channel packages suckless) #:prefix x8dcc-suckless:)
@@ -52,6 +54,7 @@
    maim
    xclip
    feh
+   syncthing
    emacs
    mpv))
 
