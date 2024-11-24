@@ -18,6 +18,7 @@
   #:use-module (gnu packages emacs)
   #:use-module (gnu packages video)
   #:use-module ((x8dcc-channel packages suckless) #:prefix x8dcc-suckless:)
+  #:use-module ((x8dcc-channel packages self) #:prefix x8dcc-self:)
   #:use-module ((x8dcc-channel packages fonts) #:prefix x8dcc-fonts:))
 
 (home-environment
@@ -38,17 +39,22 @@
    setxkbmap
    xsetroot
 
-   ;; Audio (amixer).
-   alsa-utils
-
    ;; Custom suckless builds.
    x8dcc-suckless:dmenu
    x8dcc-suckless:slock
    x8dcc-suckless:st
 
-   ;; Fonts
+   ;; Fonts.
    font-cozette
    x8dcc-fonts:font-dina
+
+   ;; Audio (amixer).
+   alsa-utils
+
+   ;; Personal utilities.
+   x8dcc-self:snc
+   x8dcc-self:plumber
+   x8dcc-self:bin-graph
 
    ;; Misc.
    maim
