@@ -4,6 +4,8 @@
 ;; Run `guix system reconfigure ~/.config/guix/system.scm' after updating it.
 ;;------------------------------------------------------------------------------
 
+;; TODO: Move to Org-mode, remove comments.
+
 ;; Indicate which modules to import to access the variables
 ;; used in this configuration.
 (use-modules (gnu)
@@ -32,14 +34,16 @@
  (host-name "XXX")
 
  ;; The list of user accounts ('root' is implicit).
- (users (cons* (user-account
-                (name "username")
-                (comment "username")
-                (group "username")
-                (home-directory "/home/username")
-                (supplementary-groups
-                 '("users" "wheel" "netdev" "audio" "video" "dialout")))
-               %base-user-accounts))
+ (users
+  (cons*
+   (user-account
+    (name "username")
+    (comment "username")
+    (group "username")
+    (home-directory "/home/username")
+    (supplementary-groups
+     '("users" "wheel" "netdev" "audio" "video" "dialout")))
+   %base-user-accounts))
 
  (groups
   (cons* (user-group (name "username"))
@@ -48,21 +52,24 @@
  ;; Packages installed system-wide.  Users can also install packages
  ;; under their own account: use 'guix search KEYWORD' to search
  ;; for packages and 'guix install PACKAGE' to install a package.
- (packages (append (list (specification->package "neovim")
-                         (specification->package "bash-completion")
-                         (specification->package "man-pages")
-                         (specification->package "acpi")
-                         (specification->package "gnupg")
-                         (specification->package "pinentry")
-                         (specification->package "curl")
-                         (specification->package "git")
-                         (specification->package "gcc-toolchain")
-                         (specification->package "make")
-                         (specification->package "gdb")
-                         (specification->package "xxd")
-                         (specification->package "tree")
-                         (specification->package "htop"))
-                   %base-packages))
+ (packages
+  (append
+   (list
+    (specification->package "neovim")
+    (specification->package "bash-completion")
+    (specification->package "man-pages")
+    (specification->package "acpi")
+    (specification->package "gnupg")
+    (specification->package "pinentry")
+    (specification->package "curl")
+    (specification->package "git")
+    (specification->package "gcc-toolchain")
+    (specification->package "make")
+    (specification->package "gdb")
+    (specification->package "xxd")
+    (specification->package "tree")
+    (specification->package "htop"))
+   %base-packages))
 
  ;; Below is the list of system services.  To search for available
  ;; services, run 'guix system search KEYWORD' in a terminal.
@@ -74,7 +81,7 @@
    ;; Login
    (service login-service-type)
 
-   ;; Port of systemd's logind. TODO: Needed?
+   ;; Port of systemd's logind
    (service elogind-service-type)
 
    ;; Allow desktop users to also mount NTFS and NFS file systems without root.
@@ -89,8 +96,8 @@
 
    ;; Printing
    (service cups-service-type
-	        (cups-configuration
-	         (web-interface? #t)
+         (cups-configuration
+          (web-interface? #t)
              (extensions (list cups-filters
                                hplip-minimal))))
 
@@ -121,31 +128,32 @@
    ;; Base services. Note how we are using `cons*'
    %base-services))
 
- (bootloader (bootloader-configuration
-              (bootloader grub-efi-bootloader)
-              (targets (list "/boot/efi"))
-              (keyboard-layout keyboard-layout)))
+ (bootloader
+  (bootloader-configuration
+   (bootloader grub-efi-bootloader)
+   (targets (list "/boot/efi"))
+   (keyboard-layout keyboard-layout)))
 
- (swap-devices (list (swap-space
-                      (target (uuid
-                               "XXX")))))
+ (swap-devices
+  (list (swap-space
+          (target (uuid "XXX")))))
 
- (mapped-devices (list (mapped-device
-                        (source (uuid
-                                 "XXX"))
-                        (target "guix")
-                        (type luks-device-mapping))))
+ (mapped-devices
+  (list (mapped-device
+         (source (uuid "XXX"))
+         (target "guix")
+         (type luks-device-mapping))))
 
  ;; The list of file systems that get "mounted".  The unique
  ;; file system identifiers there ("UUIDs") can be obtained
  ;; by running 'blkid' in a terminal.
- (file-systems (cons* (file-system
-                       (mount-point "/")
-                       (device "/dev/mapper/guix")
-                       (type "ext4")
-                       (dependencies mapped-devices))
-                      (file-system
-                       (mount-point "/boot/efi")
-                       (device (uuid "XXX"
-                                     'fat32))
-                       (type "vfat")) %base-file-systems)))
+ (file-systems
+  (cons* (file-system
+           (mount-point "/")
+           (device "/dev/mapper/guix")
+           (type "ext4")
+           (dependencies mapped-devices))
+         (file-system
+           (mount-point "/boot/efi")
+           (device (uuid "XXX" 'fat32))
+           (type "vfat")) %base-file-systems)))
