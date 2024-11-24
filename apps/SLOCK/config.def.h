@@ -1,12 +1,9 @@
-/* user and group to drop privileges to */
-static const char *user  = "slock";
-static const char *group = "slock";
 
 static const char *colorname[NUMCOLS] = {
-	[BACKGROUND] =   "#0f111a",     /* after initialization */
-	[INIT] =   "#e5e9f0",     /* after initialization */
-	[INPUT] =  "#81a1c1",   /* during input */
-	[FAILED] = "#bf616a",   /* wrong password */
+	[BACKGROUND] = "#0f111a",  /* after initialization */
+	[INIT]       = "#e5e9f0",  /* after initialization */
+	[INPUT]      = "#81a1c1",  /* during input */
+	[FAILED]     = "#bf616a",  /* wrong password */
 };
 
 /* treat a cleared input like a wrong password (color) */

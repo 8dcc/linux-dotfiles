@@ -1,7 +1,7 @@
 # slock version
 VERSION = 1.4
 
-# user for slock
+# user and group for slock
 SLOCKUSER ?= slock
 
 # paths
@@ -13,7 +13,7 @@ INCS = $(shell pkg-config --cflags x11 xft fontconfig freetype2 )
 LIBS = -lc $(shell pkg-config --libs x11 xft fontconfig freetype2 xinerama xext xrandr libcrypt)
 
 # flags
-CPPFLAGS  ?= -DVERSION=\"${VERSION}\" -D_DEFAULT_SOURCE -DHAVE_SHADOW_H -DXINERAMA
+CPPFLAGS  ?= -DVERSION=\"${VERSION}\" -D_DEFAULT_SOURCE -DHAVE_SHADOW_H -DXINERAMA -DSLOCKUSER=\"${SLOCKUSER}\"
 CFLAGS    ?= -std=c99 -pedantic -Wall -Os ${INCS} ${CPPFLAGS}
 LDFLAGS   ?= -s ${LIBS}
 COMPATSRC ?= explicit_bzero.c

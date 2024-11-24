@@ -57,7 +57,7 @@ install: all
 	@chmod 644 ${DESTDIR}${MANPREFIX}/man1/slock.1
 ifneq (${SLOCKUSER},)
 	@echo trying to add user and group \"${SLOCKUSER}\"
-	@id -u ${SLOCKUSER} >/dev/null 2>&1 || useradd ${SLOCKUSER}
+	@id -u ${SLOCKUSER} >/dev/null 2>&1 || useradd --user-group ${SLOCKUSER}
 endif
 
 uninstall:

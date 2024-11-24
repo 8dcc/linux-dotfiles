@@ -383,16 +383,16 @@ main(int argc, char **argv) {
 
 	/* validate drop-user and -group */
 	errno = 0;
-	if (!(pwd = getpwnam(user)))
-		die("slock: getpwnam %s: %s\n"
+	if (!(pwd = getpwnam(SLOCKUSER)))
+		die("slock: getpwnam '%s': %s\n"
 			"Tip: Try creating the specified user manually.\n",
-			user, errno ? strerror(errno) : "user entry not found");
+			SLOCKUSER, errno ? strerror(errno) : "user entry not found");
 	duid = pwd->pw_uid;
 	errno = 0;
-	if (!(grp = getgrnam(group)))
-		die("slock: getgrnam %s: %s\n"
+	if (!(grp = getgrnam(SLOCKUSER)))
+		die("slock: getgrnam '%s': %s\n"
 			"Tip: Try creating the specified group manually.\n",
-			group, errno ? strerror(errno) : "group entry not found");
+			SLOCKUSER, errno ? strerror(errno) : "group entry not found");
 	dgid = grp->gr_gid;
 
 #ifdef __linux__
