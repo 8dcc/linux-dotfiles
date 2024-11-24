@@ -106,7 +106,13 @@
    (service wpa-supplicant-service-type)
    (service connman-service-type
             (connman-configuration
-             (shepherd-requirement '(wpa-supplicant))))
+             (shepherd-requirement '(wpa-supplicant))
+             (disable-vpn? #t)
+             (general-configuration
+              (connman-general-configuration
+               (allow-hostname-updates? #f)
+               (allow-domainname-updates? #f)
+               (single-connected-technology? #f)))))
 
    ;; Audio
    (service alsa-service-type
