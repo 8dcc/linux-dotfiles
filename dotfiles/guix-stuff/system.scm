@@ -10,6 +10,7 @@
 ;; used in this configuration.
 (use-modules (gnu)
              (gnu system privilege)
+             (gnu system setuid)
              (gnu services base)
              (gnu services pm)
              (gnu services networking)
@@ -23,6 +24,7 @@
              (gnu packages linux)
              (gnu packages bash)
              (gnu packages man)
+             ((x8dcc-channel packages suckless) #:prefix x8dcc-suckless:)
              (nongnu packages linux))
 
 (operating-system
@@ -38,16 +40,31 @@
   (cons*
    (user-account
     (name "username")
-    (comment "username")
     (group "username")
     (home-directory "/home/username")
     (supplementary-groups
      '("users" "wheel" "netdev" "audio" "video" "dialout")))
+
+   ;; For 'x8dcc-suckless:slock'.
+   (user-account
+    (name "slock")
+    (group "slock")
+    (system? #t)
+    (create-home-directory? #f))
+
    %base-user-accounts))
 
  (groups
-  (cons* (user-group (name "username"))
-         %base-groups))
+  (cons*
+   (user-group
+    (name "username"))
+
+   ;; For 'x8dcc-suckless:slock'.
+   (user-group
+    (name "slock")
+    (system? #t))
+
+   %base-groups))
 
  ;; Packages installed system-wide.  Users can also install packages
  ;; under their own account: use 'guix search KEYWORD' to search
@@ -68,7 +85,8 @@
     (specification->package "gdb")
     (specification->package "xxd")
     (specification->package "tree")
-    (specification->package "htop"))
+    (specification->package "htop")
+    x8dcc-suckless:slock)
    %base-packages))
 
  ;; Below is the list of system services.  To search for available
@@ -133,6 +151,34 @@
 
    ;; Base services. Note how we are using `cons*'
    %base-services))
+
+ ;; List of privileged programs. They need the 'suid' bit, the 'guid' bit, or
+ ;; some specific capability. For more information, see:
+ ;;   - https://guix.gnu.org/manual/devel/en/guix.html#Privileged-Programs
+ ;;   - setuid(3p)
+ ;;   - setgid(3p)
+ ;;   - capabilities(7)
+ (privileged-programs
+  (cons*
+   (privileged-program
+    (program (file-append x8dcc-suckless:slock "/bin/slock"))
+
+    ;; The user needs to be root (instead of "slock", for example) because we
+    ;; will add a capability below, and all the files in '/proc/self/*' will be
+    ;; owned by root. There are alternatives, but they are not worth it. See:
+    ;; https://stackoverflow.com/a/50953560/11715554
+    (user "root")
+    (group "root")
+
+    ;; Needed so the program gets executed as root.
+    (setuid? #t)
+
+    ;; The 'CAP_SYS_RESOURCE' capability is needed for writing to
+    ;; '/proc/self/oom_score_adj', the 'CAP_SETGID' capability is needed for
+    ;; setuid(2), and the 'CAP_SETGID' capability is needed for setgid(2) and
+    ;; setgroups(2). See also proc_pid_oom_score(5) or simply proc(5).
+    (capabilities "cap_sys_resource=eip cap_setuid=eip cap_setgid=eip"))
+   %default-privileged-programs))
 
  (bootloader
   (bootloader-configuration

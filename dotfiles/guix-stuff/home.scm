@@ -39,9 +39,10 @@
    setxkbmap
    xsetroot
 
-   ;; Custom suckless builds.
+   ;; Custom suckless builds. The 'slock' package is already in 'system.scm'
+   ;; because it needs to have the 'setuid' bit set using the 'setuid-programs'
+   ;; entry inside 'operating-system'.
    x8dcc-suckless:dmenu
-   x8dcc-suckless:slock
    x8dcc-suckless:st
 
    ;; Fonts.
