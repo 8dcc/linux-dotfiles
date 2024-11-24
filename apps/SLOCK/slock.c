@@ -82,14 +82,14 @@ dontkillme(void)
 		if (errno == ENOENT)
 			return;
 		die("slock: fopen %s: %s\n"
-            "Tip: Make sure the binary has the 'CAP_SYS_RESOURCE' capability."
+            "Tip: Make sure the binary has the 'CAP_SYS_RESOURCE' capability. "
             "See capabilities(7).\n", oomfile, strerror(errno));
 	}
 	fprintf(f, "%d", OOM_SCORE_ADJ_MIN);
 	if (fclose(f)) {
 		if (errno == EACCES)
 			die("slock: unable to disable OOM killer.\n"
-			    "Tip: Make sure the 'suid' or 'sgid' bits are set in the slock"
+			    "Tip: Make sure the 'suid' or 'sgid' bits are set in the slock "
                 "binary.\n");
 		else
 			die("slock: fclose %s: %s\n", oomfile, strerror(errno));
@@ -118,7 +118,7 @@ gethash(void)
 		struct spwd *sp;
 		if (!(sp = getspnam(pw->pw_name)))
 			die("slock: getspnam: cannot retrieve shadow entry.\n"
-			    "Tip: Make sure the 'suid' or 'sgid' bits are set in the slock"
+			    "Tip: Make sure the 'suid' or 'sgid' bits are set in the slock "
                 "binary.\n");
 		hash = sp->sp_pwdp;
 	}
@@ -127,12 +127,12 @@ gethash(void)
 #ifdef __OpenBSD__
 		if (!(pw = getpwuid_shadow(getuid())))
 			die("slock: getpwnam_shadow: cannot retrieve shadow entry.\n"
-			    "Tip: Make sure the 'suid' or 'sgid' bits are set in the slock"
+			    "Tip: Make sure the 'suid' or 'sgid' bits are set in the slock "
                 "binary.\n");
 		hash = pw->pw_passwd;
 #else
 		die("slock: getpwuid: cannot retrieve shadow entry.\n"
-		    "Tip: Make sure the 'suid' or 'sgid' bits are set in the slock"
+		    "Tip: Make sure the 'suid' or 'sgid' bits are set in the slock "
             "binary.\n");
 #endif /* __OpenBSD__ */
 	}
