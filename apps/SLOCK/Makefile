@@ -55,7 +55,7 @@ install: all
 	@mkdir -p ${DESTDIR}${MANPREFIX}/man1
 	@sed "s/VERSION/${VERSION}/g" <slock.1 >${DESTDIR}${MANPREFIX}/man1/slock.1
 	@chmod 644 ${DESTDIR}${MANPREFIX}/man1/slock.1
-ifneq (${SLOCKUSER},)
+ifeq (${CREATEUSER},yes)
 	@echo trying to add user and group \"${SLOCKUSER}\"
 	@id -u ${SLOCKUSER} >/dev/null 2>&1 || useradd --user-group ${SLOCKUSER}
 endif
