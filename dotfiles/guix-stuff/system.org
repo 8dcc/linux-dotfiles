@@ -1,0 +1,488 @@
+#+TITLE: Guix System configuration
+#+AUTHOR: 8dcc
+#+OPTIONS: toc:3
+#+STARTUP: nofold
+#+PROPERTY: header-args:scheme :noweb yes
+
+#+MACRO: man [[https://man.cx/$1][=$1=]]
+
+* License and header
+
+GPLv3+ license, and small note about org-mode.
+
+#+begin_src scheme :tangle system.scm
+;; Copyright 2024 8dcc. All Rights Reserved.
+;;
+;; This program is free software: you can redistribute it and/or modify it under
+;; the terms of the GNU General Public License as published by the Free Software
+;; Foundation, either version 3 of the License, or (at your option) any later
+;; version.
+;;
+;; This program is distributed in the hope that it will be useful, but WITHOUT
+;; ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+;; FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+;; details.
+;;
+;; You should have received a copy of the GNU General Public License along with
+;; this program.  If not, see <https://www.gnu.org/licenses/>.
+;;
+;; -----------------------------------------------------------------------------
+;;
+;; This file should go in '~/.config/guix/system.scm'. After updating it, run:
+;;
+;;     guix system reconfigure ~/.config/guix/system.scm
+;;
+;; NOTE: This source code has been generated from an Org mode file. See the
+;; original repository for more information:
+;; https://github.com/8dcc/linux-dotfiles
+#+end_src
+
+* Imports
+
+First, we import the modules used to access some variables in the configuration.
+
+TODO: Perhaps we could use Org's noweb syntax for this, and move specific
+modules to their sections?
+
+#+begin_src scheme :tangle system.scm
+(use-modules (gnu)
+             (gnu system privilege)
+             (gnu system setuid)
+             (gnu services base)
+             (gnu services pm)
+             (gnu services networking)
+             (gnu services ssh)
+             (gnu services cups)
+             (gnu services sound)
+             (gnu services xorg)
+             (gnu services desktop)
+             (gnu packages nfs)
+             (gnu packages cups)
+             (gnu packages linux)
+             (gnu packages bash)
+             (gnu packages man)
+             ((x8dcc-channel packages suckless) #:prefix x8dcc-suckless:)
+             (nongnu packages linux))
+#+end_src
+
+* Operating system definition
+
+This is the actual definition for the operating system. The labels between
+=<<...>>= indicate [[https://orgmode.org/org.html#Noweb-Reference-Syntax][org-mode's noweb syntax]]. They are not ignored because we
+specified a =:noweb yes= property for all =scheme= source blocks above.
+
+When tangling the file, the source blocks whose =noweb-ref= [[https://orgmode.org/org.html#Using-Header-Arguments][header argument]]
+matches =operating-system-body= will be inserted here. This "noweb" reference
+syntax will be used throughout this file, even when the source blocks are not
+ordered.
+
+#+begin_src scheme :tangle system.scm
+(operating-system
+ <<operating-system-body>>)
+#+end_src
+
+** General configuration
+
+Some general information for the OS.
+
+NOTE: Make sure you replace the =XXX= parts with information relevant to your
+machine.
+
+#+begin_src scheme :noweb-ref operating-system-body
+(kernel linux)
+(firmware (list linux-firmware))
+(locale "en_US.utf8")
+(timezone "XXX")
+(keyboard-layout (keyboard-layout "XXX"))
+(host-name "XXX")
+#+end_src
+
+** Users
+
+Next, the user list. The =root= user is implicit. Note how we "append" all users
+to the =%base-user-accounts= variable using the =cons*= procedure.
+
+#+begin_src scheme :noweb-ref operating-system-body
+(users
+ (cons*
+  <<user-accounts>>
+  ;; Prepend users to:
+  %base-user-accounts))
+#+end_src
+
+The first user is called literally =username=. The password is not set here, so it
+must be set after installing the system.
+
+#+begin_src scheme :noweb-ref user-accounts
+(user-account
+ (name "username")
+ (group "username")
+ (home-directory "/home/username")
+ (supplementary-groups
+  '("users" "wheel" "netdev" "audio" "video" "dialout")))
+#+end_src
+
+We will also set other system user in other sections below, in source blocks
+whose =:noweb-ref= header argument is =user-accounts=.
+
+** Groups
+
+We set the groups for the system, similarly to users.
+
+#+begin_src scheme :noweb-ref operating-system-body
+(groups
+ (cons*
+  <<groups>>
+  ;; Prepend groups to:
+  %base-groups))
+#+end_src
+
+We also setup a group for the user account.
+
+#+begin_src scheme :noweb-ref groups
+(user-group
+ (name "username"))
+#+end_src
+
+** System-wide packages
+
+Because of how Guix is designed, most packages should not be installed
+system-wide. However, some packages are essential or need special permissions.
+
+For more information, see the following blog articles and manual sections:
+
+- [[https://guix.gnu.org/manual/devel/en/html_node/The-Store.html][The Store]] section in the Guix manual.
+- [[https://guix.gnu.org/en/blog/2019/guix-profiles-in-practice/][Guix Profiles in Practice]].
+- [[https://guix.gnu.org/en/blog/2023/dissecting-guix-part-1-derivations/][Dissecting Guix, Part 1: Derivations]].
+- [[https://guix.gnu.org/en/blog/2023/dissecting-guix-part-2-the-store-monad/][Dissecting Guix, Part 2: The Store Monad]].
+- [[https://guix.gnu.org/en/blog/2023/dissecting-guix-part-3-g-expressions/][Dissecting Guix, Part 3: G-Expressions]].
+
+This is the list of system-wide packages used by Guix. We append our own
+packages to the =%base-packages= list.
+
+#+begin_src scheme :noweb-ref operating-system-body
+(packages
+ (cons*
+  <<packages>>
+  ;; Prepend packages to:
+  %base-packages))
+#+end_src
+
+*** General packages
+
+Important packages that should be installed system-wide.
+
+#+begin_src scheme :noweb-ref packages
+(specification->package "neovim")
+(specification->package "curl")
+(specification->package "man-pages")
+(specification->package "acpi")
+(specification->package "tree")
+(specification->package "htop")
+#+end_src
+
+Packages related to the [[https://gnupg.org/][GNU Privacy Guard]].
+
+#+begin_src scheme :noweb-ref packages
+(specification->package "gnupg")
+(specification->package "pinentry")
+#+end_src
+
+Packages oriented to software development.
+
+#+begin_src scheme :noweb-ref packages
+(specification->package "git")
+(specification->package "gcc-toolchain")
+(specification->package "make")
+(specification->package "gdb")
+(specification->package "xxd")
+#+end_src
+
+*** Bash completion
+
+Bash completion deserves its own subsection because there are some additional
+settings that need to be made.
+
+First, add the package to the list.
+
+#+begin_src scheme :noweb-ref packages
+(specification->package "bash-completion")
+#+end_src
+
+We also need to create an entry in the =special-files-service= list (see [[*Services][Services]]
+below). That way, my =.bashrc= file can load the file from =/etc/bash_completion=.
+
+NOTE: The manual warns about using this for files under =/etc=.
+
+#+begin_src scheme :noweb-ref extra-special-files
+(extra-special-file
+ "/etc/bash_completion"
+ (file-append bash-completion "/share/bash-completion/bash_completion"))
+#+end_src
+
+*** Screen locker
+
+The screen locker, suckless' [[https://tools.suckless.org/slock/][slock]], also deserves its own section.
+
+First, add the package to the list. Note how we are not using the
+=specification->package= procedure, but instead inserting the package directly,
+imported from ~(x8dcc-channel packages suckless)~ with the =x8dcc-suckless:= prefix.
+
+#+begin_src scheme :noweb-ref packages
+x8dcc-suckless:slock
+#+end_src
+
+We will need a system user and group for the =x8dcc-suckless:slock= package. The
+screen locker is designed to drop privileges to this user and group. The name
+for the user and group is specified at compile-time (could be overwritten by
+modifying the package recipe).
+
+First, the =slock= user. Notice how we overwrite the =system?= and
+=create-home-directory?= members. See [[https://guix.gnu.org/manual/devel/en/html_node/User-Accounts.html#index-user_002daccount][=user-account= data type]].
+
+#+begin_src scheme :noweb-ref user-accounts
+(user-account
+ (name "slock")
+ (group "slock")
+ (system? #t)
+ (create-home-directory? #f))
+#+end_src
+
+And the =slock= group.
+
+#+begin_src scheme :noweb-ref groups
+(user-group
+ (name "slock")
+ (system? #t))
+#+end_src
+
+We also have to specify that =slock= is a [[https://guix.gnu.org/manual/devel/en/html_node/Privileged-Programs.html][privileged program]]. More specifically,
+we need to ensure that:
+
+- The =user= and =group= that owns the binary is =root= (instead of =slock=, for
+  example). This is because we will add a capability below, and all the files in
+  =/proc/self/*= will be owned by root. There are alternatives, but they are not
+  worth it. See [[https://stackoverflow.com/a/50953560/11715554][StackOverflow answer]].
+- The =setuid= bit needs to be set, so a normal user is able to execute the binary
+  as the file owner (i.e. as =root=).
+- The binary has some {{{man(capabilities(7))}}}:
+  - The =CAP_SYS_RESOURCE= capability, needed for writing to
+    =/proc/self/oom_score_adj=. See the man page for =proc_pid_oom_score(5)= or
+    simply {{{man(proc(5))}}}.
+  - The =CAP_SETUID= capability, needed for {{{man(setuid(2))}}}.
+  - The =CAP_SETGID= capability, needed for {{{man(setgid(2))}}} and {{{man(setgroups(2))}}}.
+
+#+begin_src scheme :noweb-ref privileged-programs
+(privileged-program
+ (program (file-append x8dcc-suckless:slock "/bin/slock"))
+ (user "root")
+ (group "root")
+ (setuid? #t)
+ (capabilities "cap_sys_resource=eip cap_setuid=eip cap_setgid=eip"))
+#+end_src
+
+** Services
+
+This is the list of system [[https://guix.gnu.org/manual/devel/en/html_node/Services.html][services]]. To search for available services, run
+=guix system search KEYWORD= in a terminal.
+
+#+begin_src scheme :noweb-ref operating-system-body
+(services
+ (cons*
+  <<services>>
+  ;; Prepend services to:
+  %base-services))
+#+end_src
+
+*** General services
+
+[[https://en.wikipedia.org/wiki/Network_Time_Protocol][Network Time Protocol]], for time and date.
+
+#+begin_src scheme :noweb-ref services
+(service ntp-service-type)
+#+end_src
+
+Used for logging in.
+
+#+begin_src scheme :noweb-ref services
+(service login-service-type)
+#+end_src
+
+Standalone port of [[https://systemd.io/][systemd]]'s =logind=, required in some DE/WMs. Not a hard
+requirement in my configuration, but still useful (e.g. for rebooting with
+=loginctl=).
+
+#+begin_src scheme :noweb-ref services
+(service elogind-service-type)
+#+end_src
+
+Allow desktop users to also mount NTFS and NFS file systems without root.
+
+NOTE: Extracted from the Guix repo, "gnu/services/desktop.scm" @ 8a7bd211d2.
+
+#+begin_src scheme :noweb-ref services
+(simple-service 'mount-setuid-helpers privileged-program-service-type
+                (map file-like->setuid-program
+                     (list (file-append nfs-utils "/sbin/mount.nfs")
+                           (file-append ntfs-3g "/sbin/mount.ntfs-3g"))))
+#+end_src
+
+OpenSSH server.
+
+#+begin_src scheme :noweb-ref services
+(service openssh-service-type)
+#+end_src
+
+Printing with [[https://openprinting.github.io/cups/][CUPS]].
+
+#+begin_src scheme :noweb-ref services
+(service cups-service-type
+         (cups-configuration
+          (web-interface? #t)
+          (extensions (list cups-filters
+                            hplip-minimal))))
+#+end_src
+
+We use [[https://wiki.archlinux.org/title/ConnMan][=connman=]] and [[https://wiki.archlinux.org/title/Wpa_supplicant][=wpa_supplicant=]] for WiFi. We could use ~'(iwd)~ in
+=shepherd-requirement=, but there is currently no service that provides it (if
+there was, we wouldn't use =connman= in the first place). We use =wpa-supplicant=
+instead.
+
+#+begin_src scheme :noweb-ref services
+(service wpa-supplicant-service-type)
+(service connman-service-type
+         (connman-configuration
+          (shepherd-requirement '(wpa-supplicant))
+          (disable-vpn? #t)
+          (general-configuration
+           (connman-general-configuration
+            (allow-hostname-updates? #f)
+            (allow-domainname-updates? #f)
+            (single-connected-technology? #f)))))
+#+end_src
+
+We use [[https://en.wikipedia.org/wiki/Advanced_Linux_Sound_Architecture][ALSA]] and [[https://en.wikipedia.org/wiki/PulseAudio][Pulseaudio]] for sound.
+
+#+begin_src scheme :noweb-ref services
+(service alsa-service-type
+         (alsa-configuration
+          (pulseaudio? #t)))
+#+end_src
+
+We specify the keyboard layout for Xorg here, instead of using my
+=change-layout.sh= script.
+
+TODO: This doesn't work as expected.
+
+#+begin_src scheme :noweb-ref services
+(set-xorg-configuration
+ (xorg-configuration
+  (keyboard-layout keyboard-layout)))
+#+end_src
+
+We create services (using =extra-special-file=) for [[https://guix.gnu.org/manual/devel/en/html_node/Base-Services.html#index-special_002dfiles_002dservice_002dtype][special files]], which should be
+symlinked to files inside the store.
+
+#+begin_src scheme :noweb-ref services
+(extra-special-file "/bin/bash" (file-append bash "/bin/bash"))
+<<extra-special-files>>
+#+end_src
+
+** Privileged programs
+
+Quoting the [[https://guix.gnu.org/manual/devel/en/html_node/Privileged-Programs.html][Privileged Programs]] section of the Guix manual:
+
+#+begin_quote
+Some programs need to run with elevated privileges, even when they are launched
+by unprivileged users. A notorious example is the =passwd= program, which users
+can run to change their password, and which needs to access the =/etc/passwd= and
+=/etc/shadow= files; something normally restricted to root, for obvious security
+reasons. To address that, =passwd= should be [[https://www.gnu.org/software/libc/manual/html_node/How-Change-Persona.html#How-Change-Persona][/setuid-root/]], meaning that it always
+runs with root privileges.
+
+The store itself /cannot/ contain privileged programs: that would be a security
+issue since any user on the system can write derivations that populate [[https://guix.gnu.org/manual/devel/en/html_node/The-Store.html][the
+store]].
+#+end_quote
+
+Privileged programs are useful for:
+
+- Setting [[https://www.gnu.org/software/coreutils/manual/html_node/Directory-Setuid-and-Setgid.html][the Set-User-ID (SUID) and Set-Group-ID bits (SGID)]] of the binary.
+- Changing the {{{man(capabilities(7))}}} of the binary.
+
+Privileged programs are defined using the =privileged-program= data type.
+
+#+begin_src scheme :noweb-ref operating-system-body
+(privileged-programs
+ (cons*
+  <<privileged-programs>>
+  ;; Prepend privileged programs to:
+  %default-privileged-programs))
+#+end_src
+
+** Bootloader
+
+In this case, [[https://www.gnu.org/software/grub/][GRUB]] with EFI support. For old machines that don't support EFI,
+this should be changed. For reference, look at the system configuration
+generated by the Guix installer (from the ISO).
+
+#+begin_src scheme :noweb-ref operating-system-body
+(bootloader
+ (bootloader-configuration
+  (bootloader grub-efi-bootloader)
+  (targets (list "/boot/efi"))
+  (keyboard-layout keyboard-layout)))
+#+end_src
+
+** Swap
+
+We declare the swap devices, in this case one partition. Note that the partition
+should have been made by the user/installer.
+
+NOTE: Make sure to replace the =XXX= part with the UUID of the swap partition
+(e.g. =/dev/sda2=). You can use =sudo blkid= for obtaining the UUID.
+
+#+begin_src scheme :noweb-ref operating-system-body
+(swap-devices
+ (list (swap-space
+        (target (uuid "XXX")))))
+#+end_src
+
+** Mapped devices
+
+These are needed (in my case) when using a [[https://en.wikipedia.org/wiki/Linux_Unified_Key_Setup][LUKS]]-encrypted drive.
+
+NOTE: Make sure to replace the =XXX= part with the UUID of the /encrypted/ partition
+(e.g. =/dev/sda3=). You can use =sudo blkid= for obtaining the UUID.
+
+#+begin_src scheme :noweb-ref operating-system-body
+(mapped-devices
+ (list (mapped-device
+        (source (uuid "XXX"))
+        (target "guix")
+        (type luks-device-mapping))))
+#+end_src
+
+** File systems
+
+List of file systems. We use ~/dev/mapper/guix~ because that's where the decrypted
+partition will be mapped (see [[*Mapped devices][mapped devices]]). We also mount the EFI partition,
+since this is an EFI system (ass specified in the [[*Bootloader][bootloader]]).
+
+NOTE: Make sure to replace the =XXX= part with the UUID of the EFI partition
+(e.g. =/dev/sda1=). You can use =sudo blkid= for obtaining the UUID.
+
+#+begin_src scheme :noweb-ref operating-system-body
+(file-systems
+ (cons* (file-system
+         (mount-point "/")
+         (device "/dev/mapper/guix")
+         (type "ext4")
+         (dependencies mapped-devices))
+        (file-system
+         (mount-point "/boot/efi")
+         (device (uuid "XXX" 'fat32))
+         (type "vfat"))
+        ;; Prepend file systems to:
+        %base-file-systems))
+#+end_src
