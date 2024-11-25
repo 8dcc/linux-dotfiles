@@ -10,15 +10,15 @@ dte() {
     if [[ $hourchange == true ]]; then
         hour=$(date +"%H")
 
-        # Subtract one from the hour unless it is 00
+        # Subtract one from the hour unless it is 00.
         if [[ $hour == 00 ]]; then
             hour=23
         else
             hour=$(($hour + $hourdiff))
         fi
 
-        # Add a 0 after the subtraction
-        if [[ 0 <= $hour && $hour <= 9 ]]; then
+        # If (0 <= X <= 9), add a 0 after the subtraction.
+        if [[ 0 -le $hour && $hour -le 9 ]]; then
             hour="0$hour"
         fi
 
