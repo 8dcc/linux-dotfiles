@@ -16,6 +16,7 @@
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages image-viewers)
   #:use-module (gnu packages video)
+  #:use-module (gnu packages mail)
   #:use-module (gnu packages syncthing)
   #:use-module (gnu packages gnuzilla)
   #:use-module (gnu packages emacs)
@@ -71,6 +72,7 @@
 
    ;; Misc.
    xclip
+   mailutils
    syncthing
    icecat
    emacs))
