@@ -14,9 +14,10 @@
   #:use-module (gnu packages fonts)
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages image-viewers)
-  #:use-module (gnu packages syncthing)
-  #:use-module (gnu packages emacs)
   #:use-module (gnu packages video)
+  #:use-module (gnu packages syncthing)
+  #:use-module (gnu packages gnuzilla)
+  #:use-module (gnu packages emacs)
   #:use-module ((x8dcc-channel packages suckless) #:prefix x8dcc-suckless:)
   #:use-module ((x8dcc-channel packages self) #:prefix x8dcc-self:)
   #:use-module ((x8dcc-channel packages fonts) #:prefix x8dcc-fonts:))
@@ -57,13 +58,16 @@
    x8dcc-self:plumber
    x8dcc-self:bin-graph
 
-   ;; Misc.
+   ;; Media.
    maim
-   xclip
    feh
+   mpv
+
+   ;; Misc.
+   xclip
    syncthing
-   emacs
-   mpv))
+   icecat
+   emacs))
 
  (services
   (list
