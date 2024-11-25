@@ -12,6 +12,7 @@
   #:use-module (gnu packages pulseaudio)
   #:use-module (gnu packages linux)
   #:use-module (gnu packages fonts)
+  #:use-module (gnu packages aspell)
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages image-viewers)
   #:use-module (gnu packages video)
@@ -49,6 +50,11 @@
    ;; Fonts.
    font-cozette
    x8dcc-fonts:font-dina
+
+   ;; Dictionaries.
+   aspell
+   aspell-dict-en
+   aspell-dict-es
 
    ;; Audio (amixer).
    alsa-utils
