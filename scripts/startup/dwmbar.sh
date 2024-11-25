@@ -10,21 +10,21 @@ dte() {
     if [[ $hourchange == true ]]; then
         hour=$(date +"%H")
 
-            # Subtract one from the hour unless it is 00
-            if [[ $hour == 00 ]]; then
-                hour=23
-            else
-                hour=$(($hour + $hourdiff))
-            fi
-
-            # Add a 0 after the subtraction
-            if [[ $hour < 10 && $hour > 0 ]]; then
-                hour="0$hour"	# Kinda not working ngl
-            fi
-
-            dte="$(date +"%d-%b $hour:%M")"
+        # Subtract one from the hour unless it is 00
+        if [[ $hour == 00 ]]; then
+            hour=23
         else
-            dte="$(date +"%d-%b %R")"
+            hour=$(($hour + $hourdiff))
+        fi
+
+        # Add a 0 after the subtraction
+        if [[ 0 <= $hour && $hour <= 9 ]]; then
+            hour="0$hour"
+        fi
+
+        dte="$(date +"%d-%b $hour:%M")"
+    else
+        dte="$(date +"%d-%b %R")"
     fi
 
     echo "$dte"
@@ -63,11 +63,11 @@ vpn() {
 }
 
 vol() {
-    vol="$(amixer get Master | awk -F'[][]' 'END{print $2}')"
-    muted="$(amixer get Master | awk -F'[][]' 'END{print $4}')"
-    if [[ $muted == off ]]; then
+    status="$(amixer get Master | tail -n 1)"
+    if [[ "$status" =~ \[off\]$ ]]; then
         echo "Muted"
     else
+        vol="$(echo "$status" | awk -F'[][]' 'END{print $2}')"
         echo "$vol"
     fi
 }
@@ -130,5 +130,5 @@ status() {
 
 while true; do
     xsetroot -name "$(status)"
-    sleep 1
+    sleep 5
 done &
