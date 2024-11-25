@@ -144,10 +144,14 @@
 
    ;; List of special files to be symlinked. Specially useful for script
    ;; shebangs. The first to entries, for `sh' and `env', are the default.
-   (service special-files-service-type
-            `(("/bin/sh" ,(file-append bash "/bin/sh"))
-              ("/usr/bin/env" ,(file-append coreutils "/bin/env"))
-              ("/bin/bash" ,(file-append bash "/bin/bash"))))
+   (service
+    special-files-service-type
+    `(("/bin/sh" ,(file-append bash "/bin/sh"))
+      ("/usr/bin/env" ,(file-append coreutils "/bin/env"))
+      ("/bin/bash" ,(file-append bash "/bin/bash"))
+      ("/etc/bash_completion"
+       ,(file-append bash-completion
+                     "/share/bash-completion/bash_completion"))))
 
    ;; Base services. Note how we are using `cons*'
    %base-services))
