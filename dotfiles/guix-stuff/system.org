@@ -2,7 +2,7 @@
 #+AUTHOR: 8dcc
 #+OPTIONS: toc:3
 #+STARTUP: nofold
-#+PROPERTY: header-args:scheme :noweb yes
+#+PROPERTY: header-args:scheme :noweb no-export
 
 #+MACRO: man [[https://man.cx/$1][=$1=]]
 
@@ -69,7 +69,7 @@ modules to their sections?
 
 This is the actual definition for the operating system. The labels between
 =<<...>>= indicate [[https://orgmode.org/org.html#Noweb-Reference-Syntax][org-mode's noweb syntax]]. They are not ignored because we
-specified a =:noweb yes= property for all =scheme= source blocks above.
+specified a =:noweb= property for all =scheme= source blocks above.
 
 When tangling the file, the source blocks whose =noweb-ref= [[https://orgmode.org/org.html#Using-Header-Arguments][header argument]]
 matches =operating-system-body= will be inserted here. This "noweb" reference
