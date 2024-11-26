@@ -1,0 +1,266 @@
+#+TITLE: Guix home configuration
+#+AUTHOR: 8dcc
+#+OPTIONS: toc:3
+#+STARTUP: nofold
+#+PROPERTY: header-args:scheme :noweb no-export
+
+#+MACRO: man [[https://man.cx/$1][=$1=]]
+
+* License and header
+
+GPLv3+ license, and small note about org-mode.
+
+#+begin_src scheme :tangle home.scm
+;; Copyright 2024 8dcc. All Rights Reserved.
+;;
+;; This program is free software: you can redistribute it and/or modify it under
+;; the terms of the GNU General Public License as published by the Free Software
+;; Foundation, either version 3 of the License, or (at your option) any later
+;; version.
+;;
+;; This program is distributed in the hope that it will be useful, but WITHOUT
+;; ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+;; FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+;; details.
+;;
+;; You should have received a copy of the GNU General Public License along with
+;; this program.  If not, see <https://www.gnu.org/licenses/>.
+;;
+;; -----------------------------------------------------------------------------
+;;
+;; This file should go in '~/.config/guix/home.scm'. After updating it, run:
+;;
+;;     guix home reconfigure ~/.config/guix/home.scm
+;;
+;; NOTE: This source code has been generated from an Org mode file. See the
+;; original repository for more information:
+;; https://github.com/8dcc/linux-dotfiles
+#+end_src
+
+* Imports
+
+First, we import the modules used to access some variables in the configuration.
+
+#+begin_src scheme :tangle home.scm
+(define-module (guix-home-config)
+  <<modules>>)
+#+end_src
+
+* Home environment definition
+
+This is the actual definition for the home environment. The labels between
+=<<...>>= indicate [[https://orgmode.org/org.html#Noweb-Reference-Syntax][org-mode's noweb syntax]], which is inspired by [[https://www.cs.tufts.edu/~nr/noweb/][noweb]]. They are
+not ignored because we specified a =:noweb= property for all =scheme= source blocks
+as a file property above.
+
+When tangling the file, the source blocks whose =noweb-ref= [[https://orgmode.org/org.html#Using-Header-Arguments][header argument]]
+matches =home-environment-body= will be inserted here. This "noweb" reference
+syntax will be used throughout this file, even when the source blocks are not
+ordered.
+
+#+begin_src scheme :noweb-ref modules
+#:use-module (gnu home)
+#+end_src
+
+#+begin_src scheme :tangle home.scm
+(home-environment
+ <<home-environment-body>>)
+#+end_src
+
+** Packages
+
+These packages will be installed to the current user, /not/ system-wide.
+
+#+begin_src scheme :noweb-ref modules
+;; Packages
+#:use-module (gnu packages)
+#+end_src
+
+#+begin_src scheme :noweb-ref home-environment-body
+(packages
+ (list
+  <<packages>>))
+#+end_src
+
+*** Window manager
+
+I use a custom fork of suckless' [[https://dwm.suckless.org/][dwm]] as my window manager. It will be installed
+through [[https://github.com/8dcc/guix-channel][my Guix channel]].
+
+For more information about using Xorg on Guix, see [[https://lists.gnu.org/archive/html/help-guix/2018-07/msg00080.html][archived email in help-guix
+list]].
+
+#+begin_src scheme :noweb-ref modules
+#:use-module (gnu packages xorg)
+#:use-module ((x8dcc-channel packages suckless) #:prefix x8dcc-suckless:)
+#+end_src
+
+#+begin_src scheme :noweb-ref packages
+xorg-server
+xinit
+xf86-input-libinput
+xf86-video-nouveau
+xf86-video-fbdev
+x8dcc-suckless:dwm
+#+end_src
+
+*** Xorg utils
+
+Some utilities for Xorg.
+
+- xmodmap :: For modifying keymaps and pointer button mappings in X.
+- setxkbmap :: For changing the keyboard layout used by Xorg. TODO: This
+  shouldn't be necessary if the [[file:system.org][system configuration]] for Xorg worked.
+- xsetroot :: For setting dwm's status.
+
+#+begin_src scheme :noweb-ref packages
+xmodmap
+setxkbmap
+xsetroot
+#+end_src
+
+*** Other suckless programs
+
+Custom suckless builds.
+
+Note that the =slock= package is already in the [[file:system.org][system configuration]] because it
+needs to be a /privileged program/ at a system level (e.g. for the =setuid= bit,
+among other things).
+
+#+begin_src scheme :noweb-ref packages
+x8dcc-suckless:dmenu
+x8dcc-suckless:st
+#+end_src
+
+*** Fonts
+
+Install some useful fonts, including the [[https://www.dcmembers.com/jibsen/download/61/][Best One in the Entire Planet]]™.
+
+#+begin_src scheme :noweb-ref modules
+#:use-module (gnu packages fonts)
+#:use-module ((x8dcc-channel packages fonts) #:prefix x8dcc-fonts:)
+#+end_src
+
+#+begin_src scheme :noweb-ref packages
+font-cozette
+x8dcc-fonts:font-dina
+#+end_src
+
+*** Dictionaries
+
+Specifically, for Emacs' =spell-fu=.
+
+#+begin_src scheme :noweb-ref modules
+#:use-module (gnu packages aspell)
+#+end_src
+
+#+begin_src scheme :noweb-ref packages
+aspell
+aspell-dict-en
+aspell-dict-es
+#+end_src
+
+*** Audio
+
+The =alsa-utils= is used for the =amixer= (used in my =dwmbar.sh= script for obtaining
+the current volume) and =alsamixer= commands.
+
+#+begin_src scheme :noweb-ref modules
+#:use-module (gnu packages linux)
+#+end_src
+
+#+begin_src scheme :noweb-ref packages
+alsa-utils
+#+end_src
+
+*** Personal utilities
+
+These are some applications that I wrote myself, and that I use
+often. Therefore, I packaged them in [[https://github.com/8dcc/guix-channel][my Guix channel]].
+
+#+begin_src scheme :noweb-ref modules
+#:use-module ((x8dcc-channel packages self) #:prefix x8dcc-self:)
+#+end_src
+
+#+begin_src scheme :noweb-ref packages
+x8dcc-self:snc
+x8dcc-self:plumber
+x8dcc-self:bin-graph
+#+end_src
+
+*** Media
+
+Apps related to creating, editing or displaying different kinds of media.
+
+- maim :: For taking screenshots.
+- feh :: For viewing images.
+- mpv :: For playing audio and video files.
+
+#+begin_src scheme :noweb-ref modules
+#:use-module (gnu packages xdisorg)
+#:use-module (gnu packages image-viewers)
+#:use-module (gnu packages video)
+#+end_src
+
+#+begin_src scheme :noweb-ref packages
+maim
+feh
+mpv
+#+end_src
+
+*** Misc
+
+Other applications that don't fit in other categories.
+
+- xclip :: For storing information on the clipboard. Specifically, screenshots
+  taken through a shortcut in my window manager.
+- mailutils :: The =movemail= program is used by my [[file:../../scripts/util/mail-fetch][mail-fetch]] script for
+  retrieving mail from a list of servers.
+- syncthing :: For synchronizing files across different devices.
+- icecat :: Free fork of Mozilla's firefox.
+- emacs :: An [[https://www.deusinmachina.net/p/an-ode-to-emacs-the-greatest-operating][operating system]] which happens to contain a text editor.
+
+#+begin_src scheme :noweb-ref modules
+#:use-module (gnu packages mail)
+#:use-module (gnu packages syncthing)
+#:use-module (gnu packages gnuzilla)
+#:use-module (gnu packages emacs)
+#+end_src
+
+#+begin_src scheme :noweb-ref packages
+xclip
+mailutils
+syncthing
+icecat
+emacs
+#+end_src
+
+** Services
+
+These packages will be installed to the current user, /not/ system-wide.
+
+#+begin_src scheme :noweb-ref modules
+;; Services
+#:use-module (gnu services)
+#+end_src
+
+#+begin_src scheme :noweb-ref home-environment-body
+(services
+ (list
+  <<services>>))
+#+end_src
+
+*** Path extension
+
+Add the specified directory to =$PATH=. Used for many scripts and some binaries
+that are not packaged.
+
+#+begin_src scheme :noweb-ref modules
+#:use-module (gnu home services)
+#+end_src
+
+#+begin_src scheme :noweb-ref services
+(simple-service 'x8dcc/path-extension
+                home-environment-variables-service-type
+                '(("PATH" . "/usr/local/bin/:$PATH")))
+#+end_src

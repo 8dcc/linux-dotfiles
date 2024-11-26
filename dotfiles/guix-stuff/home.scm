@@ -1,18 +1,39 @@
-;;------------------------------------------------------------------------------
-;; This file should go in ~/.config/guix/home.scm
+;; Copyright 2024 8dcc. All Rights Reserved.
 ;;
-;; Run `guix home reconfigure ~/.config/guix/home.scm' after updating it.
-;;------------------------------------------------------------------------------
+;; This program is free software: you can redistribute it and/or modify it under
+;; the terms of the GNU General Public License as published by the Free Software
+;; Foundation, either version 3 of the License, or (at your option) any later
+;; version.
+;;
+;; This program is distributed in the hope that it will be useful, but WITHOUT
+;; ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+;; FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+;; details.
+;;
+;; You should have received a copy of the GNU General Public License along with
+;; this program.  If not, see <https://www.gnu.org/licenses/>.
+;;
+;; -----------------------------------------------------------------------------
+;;
+;; This file should go in '~/.config/guix/home.scm'. After updating it, run:
+;;
+;;     guix home reconfigure ~/.config/guix/home.scm
+;;
+;; NOTE: This source code has been generated from an Org mode file. See the
+;; original repository for more information:
+;; https://github.com/8dcc/linux-dotfiles
 
 (define-module (guix-home-config)
   #:use-module (gnu home)
-  #:use-module (gnu home services)
-  #:use-module (gnu services)
+  ;; Packages
+  #:use-module (gnu packages)
   #:use-module (gnu packages xorg)
-  #:use-module (gnu packages pulseaudio)
-  #:use-module (gnu packages linux)
+  #:use-module ((x8dcc-channel packages suckless) #:prefix x8dcc-suckless:)
   #:use-module (gnu packages fonts)
+  #:use-module ((x8dcc-channel packages fonts) #:prefix x8dcc-fonts:)
   #:use-module (gnu packages aspell)
+  #:use-module (gnu packages linux)
+  #:use-module ((x8dcc-channel packages self) #:prefix x8dcc-self:)
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages image-viewers)
   #:use-module (gnu packages video)
@@ -20,68 +41,43 @@
   #:use-module (gnu packages syncthing)
   #:use-module (gnu packages gnuzilla)
   #:use-module (gnu packages emacs)
-  #:use-module ((x8dcc-channel packages suckless) #:prefix x8dcc-suckless:)
-  #:use-module ((x8dcc-channel packages self) #:prefix x8dcc-self:)
-  #:use-module ((x8dcc-channel packages fonts) #:prefix x8dcc-fonts:))
+  ;; Services
+  #:use-module (gnu services)
+  #:use-module (gnu home services))
 
 (home-environment
  (packages
   (list
-
-   ;; Window manager. For more information on Xorg, see:
-   ;; https://lists.gnu.org/archive/html/help-guix/2018-07/msg00080.html
    xorg-server
    xinit
    xf86-input-libinput
    xf86-video-nouveau
    xf86-video-fbdev
    x8dcc-suckless:dwm
-
-   ;; Xorg utils.
    xmodmap
    setxkbmap
    xsetroot
-
-   ;; Custom suckless builds. The 'slock' package is already in 'system.scm'
-   ;; because it needs to have the 'setuid' bit set using the 'setuid-programs'
-   ;; entry inside 'operating-system'.
    x8dcc-suckless:dmenu
    x8dcc-suckless:st
-
-   ;; Fonts.
    font-cozette
    x8dcc-fonts:font-dina
-
-   ;; Dictionaries.
    aspell
    aspell-dict-en
    aspell-dict-es
-
-   ;; Audio (amixer).
    alsa-utils
-
-   ;; Personal utilities.
    x8dcc-self:snc
    x8dcc-self:plumber
    x8dcc-self:bin-graph
-
-   ;; Media.
    maim
    feh
    mpv
-
-   ;; Misc.
    xclip
    mailutils
    syncthing
    icecat
    emacs))
-
  (services
   (list
-
-   ;; Add the specified directory to $PATH. Used for many scripts and some
-   ;; binaries that are not packaged.
    (simple-service 'x8dcc/path-extension
                    home-environment-variables-service-type
                    '(("PATH" . "/usr/local/bin/:$PATH"))))))
