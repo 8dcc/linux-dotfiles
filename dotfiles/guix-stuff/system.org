@@ -370,7 +370,8 @@ We use [[https://en.wikipedia.org/wiki/Advanced_Linux_Sound_Architecture][ALSA]]
 #+end_src
 
 We specify the keyboard layout for Xorg here, instead of using my
-=change-layout.sh= script.
+=change-layout.sh= script. For more information about Xorg, see [[https://lists.gnu.org/archive/html/help-guix/2018-07/msg00080.html][archived email in
+help-guix list]].
 
 TODO: This doesn't work as expected.
 
