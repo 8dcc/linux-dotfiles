@@ -36,7 +36,6 @@ For installing in arch, check [[file:arch-installation.org][arch-installation.or
 *Note:* Some screenshots might be a bit outdated.
 #+end_quote
 
-[[https://github.com/8dcc/linux-dotfiles/assets/29655971/ee9fccef-41ac-4e7e-ade5-824bb00a2243]]
-[[https://github.com/8dcc/linux-dotfiles/assets/29655971/4f215165-f0c9-4d11-b38f-69cc1047ab0c]]
-[[https://github.com/8dcc/linux-dotfiles/assets/29655971/3ede1a3c-de24-487e-a76b-5c791df10c51]]
-[[https://github.com/8dcc/linux-dotfiles/assets/29655971/36214100-be13-41fb-b380-95db3e437e94]]
+[[https://i.imgur.com/ziCC1aX.png]]
+[[https://i.imgur.com/jy7Tv5R.png]]
+[[https://i.imgur.com/n4NIllW.png]]
