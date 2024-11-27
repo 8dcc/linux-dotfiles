@@ -86,8 +86,10 @@ export PYTHONDONTWRITEBYTECODE=1  # Remove pycache stuff
 
 # --- Git ----------------------------------------------------------------------
 
-if [ -f ~/.git-prompt.sh ]; then
-    . ~/.git-prompt.sh
+if [ -f "$HOME/.my-scripts/git-prompt.sh" ]; then
+    . "$HOME/.my-scripts/git-prompt.sh"
+else
+    __git_ps1() { echo -n ""; }
 fi
 
 check_git_color() {

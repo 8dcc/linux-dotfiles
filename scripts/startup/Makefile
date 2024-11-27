@@ -1,5 +1,5 @@
 
-FILES=change-layout.sh dwmbar.sh multiple-monitors.sh startx.sh
+FILES=change-layout.sh dwmbar.sh git-prompt.sh multiple-monitors.sh startx.sh
 PREFIX=$(HOME)/.my-scripts
 
 .PHONY: install
