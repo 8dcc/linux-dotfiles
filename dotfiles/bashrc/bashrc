@@ -85,7 +85,10 @@ export PYTHONDONTWRITEBYTECODE=1  # Remove pycache stuff
 
 # --- Git ----------------------------------------------------------------------
 
-source ~/.git-prompt.sh
+if [ -f ~/.git-prompt.sh ]; then
+    . ~/.git-prompt.sh
+fi
+
 check_git_color() {
     if [[ $(git status -s 2> /dev/null) ]]; then
         echo -e "\033[0;33m"
