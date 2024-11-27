@@ -8,18 +8,25 @@
 
 # --- Misc ---------------------------------------------------------------------
 
-# ???
-HISTCONTROL=ignoreboth
-
 # Make less more friendly for non-text input files
 #[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
+# After each (non-builtin) command, Bash checks the window size, updating the
+# number of rows and columns.
+shopt -s checkwinsize
+
 # --- History ------------------------------------------------------------------
 
-shopt -s histappend
+# Ignore duplicate commands, as well as blank lines. Equivalent to Emacs' shell
+# `eshell-hist-ignoredups' variable.
+HISTCONTROL=ignoreboth
+
+# History size on memory, and on disk.
 HISTSIZE=1000
 HISTFILESIZE=2000
-shopt -s checkwinsize
+
+# Append to the history, rather than overwriting it each time.
+shopt -s histappend
 
 # --- PS1 ----------------------------------------------------------------------
 
