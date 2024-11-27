@@ -8,9 +8,6 @@
 
 # --- Misc ---------------------------------------------------------------------
 
-# Make less more friendly for non-text input files
-#[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
 # After each (non-builtin) command, Bash checks the window size, updating the
 # number of rows and columns.
 shopt -s checkwinsize
@@ -51,9 +48,6 @@ if ! shopt -oq posix; then
 fi
 
 # --- Basic aliases ------------------------------------------------------------
-
-# ???
-test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 
 # Add color
 alias ls='ls --color=auto -l --sort=version --group-directories-first --human-readable'
@@ -105,9 +99,6 @@ check_git_color() {
         echo -e "\033[0;32m"
     fi
 }
-
-# Alternate version (gets only branch name):
-#git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 
 # --- Welcome messages, etc. ---------------------------------------------------
 
