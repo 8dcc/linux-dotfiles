@@ -1,4 +1,4 @@
-### `.rizinrc`
+# `.rizinrc`
 
 This is the configuration file for [rizin](https://github.com/rizinorg/rizin),
 and should be placed inside `~/.rizinrc`. The file is commented so you can

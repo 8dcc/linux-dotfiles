@@ -1,2 +1,3 @@
-### Apps
-Custom forks of apps/window managers I use.
+# Apps
+
+Custom forks of different apps I use.

@@ -1,4 +1,4 @@
-### Browser extensions
+# Browser extensions
 
 Settings for some firefox extensions I use.
 
