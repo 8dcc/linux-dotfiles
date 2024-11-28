@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DMENU='dmenu -x 0 -y 0 -z 1920 -fn dina:pixelsize=10 -nb #111111 -nf #777777 -sb #aaaaaa -sf #111111 -i -l 5'
-choice=$(echo -e "Root terminal\nPower off\nReboot\nLog-out\nExit menu" | $DMENU)
+choice=$(echo -e "Root terminal\nPower off\nReboot\nBack to TTY\nExit menu" | $DMENU)
 
 case "$choice" in
 	Root\ terminal)
@@ -13,10 +13,10 @@ case "$choice" in
 	Reboot)
 		reboot
 		;;
-	Log-out)
+	Back\ to\ TTY)
 		pkill dwm
 		;;
-	Exit-menu)
+	Exit\ menu)
 		exit 0
 		;;
 esac
