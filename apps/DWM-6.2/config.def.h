@@ -21,7 +21,7 @@ static const char dmenuz[]    = "1920";
 
 static const char* const col_unsel_fg      = "#777777";
 static const char* const col_unsel_bg      = "#111111";
-static const char* const col_unsel_border  = col_unsel_bg;
+static const char* const col_unsel_border  = "#1a1a1a";
 static const char* const col_sel_title_fg  = "#ffffff";
 static const char* const col_sel_title_bg  = col_unsel_bg;
 static const char* const col_sel_tag_fg    = col_sel_title_fg;
