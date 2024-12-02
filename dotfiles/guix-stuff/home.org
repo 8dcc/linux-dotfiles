@@ -217,8 +217,10 @@ Other applications that don't fit in other categories.
 - mailutils :: The =movemail= program is used by my [[file:../../scripts/util/mail-fetch][mail-fetch]] script for
   retrieving mail from a list of servers.
 - syncthing :: For synchronizing files across different devices.
-- icecat :: Free fork of Mozilla's firefox.
+- keepassxc :: Offline password manager.
+- qbittorrent :: BitTorrent client based on the Qt toolkit.
 - emacs :: An [[https://www.deusinmachina.net/p/an-ode-to-emacs-the-greatest-operating][operating system]] which happens to contain a text editor.
+- icecat :: Free fork of Mozilla's firefox.
 
 #+begin_src scheme :noweb-ref modules
 #:use-module (gnu packages mail)
