@@ -39,8 +39,10 @@
   #:use-module (gnu packages video)
   #:use-module (gnu packages mail)
   #:use-module (gnu packages syncthing)
-  #:use-module (gnu packages gnuzilla)
+  #:use-module (gnu packages password-utils)
+  #:use-module (gnu packages bittorrent)
   #:use-module (gnu packages emacs)
+  #:use-module (gnu packages gnuzilla)
   ;; Services
   #:use-module (gnu services)
   #:use-module (gnu home services))
@@ -74,8 +76,10 @@
    xclip
    mailutils
    syncthing
-   icecat
-   emacs))
+   keepassxc
+   qbittorrent
+   emacs
+   icecat))
  (services
   (list
    (simple-service 'x8dcc/path-extension
