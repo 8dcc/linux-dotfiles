@@ -98,8 +98,10 @@ static Key keys[] = {
     { MODKEY|ShiftMask, XK_Return, spawn,          {.v = termcmd } },
     { MODKEY,           XK_b,      togglebar,      {0} },
     { MODKEY,           XK_Tab,    focusstack,     {.i = +1 } },
-    /*
     { MODKEY|ShiftMask, XK_Tab,    focusstack,     {.i = -1 } },
+    /*
+    { MODKEY,           XK_j,      focusstack,     {.i = +1 } },
+    { MODKEY,           XK_k,      focusstack,     {.i = -1 } },
     { MODKEY,           XK_i,      incnmaster,     {.i = +1 } },
     { MODKEY,           XK_d,      incnmaster,     {.i = -1 } },
     */
@@ -128,10 +130,6 @@ static Key keys[] = {
     TAGKEYS(            XK_8,                      7)
     TAGKEYS(            XK_9,                      8)
     { MODKEY|ShiftMask, XK_q,      spawn,          SHCMD("dwm-menu-quit") },
-    /*
-    { MODKEY,           XK_j,      focusstack,     {.i = +1 } },
-    { MODKEY,           XK_k,      focusstack,     {.i = -1 } },
-    */
     { MODKEY,           XK_h,      setmfact,       {.f = -0.05} },
     { MODKEY,           XK_l,      setmfact,       {.f = +0.05} },
     { MODKEY|ShiftMask, XK_F11,    spawn,          SHCMD("maim --hidecursor -s | tee ~/ss-$(date +%s).png /tmp/highlighted-screenshot.png && hl-png -fF /tmp/highlighted-screenshot.png") },

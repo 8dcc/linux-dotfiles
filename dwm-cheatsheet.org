@@ -13,6 +13,7 @@ Simple cheatsheet explaining the keybinds used in my own DWM build. See
 |----------------+----------------------------------------------------|
 | =Alt+Shift+c=    | Kill current window.                               |
 | =Alt+Tab=        | Switch to next window.                             |
+| =Alt+Shift+Tab=  | Switch to previous window.                         |
 | =Alt+.=          | Switch to next monitor.                            |
 | =Alt+,=          | Switch to previous monitor.                        |
 | =Alt+Shift+0=    | Make your current window appear in all workspaces. |
