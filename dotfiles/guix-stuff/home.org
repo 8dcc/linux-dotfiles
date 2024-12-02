@@ -223,16 +223,20 @@ Other applications that don't fit in other categories.
 #+begin_src scheme :noweb-ref modules
 #:use-module (gnu packages mail)
 #:use-module (gnu packages syncthing)
-#:use-module (gnu packages gnuzilla)
+#:use-module (gnu packages password-utils)
+#:use-module (gnu packages bittorrent)
 #:use-module (gnu packages emacs)
+#:use-module (gnu packages gnuzilla)
 #+end_src
 
 #+begin_src scheme :noweb-ref packages
 xclip
 mailutils
 syncthing
-icecat
+keepassxc
+qbittorrent
 emacs
+icecat
 #+end_src
 
 ** Services
