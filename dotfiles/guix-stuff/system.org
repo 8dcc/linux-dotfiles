@@ -41,28 +41,9 @@ GPLv3+ license, and small note about org-mode.
 
 First, we import the modules used to access some variables in the configuration.
 
-TODO: Perhaps we could use Org's noweb syntax for this, and move specific
-modules to their sections?
-
 #+begin_src scheme :tangle system.scm
-(use-modules (gnu)
-             (gnu system privilege)
-             (gnu system setuid)
-             (gnu services base)
-             (gnu services pm)
-             (gnu services networking)
-             (gnu services ssh)
-             (gnu services cups)
-             (gnu services sound)
-             (gnu services xorg)
-             (gnu services desktop)
-             (gnu packages nfs)
-             (gnu packages cups)
-             (gnu packages linux)
-             (gnu packages bash)
-             (gnu packages man)
-             ((x8dcc-channel packages suckless) #:prefix x8dcc-suckless:)
-             (nongnu packages linux))
+(use-modules
+ <<modules>>)
 #+end_src
 
 * Operating system definition
@@ -89,9 +70,14 @@ Some general information for the OS.
 NOTE: Make sure you replace the =XXX= parts with information relevant to your
 machine.
 
+#+begin_src scheme :noweb-ref modules
+((nongnu packages linux) #:prefix nongnu-linux:)
+(gnu system keyboard)
+#+end_src
+
 #+begin_src scheme :noweb-ref operating-system-body
-(kernel linux)
-(firmware (list linux-firmware))
+(kernel nongnu-linux:linux)
+(firmware (list nongnu-linux:linux-firmware))
 (locale "en_US.utf8")
 (timezone "XXX")
 (keyboard-layout (keyboard-layout "XXX"))
@@ -161,6 +147,11 @@ For more information, see the following blog articles and manual sections:
 This is the list of system-wide packages used by Guix. We append our own
 packages to the =%base-packages= list.
 
+#+begin_src scheme :noweb-ref modules
+;; Packages
+(gnu packages)
+#+end_src
+
 #+begin_src scheme :noweb-ref operating-system-body
 (packages
  (cons*
@@ -215,6 +206,10 @@ below). That way, my =.bashrc= file can load the file from =/etc/bash_completion
 
 NOTE: The manual warns about using this for files under =/etc=.
 
+#+begin_src scheme :noweb-ref modules
+(gnu packages bash)
+#+end_src
+
 #+begin_src scheme :noweb-ref extra-special-files
 (extra-special-file
  "/etc/bash_completion"
@@ -228,6 +223,10 @@ The screen locker, suckless' [[https://tools.suckless.org/slock/][slock]], also 
 First, add the package to the list. Note how we are not using the
 =specification->package= procedure, but instead inserting the package directly,
 imported from ~(x8dcc-channel packages suckless)~ with the =x8dcc-suckless:= prefix.
+
+#+begin_src scheme :noweb-ref modules
+((x8dcc-channel packages suckless) #:prefix x8dcc-suckless:)
+#+end_src
 
 #+begin_src scheme :noweb-ref packages
 x8dcc-suckless:slock
@@ -273,6 +272,11 @@ we need to ensure that:
   - The =CAP_SETUID= capability, needed for {{{man(setuid(2))}}}.
   - The =CAP_SETGID= capability, needed for {{{man(setgid(2))}}} and {{{man(setgroups(2))}}}.
 
+
+#+begin_src scheme :noweb-ref modules
+(guix gexp)
+#+end_src
+
 #+begin_src scheme :noweb-ref privileged-programs
 (privileged-program
  (program (file-append x8dcc-suckless:slock "/bin/slock"))
@@ -287,6 +291,11 @@ we need to ensure that:
 This is the list of system [[https://guix.gnu.org/manual/devel/en/html_node/Services.html][services]]. To search for available services, run
 =guix system search KEYWORD= in a terminal.
 
+#+begin_src scheme :noweb-ref modules
+;; Services
+(gnu services base)
+#+end_src
+
 #+begin_src scheme :noweb-ref operating-system-body
 (services
  (cons*
@@ -299,11 +308,15 @@ This is the list of system [[https://guix.gnu.org/manual/devel/en/html_node/Serv
 
 [[https://en.wikipedia.org/wiki/Network_Time_Protocol][Network Time Protocol]], for time and date.
 
+#+begin_src scheme :noweb-ref modules
+(gnu services networking)
+#+end_src
+
 #+begin_src scheme :noweb-ref services
 (service ntp-service-type)
 #+end_src
 
-Used for logging in.
+Used for logging in. Defined in ~(gnu services base)~, imported above.
 
 #+begin_src scheme :noweb-ref services
 (service login-service-type)
@@ -313,6 +326,10 @@ Standalone port of [[https://systemd.io/][systemd]]'s =logind=, required in some
 requirement in my configuration, but still useful (e.g. for rebooting with
 =loginctl=).
 
+#+begin_src scheme :noweb-ref modules
+(gnu services desktop)
+#+end_src
+
 #+begin_src scheme :noweb-ref services
 (service elogind-service-type)
 #+end_src
@@ -320,6 +337,11 @@ requirement in my configuration, but still useful (e.g. for rebooting with
 Allow desktop users to also mount NTFS and NFS file systems without root.
 
 NOTE: Extracted from the Guix repo, "gnu/services/desktop.scm" @ 8a7bd211d2.
+
+#+begin_src scheme :noweb-ref modules
+(gnu packages nfs)
+(gnu packages linux)
+#+end_src
 
 #+begin_src scheme :noweb-ref services
 (simple-service 'mount-setuid-helpers privileged-program-service-type
@@ -330,11 +352,20 @@ NOTE: Extracted from the Guix repo, "gnu/services/desktop.scm" @ 8a7bd211d2.
 
 OpenSSH server.
 
+#+begin_src scheme :noweb-ref modules
+(gnu services ssh)
+#+end_src
+
 #+begin_src scheme :noweb-ref services
 (service openssh-service-type)
 #+end_src
 
 Printing with [[https://openprinting.github.io/cups/][CUPS]].
+
+#+begin_src scheme :noweb-ref modules
+(gnu services cups)
+(gnu packages cups)
+#+end_src
 
 #+begin_src scheme :noweb-ref services
 (service cups-service-type
@@ -344,7 +375,7 @@ Printing with [[https://openprinting.github.io/cups/][CUPS]].
                             hplip-minimal))))
 #+end_src
 
-We use [[https://wiki.archlinux.org/title/ConnMan][=connman=]] and [[https://wiki.archlinux.org/title/Wpa_supplicant][=wpa_supplicant=]] for WiFi. We could use ~'(iwd)~ in
+We use [[https://wiki.archlinux.org/title/ConnMan][connman]] and [[https://wiki.archlinux.org/title/Wpa_supplicant][wpa_supplicant]] for WiFi. We could use ~'(iwd)~ in
 =shepherd-requirement=, but there is currently no service that provides it (if
 there was, we wouldn't use =connman= in the first place). We use =wpa-supplicant=
 instead.
@@ -364,6 +395,10 @@ instead.
 
 We use [[https://en.wikipedia.org/wiki/Advanced_Linux_Sound_Architecture][ALSA]] and [[https://en.wikipedia.org/wiki/PulseAudio][Pulseaudio]] for sound.
 
+#+begin_src scheme :noweb-ref modules
+(gnu services sound)
+#+end_src
+
 #+begin_src scheme :noweb-ref services
 (service alsa-service-type
          (alsa-configuration
@@ -375,6 +410,10 @@ We specify the keyboard layout for Xorg here, instead of using my
 help-guix list]].
 
 TODO: This doesn't work as expected.
+
+#+begin_src scheme :noweb-ref modules
+(gnu services xorg)
+#+end_src
 
 #+begin_src scheme :noweb-ref services
 (set-xorg-configuration
@@ -414,6 +453,11 @@ Privileged programs are useful for:
 
 Privileged programs are defined using the =privileged-program= data type.
 
+#+begin_src scheme :noweb-ref modules
+;; Misc
+(gnu system privilege)
+#+end_src
+
 #+begin_src scheme :noweb-ref operating-system-body
 (privileged-programs
  (cons*
@@ -427,6 +471,11 @@ Privileged programs are defined using the =privileged-program= data type.
 In this case, [[https://www.gnu.org/software/grub/][GRUB]] with EFI support. For old machines that don't support EFI,
 this should be changed. For reference, look at the system configuration
 generated by the Guix installer (from the ISO).
+
+#+begin_src scheme :noweb-ref modules
+(gnu bootloader)
+(gnu bootloader grub)
+#+end_src
 
 #+begin_src scheme :noweb-ref operating-system-body
 (bootloader
@@ -457,6 +506,11 @@ These are needed (in my case) when using a [[https://en.wikipedia.org/wiki/Linux
 NOTE: Make sure to replace the =XXX= part with the UUID of the /encrypted/ partition
 (e.g. =/dev/sda3=). You can use =sudo blkid= for obtaining the UUID.
 
+#+begin_src scheme :noweb-ref modules
+(gnu system mapped-devices)
+(gnu system uuid)
+#+end_src
+
 #+begin_src scheme :noweb-ref operating-system-body
 (mapped-devices
  (list (mapped-device
@@ -473,6 +527,10 @@ since this is an EFI system (ass specified in the [[*Bootloader][bootloader]]).
 
 NOTE: Make sure to replace the =XXX= part with the UUID of the EFI partition
 (e.g. =/dev/sda1=). You can use =sudo blkid= for obtaining the UUID.
+
+#+begin_src scheme :noweb-ref modules
+(gnu system file-systems)
+#+end_src
 
 #+begin_src scheme :noweb-ref operating-system-body
 (file-systems
