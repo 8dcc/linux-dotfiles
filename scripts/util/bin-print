@@ -3,7 +3,6 @@ set -e
 
 # TODO: Add 'bin-print' prefix whenever printing user messages or errors.
 # TODO: Add more status messages in each step.
-# TODO: Add date to header.
 
 # Since we plan on printing the resulting file, we use 'base58' encoding (used
 # by bitcoin) to avoid similar-looking characters like '0', 'O', 'I' and 'l'.
@@ -64,6 +63,7 @@ checksum_encoded=$($CHECKSUM "$path_encoded" | cut -d ' ' -f 1)
 
 # Comment if you don't want to print the header.
 header="======================================================================
+Date.............: '$(date)'
 Encoding cmd.....: '${ENCODE}'
 Checksum cmd.....: '${CHECKSUM}'
 Binary path......: '${path_bin}'
