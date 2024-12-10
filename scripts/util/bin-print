@@ -2,6 +2,8 @@
 set -e
 
 # TODO: Add 'bin-print' prefix whenever printing user messages or errors.
+# TODO: Add more status messages in each step.
+# TODO: Add date to header.
 
 # Since we plan on printing the resulting file, we use 'base58' encoding (used
 # by bitcoin) to avoid similar-looking characters like '0', 'O', 'I' and 'l'.
