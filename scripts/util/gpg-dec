@@ -37,18 +37,18 @@ elif [ ! -t 0 ]; then
     file_input="-"
     file_output="-"
 else
-    # Otherwise, open a temporal file on the default editor and use that.
+    # Otherwise, open a temporary file on the default editor and use that.
     #
     # First, check if the EDITOR environment variable is set. If it is, use
     # it. Otherwise, use "nvim".
     editor=${EDITOR:-nvim}
 
-    # Create a temporal file using mktemp(1)
+    # Create a temporary file using mktemp(1)
     tmp_file="$(mktemp --tmpdir "gpg-dec.XXXX")"
     file_input="$tmp_file"
     file_output="$DEFAULT_OUTPUT"
 
-    inform "Opening temporal file '$tmp_file' in the '$editor' editor..."
+    inform "Opening temporary file '$tmp_file' in the '$editor' editor..."
     $editor $tmp_file
     inform "Done editing."
 fi
@@ -56,6 +56,6 @@ fi
 gpg --output "$file_output" --decrypt "$file_input"
 
 if [ ! -z "$tmp_file" ]; then
-    inform "Done decrypting. Deleting temporal file '$tmp_file'"
+    inform "Done decrypting. Deleting temporary file '$tmp_file'"
     rm "$tmp_file"
 fi
