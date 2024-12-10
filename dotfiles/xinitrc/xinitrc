@@ -6,7 +6,7 @@
 [[ -f ~/.xmodmap ]] && xmodmap ~/.xmodmap
 
 # Background
-[[ $(command -v feh) && -f ~/.wallpaper.png ]] && feh --bg-scale --no-fehbg ~/.wallpaper.png
+[[ $(command -v xwallpaper) && -f ~/.wallpaper.png ]] && xwallpaper --maximize ~/.wallpaper.png
 
 # DWM statusbar loop
 [[ -f ~/.my-scripts/dwmbar.sh ]] && bash ~/.my-scripts/dwmbar.sh 2>/dev/null
@@ -22,4 +22,3 @@
 #     exec dbus-launch --exit-with-session dwm
 # Otherwise, just launch normally
 exec dwm
-
