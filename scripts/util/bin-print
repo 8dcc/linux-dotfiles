@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+# TODO: Add 'bin-print' prefix whenever printing user messages or errors.
+
 # Since we plan on printing the resulting file, we use 'base58' encoding (used
 # by bitcoin) to avoid similar-looking characters like '0', 'O', 'I' and 'l'.
 ENCODE=base58
@@ -33,6 +35,7 @@ assert_cmd() {
 
 assert_cmd "$ENCODE"
 assert_cmd "$CHECKSUM"
+assert_cmd "$A2PS"
 
 #-------------------------------------------------------------------------------
 
