@@ -58,7 +58,7 @@ if [ -e "$path_postscript" ]; then
 fi
 
 # Encode the binary file.
-status "Encoding binary file."
+status "Encoding '${path_bin}' into '${path_encoded}'."
 $ENCODE "$path_bin" > "$path_encoded"
 
 # Obtain the binary and encoded checksums.
@@ -77,7 +77,7 @@ Encoded checksum.: '${checksum_encoded}'
 
 # Print the header, along with the encoded text.
 # NOTE: You could just 'echo' it, instead of converting it to PostScript.
-status "Converting to PostScript."
+status "Prepending header to '${path_encoded}', and converting to PostScript into '${path_postscript}'."
 $A2PS $A2PSFLAGS --output="${path_postscript}" <(echo "$header" && cat "$path_encoded")
 
 if [ -e "$path_encoded" ]; then
