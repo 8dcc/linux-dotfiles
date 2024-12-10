@@ -1,0 +1,78 @@
+#!/bin/bash
+set -e
+
+# Since we plan on printing the resulting file, we use 'base58' encoding (used
+# by bitcoin) to avoid similar-looking characters like '0', 'O', 'I' and 'l'.
+ENCODE=base58
+
+CHECKSUM=md5sum
+
+# For converting the text to a PostScript file.
+#
+# FIXME: Page numbers are not printed. This is not a huge issue, since you could
+# bruteforce from the second page to the last until the checksum matches the one
+# in the header.
+#
+# FIXME: Specify the font face.
+A2PS=a2ps
+A2PSFLAGS="--portrait --columns=1 --no-header"
+
+#-------------------------------------------------------------------------------
+
+if [ $# -ne 1 ]; then
+    echo "Usage: $(basename "$0") FILE" 1>&2
+    exit 1
+fi
+
+assert_cmd() {
+    if [ ! $(command -v "$1") ]; then
+        echo "The '$1' command is not installed." 1>&2
+        exit 1
+    fi
+}
+
+assert_cmd "$ENCODE"
+assert_cmd "$CHECKSUM"
+
+#-------------------------------------------------------------------------------
+
+# Path to the binary file we want to print.
+path_bin="$1"
+
+# Create a temporary file for the encoded text.
+path_encoded="$(mktemp --tmpdir "bin-print.XXXX.base58")"
+
+# Path to the final PostScript file we are trying to create. The file should not
+# exist.
+path_postscript="${path_bin}.ps"
+if [ -e "$path_postscript" ]; then
+    echo "File '${path_postscript}' already exists. Aborting." 1>&2
+    exit 1
+fi
+
+# Encode the binary file.
+$ENCODE "$path_bin" > "$path_encoded"
+
+# Obtain the binary and encoded checksums.
+checksum_bin=$($CHECKSUM "$path_bin" | cut -d ' ' -f 1)
+checksum_encoded=$($CHECKSUM "$path_encoded" | cut -d ' ' -f 1)
+
+# Comment if you don't want to print the header.
+header="======================================================================
+Encoding cmd.....: '${ENCODE}'
+Checksum cmd.....: '${CHECKSUM}'
+Binary path......: '${path_bin}'
+Binary checksum..: '${checksum_bin}'
+Encoded checksum.: '${checksum_encoded}'
+======================================================================"
+
+# Print the header, along with the encoded text.
+# NOTE: You could just 'echo' it, instead of converting it to PostScript.
+$A2PS $A2PSFLAGS --output="${path_postscript}" <(echo "$header" && cat "$path_encoded")
+
+if [ -e "$path_encoded" ]; then
+    echo "Deleting temporary file '${path_encoded}'."
+    rm "$path_encoded"
+fi
+
+echo "Done."
