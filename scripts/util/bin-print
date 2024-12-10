@@ -1,9 +1,6 @@
 #!/bin/bash
 set -e
 
-# TODO: Add 'bin-print' prefix whenever printing user messages or errors.
-# TODO: Add more status messages in each step.
-
 # Since we plan on printing the resulting file, we use 'base58' encoding (used
 # by bitcoin) to avoid similar-looking characters like '0', 'O', 'I' and 'l'.
 ENCODE=base58
@@ -22,14 +19,20 @@ A2PSFLAGS="--portrait --columns=1 --no-header"
 
 #-------------------------------------------------------------------------------
 
+self=$(basename "$0")
+
 if [ $# -ne 1 ]; then
-    echo "Usage: $(basename "$0") FILE" 1>&2
+    echo "Usage: ${self} FILE" 1>&2
     exit 1
 fi
 
+status() {
+    echo "${self}: $1"
+}
+
 assert_cmd() {
     if [ ! $(command -v "$1") ]; then
-        echo "The '$1' command is not installed." 1>&2
+        echo "${self}: The '$1' command is not installed." 1>&2
         exit 1
     fi
 }
@@ -50,11 +53,12 @@ path_encoded="$(mktemp --tmpdir "bin-print.XXXX.base58")"
 # exist.
 path_postscript="${path_bin}.ps"
 if [ -e "$path_postscript" ]; then
-    echo "File '${path_postscript}' already exists. Aborting." 1>&2
+    echo "${self}: File '${path_postscript}' already exists. Aborting." 1>&2
     exit 1
 fi
 
 # Encode the binary file.
+status "Encoding binary file."
 $ENCODE "$path_bin" > "$path_encoded"
 
 # Obtain the binary and encoded checksums.
@@ -73,11 +77,12 @@ Encoded checksum.: '${checksum_encoded}'
 
 # Print the header, along with the encoded text.
 # NOTE: You could just 'echo' it, instead of converting it to PostScript.
+status "Converting to PostScript."
 $A2PS $A2PSFLAGS --output="${path_postscript}" <(echo "$header" && cat "$path_encoded")
 
 if [ -e "$path_encoded" ]; then
-    echo "Deleting temporary file '${path_encoded}'."
+    status "Deleting temporary file '${path_encoded}'."
     rm "$path_encoded"
 fi
 
-echo "Done."
+status "Done."
