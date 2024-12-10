@@ -112,11 +112,17 @@ Some utilities for Xorg.
 - setxkbmap :: For changing the keyboard layout used by Xorg. TODO: This
   shouldn't be necessary if the [[file:system.org][system configuration]] for Xorg worked.
 - xsetroot :: For setting dwm's status.
+- xwallpaper :: For setting dwm's status.
+
+#+begin_src scheme :noweb-ref modules
+#:use-module (gnu packages xdisorg)
+#+end_src
 
 #+begin_src scheme :noweb-ref packages
 xmodmap
 setxkbmap
 xsetroot
+xwallpaper
 #+end_src
 
 *** Other suckless programs
@@ -197,7 +203,6 @@ Apps related to creating, editing or displaying different kinds of media.
 - mpv :: For playing audio and video files.
 
 #+begin_src scheme :noweb-ref modules
-#:use-module (gnu packages xdisorg)
 #:use-module (gnu packages image-viewers)
 #:use-module (gnu packages video)
 #+end_src

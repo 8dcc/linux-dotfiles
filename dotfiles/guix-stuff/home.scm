@@ -29,12 +29,12 @@
   #:use-module (gnu packages)
   #:use-module (gnu packages xorg)
   #:use-module ((x8dcc-channel packages suckless) #:prefix x8dcc-suckless:)
+  #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages fonts)
   #:use-module ((x8dcc-channel packages fonts) #:prefix x8dcc-fonts:)
   #:use-module (gnu packages aspell)
   #:use-module (gnu packages linux)
   #:use-module ((x8dcc-channel packages self) #:prefix x8dcc-self:)
-  #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages image-viewers)
   #:use-module (gnu packages video)
   #:use-module (gnu packages mail)
@@ -59,6 +59,7 @@
    xmodmap
    setxkbmap
    xsetroot
+   xwallpaper
    x8dcc-suckless:dmenu
    x8dcc-suckless:st
    font-cozette
