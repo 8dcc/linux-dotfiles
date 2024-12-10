@@ -71,7 +71,7 @@
    x8dcc-self:plumber
    x8dcc-self:bin-graph
    maim
-   feh
+   nsxiv
    mpv
    xclip
    mailutils

@@ -193,7 +193,7 @@ x8dcc-self:bin-graph
 Apps related to creating, editing or displaying different kinds of media.
 
 - maim :: For taking screenshots.
-- feh :: For viewing images.
+- nsxiv :: For viewing images.
 - mpv :: For playing audio and video files.
 
 #+begin_src scheme :noweb-ref modules
@@ -204,7 +204,7 @@ Apps related to creating, editing or displaying different kinds of media.
 
 #+begin_src scheme :noweb-ref packages
 maim
-feh
+nsxiv
 mpv
 #+end_src
 
