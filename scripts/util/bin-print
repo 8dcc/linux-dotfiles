@@ -15,7 +15,7 @@ CHECKSUM=md5sum
 #
 # FIXME: Specify the font face.
 A2PS=a2ps
-A2PSFLAGS="--portrait --columns=1 --no-header"
+A2PSFLAGS="--portrait --columns=1 --borders=no --no-header"
 
 #-------------------------------------------------------------------------------
 
