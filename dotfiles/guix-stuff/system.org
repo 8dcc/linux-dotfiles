@@ -165,6 +165,7 @@ packages to the =%base-packages= list.
 Important packages that should be installed system-wide.
 
 #+begin_src scheme :noweb-ref packages
+(specification->package "file")
 (specification->package "neovim")
 (specification->package "curl")
 (specification->package "man-pages")

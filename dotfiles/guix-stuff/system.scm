@@ -83,6 +83,7 @@
    %base-groups))
  (packages
   (cons*
+   (specification->package "file")
    (specification->package "neovim")
    (specification->package "curl")
    (specification->package "man-pages")
