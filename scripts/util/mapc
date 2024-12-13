@@ -30,9 +30,16 @@ fi
 #    (defun mapc (func &rest args)
 #      (when (not (null? args))
 #        (func (car args))
-#        (apply mapc
-#               (cons func (cdr args)))))
+#        (apply mapc (cons func (cdr args)))))
 #
+# Note how we don't quote '$1'. This way, the user can provide a command with
+# arguments when calling 'mapc'. For example, in the following call:
+#
+#     mapc "shuf -z" a.txt b.txt c.txt
+#
+# Since the first argument of 'mapc' is quoted, both words ('shuf' and '-z')
+# will be in '$1'. These words will be "unpacked" when calling the command
+# inside the loop, since we are not quoting '$1'.
 for element in "${@:2}"; do
     $1 "$element"
 done
