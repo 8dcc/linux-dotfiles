@@ -2,7 +2,7 @@
 set -e
 
 if [ $# -lt 2 ]; then
-    echo "Usage: $(basename "$0") PATH NAME" 1>&2
+    echo "Usage: $(basename "$0") PATH NAME [OPTION]..." 1>&2
     exit 1
 fi
 
@@ -11,4 +11,4 @@ if [ ! $(command -v "find") ]; then
     exit 1
 fi
 
-find "$1" -iname "*${2}*"
+find "$1" -iname "*${2}*" ${@:3}
