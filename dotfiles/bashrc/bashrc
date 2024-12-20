@@ -77,7 +77,7 @@ fi
 [[ $(command -v yt-dlp) ]]   && alias yt-dlp='yt-dlp --embed-metadata --embed-subs --merge-output-format mkv'
 
 archive-ss() {
-    IMAGE_DIR="$HOME/Images"  # Can't use '~'
+    IMAGE_DIR="$HOME/02-Media/01-Images/01-Screenshots"  # Can't use '~'
     mv ~/ss-*.png $IMAGE_DIR
 }
 
