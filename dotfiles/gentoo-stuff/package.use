@@ -58,3 +58,6 @@ dev-util/cutter graphviz
 
 # hplip
 >=net-dns/avahi-0.9 python
+
+# app-crypt/pinentry
+app-crypt/pinentry ncurses gtk
