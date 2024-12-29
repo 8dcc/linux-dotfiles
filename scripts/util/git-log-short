@@ -3,7 +3,7 @@ set -e
 
 # Usage:
 #
-#     git-log-short [OPTION]...
+#     git-log-short [OPTION]... [REVISION_RANGE] [[--] PATH...]
 #
 # This script does something pretty similar to:
 #
