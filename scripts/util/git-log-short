@@ -1,6 +1,10 @@
 #!/bin/bash
 set -e
 
+# Usage:
+#
+#     git-log-short [OPTION]...
+#
 # This script does something pretty similar to:
 #
 #     git log --pretty=oneline
@@ -28,4 +32,4 @@ set -e
 FLAGS="--graph --date-order --date=short"
 FMT="%C(yellow)%h %C(cyan)%cd %C(magenta)%aN%C(auto)%d %Creset%s"
 
-git log $FLAGS --pretty="$FMT"
+git log $FLAGS --pretty="$FMT" $@
