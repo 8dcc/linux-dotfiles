@@ -39,6 +39,8 @@ trackers.use_udp.set = no
 # Peer settings
 throttle.max_uploads.set = 100
 throttle.max_uploads.global.set = 250
+throttle.max_downloads.set = 100
+throttle.max_downloads.global.set = 250
 throttle.min_peers.normal.set = 20
 throttle.max_peers.normal.set = 60
 throttle.min_peers.seed.set = 30
