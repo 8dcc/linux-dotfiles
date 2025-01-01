@@ -12,6 +12,9 @@
 # number of rows and columns.
 shopt -s checkwinsize
 
+# Enable better color highlighting for 'ls'
+test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+
 # --- History ------------------------------------------------------------------
 
 # Ignore duplicate commands, as well as blank lines. Equivalent to Emacs' shell
