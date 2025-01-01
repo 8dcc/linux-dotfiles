@@ -166,7 +166,8 @@ Important packages that should be installed system-wide.
 
 #+begin_src scheme :noweb-ref packages
 (specification->package "file")
-(specification->package "neovim")
+(specification->package "zip")
+(specification->package "unzip")
 (specification->package "curl")
 (specification->package "man-pages")
 (specification->package "acpi")
@@ -189,6 +190,7 @@ Packages oriented to software development.
 (specification->package "make")
 (specification->package "gdb")
 (specification->package "xxd")
+(specification->package "neovim")
 #+end_src
 
 *** Bash completion

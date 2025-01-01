@@ -84,7 +84,8 @@
  (packages
   (cons*
    (specification->package "file")
-   (specification->package "neovim")
+   (specification->package "zip")
+   (specification->package "unzip")
    (specification->package "curl")
    (specification->package "man-pages")
    (specification->package "acpi")
@@ -97,6 +98,7 @@
    (specification->package "make")
    (specification->package "gdb")
    (specification->package "xxd")
+   (specification->package "neovim")
    (specification->package "bash-completion")
    x8dcc-suckless:slock
    ;; Prepend packages to:
