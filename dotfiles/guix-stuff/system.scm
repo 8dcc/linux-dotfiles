@@ -33,8 +33,8 @@
  (guix gexp)
  ;; Services
  (gnu services base)
- (gnu services ssh)
  (gnu services networking)
+ (gnu services ssh)
  (gnu services desktop)
  (gnu packages nfs)
  (gnu packages linux)

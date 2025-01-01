@@ -314,6 +314,10 @@ We use [[https://wiki.archlinux.org/title/ConnMan][connman]] and [[https://wiki.
 there was, we wouldn't use =connman= in the first place). We use =wpa-supplicant=
 instead.
 
+#+begin_src scheme :noweb-ref modules
+(gnu services networking)
+#+end_src
+
 #+begin_src scheme :noweb-ref services
 (service wpa-supplicant-service-type)
 (service connman-service-type
@@ -338,10 +342,6 @@ OpenSSH server.
 #+end_src
 
 [[https://en.wikipedia.org/wiki/Network_Time_Protocol][Network Time Protocol]], for time and date.
-
-#+begin_src scheme :noweb-ref modules
-(gnu services networking)
-#+end_src
 
 #+begin_src scheme :noweb-ref services
 (service ntp-service-type)
