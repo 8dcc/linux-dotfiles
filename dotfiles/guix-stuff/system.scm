@@ -35,6 +35,7 @@
  (gnu services base)
  (gnu services networking)
  (gnu services ssh)
+ (gnu services vpn)
  (gnu services desktop)
  (gnu packages nfs)
  (gnu packages linux)
@@ -99,6 +100,7 @@
    (specification->package "gdb")
    (specification->package "xxd")
    (specification->package "neovim")
+   (specification->package "wireguard-tools")
    (specification->package "bash-completion")
    x8dcc-suckless:slock
    ;; Prepend packages to:

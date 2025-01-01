@@ -193,6 +193,15 @@ Packages oriented to software development.
 (specification->package "neovim")
 #+end_src
 
+*** Networking package
+
+Wireguard tools for connecting to VPNs. See also the [[*Networking services][Networking services]] section
+below.
+
+#+begin_src scheme :noweb-ref packages
+(specification->package "wireguard-tools")
+#+end_src
+
 *** Bash completion
 
 Bash completion deserves its own subsection because there are some additional
@@ -340,6 +349,63 @@ OpenSSH server.
 #+begin_src scheme :noweb-ref services
 (service openssh-service-type)
 #+end_src
+
+WireGuard service for VPN. Credits to [[https://dataswamp.org/~solene/2021-05-22-guix-wireguard.html][this article]]. Brief installation process:
+
+First, generate a new /private key/ for that machine with ~wg genkey~. Write the
+generated string to ~/etc/wireguard/private.key~, with only read permissions for
+the user (i.e. ~chmod 400 ...~). If will briefly explain the general configuration
+process of wireguard, and then how to obtain those values when using [[https://mullvad.net/][mullvad]]
+specifically.
+
+- General configuration process ::
+
+  You can retrieve your /public key/ from your private key with
+  ~wg pubkey < /etc/wireguard/private.key~. It should be stored in the peer
+  machine. Note, however, that the =public-key= field below should contain the
+  public key of /the peer/, not your private key.
+
+  The =endpoint= field should be the IP and port of the peer, usually the VPN
+  server.
+
+  The =allowed-ips= field specifies the local networks that will be routed through
+  this WireGuard interface. You can use =0.0.0.0/0= to route everything.
+
+- Mullvad configuration ::
+
+  If you are using mullvad, you can add your generated private key to [[https://mullvad.net/en/account/wireguard-config][your
+  account]]; in theory, they will only use it for generating the configuration
+  files and only keep your public key.
+
+  If you are using mullvad, you can obtain the public key of each server from
+  the =PublicKey= field of its config (which downloaded from their website).
+
+  The IP and port for the =endpoint= field can be located inside each server's
+  configuration file.
+
+  Finally, the list of =allowed-ips= should match the value from =AllowedIPs= in the
+  config, but as a scheme list, rather than a comma-separated string.
+
+Now that it's clear what each field should be, this is the actual code for
+setting up the service.
+
+#+begin_src scheme :noweb-ref modules
+(gnu services vpn)
+#+end_src
+
+#+begin_comment scheme :noweb-ref services
+;; NOTE: Commented
+(service wireguard-service-type
+         (wireguard-configuration
+          (private-key "/etc/wireguard/private.key")
+          (peers
+           (list
+            (wireguard-peer
+             (name "XXX")
+             (public-key "XXX")
+             (endpoint "XXX")
+             (allowed-ips '("0.0.0.0/0" "::0/0")))))))
+#+end_comment
 
 [[https://en.wikipedia.org/wiki/Network_Time_Protocol][Network Time Protocol]], for time and date.
 
