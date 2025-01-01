@@ -33,11 +33,11 @@
  (guix gexp)
  ;; Services
  (gnu services base)
+ (gnu services ssh)
  (gnu services networking)
  (gnu services desktop)
  (gnu packages nfs)
  (gnu packages linux)
- (gnu services ssh)
  (gnu services cups)
  (gnu packages cups)
  (gnu services sound)
@@ -105,19 +105,6 @@
    %base-packages))
  (services
   (cons*
-   (service ntp-service-type)
-   (service login-service-type)
-   (service elogind-service-type)
-   (simple-service 'mount-setuid-helpers privileged-program-service-type
-                   (map file-like->setuid-program
-                        (list (file-append nfs-utils "/sbin/mount.nfs")
-                              (file-append ntfs-3g "/sbin/mount.ntfs-3g"))))
-   (service openssh-service-type)
-   (service cups-service-type
-            (cups-configuration
-             (web-interface? #t)
-             (extensions (list cups-filters
-                               hplip-minimal))))
    (service wpa-supplicant-service-type)
    (service connman-service-type
             (connman-configuration
@@ -128,6 +115,19 @@
                (allow-hostname-updates? #f)
                (allow-domainname-updates? #f)
                (single-connected-technology? #f)))))
+   (service openssh-service-type)
+   (service ntp-service-type)
+   (service login-service-type)
+   (service elogind-service-type)
+   (simple-service 'mount-setuid-helpers privileged-program-service-type
+                   (map file-like->setuid-program
+                        (list (file-append nfs-utils "/sbin/mount.nfs")
+                              (file-append ntfs-3g "/sbin/mount.ntfs-3g"))))
+   (service cups-service-type
+            (cups-configuration
+             (web-interface? #t)
+             (extensions (list cups-filters
+                               hplip-minimal))))
    (service alsa-service-type
             (alsa-configuration
              (pulseaudio? #t)))

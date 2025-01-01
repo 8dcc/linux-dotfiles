@@ -307,7 +307,35 @@ This is the list of system [[https://guix.gnu.org/manual/devel/en/html_node/Serv
   %base-services))
 #+end_src
 
-*** General services
+*** Networking services
+
+We use [[https://wiki.archlinux.org/title/ConnMan][connman]] and [[https://wiki.archlinux.org/title/Wpa_supplicant][wpa_supplicant]] for WiFi. We could use ~'(iwd)~ in
+=shepherd-requirement=, but there is currently no service that provides it (if
+there was, we wouldn't use =connman= in the first place). We use =wpa-supplicant=
+instead.
+
+#+begin_src scheme :noweb-ref services
+(service wpa-supplicant-service-type)
+(service connman-service-type
+         (connman-configuration
+          (shepherd-requirement '(wpa-supplicant))
+          (disable-vpn? #t)
+          (general-configuration
+           (connman-general-configuration
+            (allow-hostname-updates? #f)
+            (allow-domainname-updates? #f)
+            (single-connected-technology? #f)))))
+#+end_src
+
+OpenSSH server.
+
+#+begin_src scheme :noweb-ref modules
+(gnu services ssh)
+#+end_src
+
+#+begin_src scheme :noweb-ref services
+(service openssh-service-type)
+#+end_src
 
 [[https://en.wikipedia.org/wiki/Network_Time_Protocol][Network Time Protocol]], for time and date.
 
@@ -318,6 +346,8 @@ This is the list of system [[https://guix.gnu.org/manual/devel/en/html_node/Serv
 #+begin_src scheme :noweb-ref services
 (service ntp-service-type)
 #+end_src
+
+*** General services
 
 Used for logging in. Defined in ~(gnu services base)~, imported above.
 
@@ -353,16 +383,6 @@ NOTE: Extracted from the Guix repo, "gnu/services/desktop.scm" @ 8a7bd211d2.
                            (file-append ntfs-3g "/sbin/mount.ntfs-3g"))))
 #+end_src
 
-OpenSSH server.
-
-#+begin_src scheme :noweb-ref modules
-(gnu services ssh)
-#+end_src
-
-#+begin_src scheme :noweb-ref services
-(service openssh-service-type)
-#+end_src
-
 Printing with [[https://openprinting.github.io/cups/][CUPS]].
 
 #+begin_src scheme :noweb-ref modules
@@ -376,24 +396,6 @@ Printing with [[https://openprinting.github.io/cups/][CUPS]].
           (web-interface? #t)
           (extensions (list cups-filters
                             hplip-minimal))))
-#+end_src
-
-We use [[https://wiki.archlinux.org/title/ConnMan][connman]] and [[https://wiki.archlinux.org/title/Wpa_supplicant][wpa_supplicant]] for WiFi. We could use ~'(iwd)~ in
-=shepherd-requirement=, but there is currently no service that provides it (if
-there was, we wouldn't use =connman= in the first place). We use =wpa-supplicant=
-instead.
-
-#+begin_src scheme :noweb-ref services
-(service wpa-supplicant-service-type)
-(service connman-service-type
-         (connman-configuration
-          (shepherd-requirement '(wpa-supplicant))
-          (disable-vpn? #t)
-          (general-configuration
-           (connman-general-configuration
-            (allow-hostname-updates? #f)
-            (allow-domainname-updates? #f)
-            (single-connected-technology? #f)))))
 #+end_src
 
 We use [[https://en.wikipedia.org/wiki/Advanced_Linux_Sound_Architecture][ALSA]] and [[https://en.wikipedia.org/wiki/PulseAudio][Pulseaudio]] for sound.
