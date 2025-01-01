@@ -22,8 +22,8 @@ fi
 #-------------------------------------------------------------------------------
 
 # Load bashrc once
-if [ -f "~/.bashrc" ]; then
-    . ~/.bashrc
+if [ -f "$HOME/.bashrc" ]; then
+    . "$HOME/.bashrc"
 fi
 
 # Start Xorg server, see .xinitrc
