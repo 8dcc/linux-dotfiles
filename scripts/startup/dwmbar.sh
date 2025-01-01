@@ -58,8 +58,14 @@ pkgs() {
 }
 
 vpn() {
-    vpn="$(ip a | grep tun0 | grep inet | wc -l)"
-    echo "$vpn"
+    # Search for WireGuard interfaces.
+    inets=$(ip a | grep "wg.*[[:digit:]]\+" | grep "^[[:space:]]\+inet" | head -n 1)
+    if [ ! -z "$inets" ]; then
+        # Print the last field using GNU awk.
+        echo "$inets" | awk -F ' ' '{print $(NF)}'
+    else
+        echo "None"
+    fi
 }
 
 vol() {
@@ -125,7 +131,7 @@ batt() {
 }
 
 status() {
-    echo " Cpu: $(cpu) | Mem: $(mem) | Disk: $(dsk) | Batt: $(batt) | Vol: $(vol) | $(dte) "
+    echo " Cpu: $(cpu) | Mem: $(mem) | Disk: $(dsk) | VPN: $(vpn) | Batt: $(batt) | Vol: $(vol) | $(dte) "
 }
 
 while true; do
