@@ -6,7 +6,7 @@
 [[ -f ~/.xmodmap ]] && xmodmap ~/.xmodmap
 
 # Background
-[[ $(command -v xwallpaper) && -f ~/.wallpaper.png ]] && xwallpaper --zoom ~/.wallpaper.png
+[[ $(command -v xwallpaper) && -f ~/02-Media/01-Images/WALLPAPER.png ]] && xwallpaper --maximize ~/02-Media/01-Images/WALLPAPER.png
 
 # DWM statusbar loop
 [[ -f ~/.my-scripts/dwmbar.sh ]] && bash ~/.my-scripts/dwmbar.sh 2>/dev/null
