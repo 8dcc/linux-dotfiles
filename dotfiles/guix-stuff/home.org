@@ -214,6 +214,18 @@ nsxiv
 mpv
 #+end_src
 
+*** Networking
+
+- qbittorrent :: BitTorrent client based on the Qt toolkit.
+
+#+begin_src scheme :noweb-ref modules
+#:use-module (gnu packages bittorrent)
+#+end_src
+
+#+begin_src scheme :noweb-ref packages
+qbittorrent
+#+end_src
+
 *** Misc
 
 Other applications that don't fit in other categories.
@@ -224,7 +236,6 @@ Other applications that don't fit in other categories.
   retrieving mail from a list of servers.
 - syncthing :: For synchronizing files across different devices.
 - keepassxc :: Offline password manager.
-- qbittorrent :: BitTorrent client based on the Qt toolkit.
 - emacs :: An [[https://www.deusinmachina.net/p/an-ode-to-emacs-the-greatest-operating][operating system]] which happens to contain a text editor.
 - icecat :: Free fork of Mozilla's firefox.
 
@@ -232,7 +243,6 @@ Other applications that don't fit in other categories.
 #:use-module (gnu packages mail)
 #:use-module (gnu packages syncthing)
 #:use-module (gnu packages password-utils)
-#:use-module (gnu packages bittorrent)
 #:use-module (gnu packages emacs)
 #:use-module (gnu packages gnuzilla)
 #+end_src
@@ -242,7 +252,6 @@ xclip
 mailutils
 syncthing
 keepassxc
-qbittorrent
 emacs
 icecat
 #+end_src

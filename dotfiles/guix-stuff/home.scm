@@ -37,10 +37,10 @@
   #:use-module ((x8dcc-channel packages self) #:prefix x8dcc-self:)
   #:use-module (gnu packages image-viewers)
   #:use-module (gnu packages video)
+  #:use-module (gnu packages bittorrent)
   #:use-module (gnu packages mail)
   #:use-module (gnu packages syncthing)
   #:use-module (gnu packages password-utils)
-  #:use-module (gnu packages bittorrent)
   #:use-module (gnu packages emacs)
   #:use-module (gnu packages gnuzilla)
   ;; Services
@@ -75,11 +75,11 @@
    maim
    nsxiv
    mpv
+   qbittorrent
    xclip
    mailutils
    syncthing
    keepassxc
-   qbittorrent
    emacs
    icecat))
  (services
