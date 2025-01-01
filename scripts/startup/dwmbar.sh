@@ -18,11 +18,11 @@ dte() {
         fi
 
         # If (0 <= X <= 9), add a 0 after the subtraction.
-        if [[ 0 -le $hour && $hour -le 9 ]]; then
-            hour="0$hour"
+        if [[ 0 -le "$hour" && "$hour" -le 9 ]]; then
+            hour="0${hour}"
         fi
 
-        dte="$(date +"%d-%b $hour:%M")"
+        dte="$(date +"%d-%b ${hour}:%M")"
     else
         dte="$(date +"%d-%b %R")"
     fi
@@ -39,7 +39,7 @@ mem() {
     mem=$(free -h | grep "Mem:" | tr -s ' ')
     mem_t=$(echo $mem | cut -d " " -f 2)
     mem_c=$(echo $mem | cut -d " " -f 3)
-    echo "$mem_c/$mem_t"
+    echo "${mem_c}/${mem_t}"
 }
 
 cpu() {
@@ -49,7 +49,7 @@ cpu() {
     read cpu a b c idle rest < /proc/stat
     total=$((a+b+c+idle))
     cpu=$((100*( (total-prevtotal) - (idle-previdle) ) / (total-prevtotal) ))
-    echo "$cpu%"
+    echo "${cpu}%"
 }
 
 pkgs() {
@@ -120,7 +120,7 @@ batt() {
             batt2=${batt2::-1}
         fi
 
-        echo "$batt1, $batt2"
+        echo "${batt1}, ${batt2}"
     fi
 }
 
