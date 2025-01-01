@@ -131,7 +131,14 @@ batt() {
 }
 
 status() {
-    echo " Cpu: $(cpu) | Mem: $(mem) | Disk: $(dsk) | VPN: $(vpn) | Batt: $(batt) | Vol: $(vol) | $(dte) "
+    local battery
+    battery="$(batt)"
+
+    echo -n " Cpu: $(cpu) | Mem: $(mem) | Disk: $(dsk) | VPN: $(vpn) | "
+    if [ ! -z "$battery" ]; then
+        echo -n "Batt: $(batt) | "
+    fi
+    echo "Vol: $(vol) | $(dte) "
 }
 
 while true; do
