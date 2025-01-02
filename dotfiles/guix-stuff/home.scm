@@ -37,6 +37,7 @@
   #:use-module ((x8dcc-channel packages self) #:prefix x8dcc-self:)
   #:use-module (gnu packages image-viewers)
   #:use-module (gnu packages video)
+  #:use-module ((x8dcc-channel packages bittorrent) #:prefix x8dcc-bittorrent:)
   #:use-module (gnu packages bittorrent)
   #:use-module (gnu packages mail)
   #:use-module (gnu packages syncthing)
@@ -75,6 +76,7 @@
    maim
    nsxiv
    mpv
+   x8dcc-bittorrent:rtorrent-vi-color
    qbittorrent
    xclip
    mailutils

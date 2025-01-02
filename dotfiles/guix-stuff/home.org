@@ -216,13 +216,17 @@ mpv
 
 *** Networking
 
+- rtorrent-vi-color :: Fork of [[https://github.com/rakshasa/rtorrent][rTorrent]] (simple ncurses BitTorrent client) that
+  enables XMLRPC, color and vi-like keybinds.
 - qbittorrent :: BitTorrent client based on the Qt toolkit.
 
 #+begin_src scheme :noweb-ref modules
+#:use-module ((x8dcc-channel packages bittorrent) #:prefix x8dcc-bittorrent:)
 #:use-module (gnu packages bittorrent)
 #+end_src
 
 #+begin_src scheme :noweb-ref packages
+x8dcc-bittorrent:rtorrent-vi-color
 qbittorrent
 #+end_src
 
