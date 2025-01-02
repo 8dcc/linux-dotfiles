@@ -8,8 +8,7 @@ set -e
 #
 # You can run the 'aria2c' daemon with:
 #
-#   aria2c --daemon --enable-rpc=true --enable-dht --dht-listen-port=6881 \
-#       --listen-port=6881 --dht-entry-point=router.bittorrent.com:6881
+#   aria2c --daemon --enable-rpc=true --enable-dht --dht-listen-port=6881 --listen-port=6881 --dht-entry-point=router.bittorrent.com:6881
 #
 # For better performance.
 
