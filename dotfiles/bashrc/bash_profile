@@ -23,7 +23,7 @@ fi
 
 # Add user scripts to path, if any.
 if [ -d "$HOME/.my-scripts/util" ]; then
-    export PATH="$PATH:$HOME/.my-scripts/util"
+    export PATH="$HOME/.my-scripts/util:$PATH"
 fi
 
 # Load bashrc once
