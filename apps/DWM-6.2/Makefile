@@ -41,9 +41,9 @@ dist: clean
 	rm -rf dwm-${VERSION}
 
 install: all
-	mkdir -p ${DESTDIR}${PREFIX}/bin
-	cp -f dwm ${DESTDIR}${PREFIX}/bin
-	chmod 755 ${DESTDIR}${PREFIX}/bin/dwm
+	install -D -m 755 dwm -t ${DESTDIR}${PREFIX}/bin
+	install -D -m 755 scripts/dwm-menu-layout -t ${DESTDIR}${PREFIX}/bin
+	install -D -m 755 scripts/dwm-menu-quit -t ${DESTDIR}${PREFIX}/bin
 	mkdir -p ${DESTDIR}${MANPREFIX}/man1
 	sed "s/VERSION/${VERSION}/g" < dwm.1 > ${DESTDIR}${MANPREFIX}/man1/dwm.1
 	chmod 644 ${DESTDIR}${MANPREFIX}/man1/dwm.1
@@ -52,4 +52,4 @@ uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/dwm\
 		${DESTDIR}${MANPREFIX}/man1/dwm.1
 
-.PHONY: all options clean dist install uninstall
+.PHONY: all options clean cleaner dist install uninstall
