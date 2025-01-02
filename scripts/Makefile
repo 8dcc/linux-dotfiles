@@ -39,7 +39,7 @@ install-util: $(addprefix $(UTILDIR)/, $(addprefix $(COMMA), $(UTIL)))
 # ------------------------------------------------------------------------------
 
 $(STARTUPDIR)/% : startup/%
-	install -D -m 755 $< -t $(DESTDIR)$(STARTUPDIR)
+	install -D -m 755 $< $(DESTDIR)$@
 
 $(UTILDIR)/$(COMMA)% : util/%
-	install -D -m 755 $< -t $(DESTDIR)$(UTILDIR)
+	install -D -m 755 $< $(DESTDIR)$@
