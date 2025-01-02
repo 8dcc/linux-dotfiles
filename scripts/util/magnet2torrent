@@ -73,5 +73,5 @@ fi
 echo "$(basename "$0"): Moving '$torrent' to '${olddir}/${desired_filename}'..."
 mv "$torrent" "${olddir}/${desired_filename}"
 
-echo "$(basename "$0"): All done, removing '$tmpdir'."
+echo "$(basename "$0"): All done, removing '$tmpdir' directory."
 rm -r "$tmpdir"
