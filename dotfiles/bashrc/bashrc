@@ -90,8 +90,8 @@ export PYTHONDONTWRITEBYTECODE=1  # Remove pycache stuff
 
 # --- Git ----------------------------------------------------------------------
 
-if [ -f "$HOME/.my-scripts/git-prompt.sh" ]; then
-    . "$HOME/.my-scripts/git-prompt.sh"
+if [ -f "$HOME/.my-scripts/startup/git-prompt.sh" ]; then
+    . "$HOME/.my-scripts/startup/git-prompt.sh"
 else
     __git_ps1() { echo -n ""; }
 fi
