@@ -1,7 +1,7 @@
 
 FILES=archive-website bin-diff bin-print emacs-tor \
 	  git-log-short gpg-enc gpg-dec ipatch find-similar randomize-mac \
-	  scat src2ps mapc mpv-sub print-alternate-pages mail-fetch
+	  scat src2ps magnet2torrent mapc mpv-sub print-alternate-pages mail-fetch
 PREFIX=/usr/local/bin
 
 .PHONY: install
