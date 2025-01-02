@@ -1,4 +1,3 @@
-#-------------------------------------------------------------------------------
 # 8dcc's rTorrent configuration. See: https://github.com/8dcc/linux-dotfiles
 # Move to '~/.rtorrent.rc'.
 #
@@ -8,7 +7,9 @@
 # TODO:
 #   - Watch torrents for loading/starting them. This is not currently added
 #     since I don't use it.
+
 #-------------------------------------------------------------------------------
+# Directories
 
 # Instance layout (base paths).
 # The 'cfg.watch' variable is currently not being used.
@@ -26,6 +27,9 @@ execute.throw = sh, -c, (cat,\
     "\"", (cfg.session), "\" ",\
     "\"", (cfg.watch),   "/load\" ",\
     "\"", (cfg.watch),   "/start\" ")
+
+#-------------------------------------------------------------------------------
+# Network
 
 # Random listening port for incoming peer traffic
 network.port_range.set = 10000-50000
@@ -74,6 +78,24 @@ network.max_open_sockets.set = 300
 pieces.memory.max.set = 1800M
 network.xmlrpc.size_limit.set = 4M
 
+#-------------------------------------------------------------------------------
+# Logging
+
+# Levels:
+#   - critical error warn notice info debug
+# Groups:
+#   - connection_* dht_* peer_* rpc_* storage_* thread_* tracker_* torrent_*
+print = (cat, "Logging to ", (cfg.logfile))
+log.open_file = "log", (cfg.logfile)
+log.add_output = "info", "log"
+log.add_output = "notice", "log"
+log.add_output = "warn", "log"
+log.add_output = "error", "log"
+log.add_output = "critical", "log"
+
+#-------------------------------------------------------------------------------
+# Misc
+
 # Basic operational settings (no need to change these).
 session.path.set = (cat, (cfg.session))
 directory.default.set = (cat, (cfg.download))
@@ -90,16 +112,8 @@ network.http.dns_cache_timeout.set = 25
 # Schedule a task for monitoring disk space, making sure we have enough.
 schedule2 = monitor_diskspace, 15, 60, ((close_low_diskspace, 1000M))
 
-# Logging:
-#   - Levels = critical error warn notice info debug
-#   - Groups = connection_* dht_* peer_* rpc_* storage_* thread_* tracker_* torrent_*
-print = (cat, "Logging to ", (cfg.logfile))
-log.open_file = "log", (cfg.logfile)
-log.add_output = "info", "log"
-log.add_output = "notice", "log"
-log.add_output = "warn", "log"
-log.add_output = "error", "log"
-log.add_output = "critical", "log"
+#-------------------------------------------------------------------------------
+# Patch-specific settings
 
 # Colors, from the "rtorrent-0.9.8_color.patch", available on:
 #   https://gitlab.com/lindell.fredrik/rtorrent-vi-color
