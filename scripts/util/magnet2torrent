@@ -1,0 +1,78 @@
+#!/bin/bash
+set -e
+
+# Convert a magnet link to a torrent file. Specially useful when watching
+# directories with rTorrent.
+#
+# Make sure your port 6881 is accessible.
+#
+# You can run the 'aria2c' daemon with:
+#
+#   aria2c --daemon --enable-rpc=true --enable-dht --dht-listen-port=6881 \
+#       --listen-port=6881 --dht-entry-point=router.bittorrent.com:6881
+#
+# For better performance.
+
+ARIA2C="aria2c"
+ARIA2CFLAGS="--bt-save-metadata=true --bt-metadata-only=true \
+--enable-dht --dht-listen-port=6881 --listen-port=6881 \
+--dht-entry-point=router.bittorrent.com:6881 --console-log-level=notice"
+
+# Text right before the torrent name.
+DOWNLOADCOMPLETE="Download complete:"
+
+# ------------------------------------------------------------------------------
+
+if [ $# -ne 1 ]; then
+    echo "Usage: $(basename "$0") MAGNET" 1>&2
+    exit 1
+fi
+
+assert_cmd() {
+    if [ ! $(command -v "$1") ]; then
+        echo "$(basename "$0"): The '$1' command is not installed." 1>&2
+        exit 1
+    fi
+}
+
+assert_cmd "$ARIA2C"
+assert_cmd "find"
+
+# ------------------------------------------------------------------------------
+
+olddir="$(pwd)"
+tmpdir="$(mktemp --tmpdir -d "magnet2torrent.XXXX")"
+cd "$tmpdir"
+
+echo "$(basename "$0"): Downloading metadata..."
+result="$($ARIA2C $ARIA2CFLAGS --dir="$tempdir" "$1")"
+echo "$(basename "$0"): Command '$ARIA2C' finished."
+
+set +e
+download_result="$(echo "$result" | grep "$DOWNLOADCOMPLETE")"
+set -e
+if [ -z "$download_result" ]; then
+    echo "$(basename "$0"): Could not match key text: '$DOWNLOADCOMPLETE'" 1>&2
+    exit 1
+fi
+desired_filename="$(echo "$download_result" | sed --regexp-extended "s/.*\[MEMORY\]\[METADATA\]([[:alnum:]()]*).*/\1/g")"
+desired_filename="$(date "+%s")-${desired_filename}.torrent"
+
+torrent="$(find "$tmpdir" -type f -name "*.torrent")"
+if [ -z "$torrent" ]; then
+    echo "$(basename "$0"): Did not find any '.torrent' files after the \
+download inside '$tmpdir'." 1>&2
+    exit 1
+fi
+
+if [ "$(echo -n "$torrent" | wc -l)" -gt 1 ]; then
+    torrent="$(echo -n "$torrent" | head -n 1)"
+    echo "$(basename "$0"): Warning: Found more than one '.torrent' file after \
+the download inside '$tmpdir', choosing '$torrent'." 1>&2
+fi
+
+echo "$(basename "$0"): Moving '$torrent' to '${olddir}/${desired_filename}'..."
+mv "$torrent" "${olddir}/${desired_filename}"
+
+echo "$(basename "$0"): All done, removing '$tmpdir'."
+rm -r "$tmpdir"
