@@ -55,7 +55,7 @@ if [ -z "$download_result" ]; then
     echo "$(basename "$0"): Could not match key text: '$DOWNLOADCOMPLETE'" 1>&2
     exit 1
 fi
-desired_filename="$(echo "$download_result" | sed --regexp-extended "s/.*\[MEMORY\]\[METADATA\]([[:alnum:]()]*).*/\1/g")"
+desired_filename="$(echo "$download_result" | sed --regexp-extended "s/.*\[MEMORY\]\[METADATA\]([][:alnum:][(){}+:.,=?_-]*).*/\1/g")"
 desired_filename="$(date "+%s")-${desired_filename}.torrent"
 
 torrent="$(find "$tmpdir" -type f -name "*.torrent")"
