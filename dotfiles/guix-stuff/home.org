@@ -230,6 +230,18 @@ x8dcc-bittorrent:rtorrent-vi-color
 qbittorrent
 #+end_src
 
+*** Disk utilities
+
+- android-file-transfer :: Simple MTP client for Android devices.
+
+#+begin_src scheme :noweb-ref modules
+#:use-module (gnu packages android)
+#+end_src
+
+#+begin_src scheme :noweb-ref packages
+android-file-transfer
+#+end_src
+
 *** Misc
 
 Other applications that don't fit in other categories.

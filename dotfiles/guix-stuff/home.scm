@@ -39,6 +39,7 @@
   #:use-module (gnu packages video)
   #:use-module ((x8dcc-channel packages bittorrent) #:prefix x8dcc-bittorrent:)
   #:use-module (gnu packages bittorrent)
+  #:use-module (gnu packages android)
   #:use-module (gnu packages mail)
   #:use-module (gnu packages syncthing)
   #:use-module (gnu packages password-utils)
@@ -78,6 +79,7 @@
    mpv
    x8dcc-bittorrent:rtorrent-vi-color
    qbittorrent
+   android-file-transfer
    xclip
    mailutils
    syncthing
