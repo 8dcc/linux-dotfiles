@@ -1,12 +1,10 @@
+# -*- mode: conf -*-
+#
 # 8dcc's rTorrent configuration. See: https://github.com/8dcc/linux-dotfiles
 # Move to '~/.rtorrent.rc'.
 #
 # For the official configuration template, see:
 # https://github.com/rakshasa/rtorrent/wiki/CONFIG-Template
-#
-# TODO:
-#   - Watch torrents for loading/starting them. This is not currently added
-#     since I don't use it.
 
 #-------------------------------------------------------------------------------
 # Directories
