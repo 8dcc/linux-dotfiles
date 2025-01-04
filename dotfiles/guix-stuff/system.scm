@@ -116,7 +116,8 @@
               (connman-general-configuration
                (allow-hostname-updates? #f)
                (allow-domainname-updates? #f)
-               (single-connected-technology? #f)))))
+               (single-connected-technology? #f)
+               (resolv-conf "/dev/null")))))
    (service openssh-service-type)
    (service ntp-service-type)
    (service login-service-type)

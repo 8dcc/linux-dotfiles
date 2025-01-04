@@ -323,6 +323,9 @@ We use [[https://wiki.archlinux.org/title/ConnMan][connman]] and [[https://wiki.
 there was, we wouldn't use =connman= in the first place). We use =wpa-supplicant=
 instead.
 
+We don't want ConnMan to update our =resolv.conf= file, so we set it to =/dev/null=
+in the =connman-general-configuration=.
+
 #+begin_src scheme :noweb-ref modules
 (gnu services networking)
 #+end_src
@@ -337,7 +340,8 @@ instead.
            (connman-general-configuration
             (allow-hostname-updates? #f)
             (allow-domainname-updates? #f)
-            (single-connected-technology? #f)))))
+            (single-connected-technology? #f)
+            (resolv-conf "/dev/null")))))
 #+end_src
 
 OpenSSH server.
