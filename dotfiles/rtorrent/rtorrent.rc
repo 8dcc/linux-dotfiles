@@ -121,6 +121,7 @@ execute.nothrow = sh, -c, (cat, "echo >",\
 encoding.add = UTF-8
 system.umask.set = 0027
 system.cwd.set = (directory.default)
+view.sort_current = seeding, greater=d.ratio=
 
 # Schedule a task for monitoring disk space, making sure we have enough.
 schedule2 = monitor_diskspace, 15, 60, ((close_low_diskspace, 1000M))
