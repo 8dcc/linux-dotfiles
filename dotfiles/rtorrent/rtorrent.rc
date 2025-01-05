@@ -127,6 +127,10 @@ system.cwd.set = (directory.default)
 # Sort the "seeding" tab by ratio, in descending order.
 view.sort_current = seeding, greater=d.ratio=
 
+# In the "active" tab, only show torrents which are currently downloading or
+# uploading.
+schedule2 = filter_active, 13, 30, "view.filter = active,\"or={d.up.rate=,d.down.rate=}\""
+
 # Schedule a task for monitoring disk space, making sure we have enough.
 schedule2 = monitor_diskspace, 15, 60, ((close_low_diskspace, 1000M))
 
