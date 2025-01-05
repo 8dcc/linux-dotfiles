@@ -4,7 +4,9 @@
 # Move to '~/.rtorrent.rc'.
 #
 # For the official configuration template, see:
-# https://github.com/rakshasa/rtorrent/wiki/CONFIG-Template
+#   https://github.com/rakshasa/rtorrent/wiki/CONFIG-Template
+# For a command reference, see:
+#   https://kannibalox.github.io/rtorrent-docs/cmd-ref.html
 
 #-------------------------------------------------------------------------------
 # Directories
@@ -37,7 +39,7 @@ execute.throw = sh, -c, (cat,\
 #
 schedule2 = watch_load, 11, 10, ((load.verbose, (cat, (cfg.watch), "load/*.torrent")))
 schedule2 = watch_start, 10, 10, ((load.start_verbose, (cat, (cfg.watch), "start/*.torrent")))
-schedule2 = watch_start_epub, 22, 10, ((load.start_verbose, (cat, (cfg.watch), "start/epub/*.torrent"), d.directory.set="~/Sync/Books/EPUB/"))
+schedule2 = watch_start_epub, 12, 10, ((load.start_verbose, (cat, (cfg.watch), "start/epub/*.torrent"), d.directory.set="~/Sync/Books/EPUB/"))
 
 #-------------------------------------------------------------------------------
 # Network
@@ -121,6 +123,8 @@ execute.nothrow = sh, -c, (cat, "echo >",\
 encoding.add = UTF-8
 system.umask.set = 0027
 system.cwd.set = (directory.default)
+
+# Sort the "seeding" tab by ratio, in descending order.
 view.sort_current = seeding, greater=d.ratio=
 
 # Schedule a task for monitoring disk space, making sure we have enough.
