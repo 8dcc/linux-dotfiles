@@ -22,9 +22,9 @@ dte() {
             hour="0${hour}"
         fi
 
-        dte="$(date +"%d-%b ${hour}:%M")"
+        dte="$(date +"%y.%m.%d ${hour}:%M")"
     else
-        dte="$(date +"%d-%b %R")"
+        dte="$(date +"%y.%m.%d %R")"
     fi
 
     echo "$dte"
