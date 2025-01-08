@@ -7,18 +7,18 @@ hourdiff=-1         # Ignored if !hourchange
 #####################
 
 dte() {
-    if [[ $hourchange == true ]]; then
+    if [ "$hourchange" == "true" ]; then
         hour=$(date +"%H")
 
         # Subtract one from the hour unless it is 00.
-        if [[ $hour == 00 ]]; then
+        if [ "$hour" == "00" ]; then
             hour=23
         else
             hour=$(($hour + $hourdiff))
         fi
 
-        # If (0 <= X <= 9), add a 0 after the subtraction.
-        if [[ 0 -le "$hour" && "$hour" -le 9 ]]; then
+        # If (0 <= X <= 9) after substracting, prepend a zero.
+        if [ 0 -le "$hour" && "$hour" -le 9 ]; then
             hour="0${hour}"
         fi
 
@@ -79,11 +79,11 @@ vol() {
 }
 
 batt() {
-    if [[ $multibattery == false ]]; then
-        if [[ $(acpi | awk '{print $3}') == "Charging," ]]; then
+    if [ "$multibattery" == "false" ]; then
+        if [ "$(acpi | awk '{print $3}')" == "Charging," ]; then
             # If battery is being charged we display a different icon
             batt1="+$(acpi | awk '{print $4}')"
-        elif [[ $(acpi | awk '{print $3}') == "Not" ]]; then
+        elif [ "$(acpi | awk '{print $3}')" == "Not" ]; then
             # If battery is not being charged we use the 5th field
             batt1="$(acpi | awk '{print $5}')"
         else
@@ -99,10 +99,10 @@ batt() {
         echo "$batt1"
     else
         # First battery
-        if [[ $(acpi | head -n 1 | awk '{print $3}') == "Charging," ]]; then
+        if [ "$(acpi | head -n 1 | awk '{print $3}')" == "Charging," ]; then
             # If battery is being charged we display a different icon
             batt1="+$(acpi | head -n 1 | awk '{print $4}')"
-        elif [[ $(acpi | head -n 1 | awk '{print $3}') == "Not" ]]; then
+        elif [ "$(acpi | head -n 1 | awk '{print $3}')" == "Not" ]; then
             # If battery is not being charged we use the 5th field
             batt1="$(acpi | head -n 1 | awk '{print $5}')"
         else
@@ -110,9 +110,9 @@ batt() {
         fi
 
         # Second battery
-        if [[ $(acpi | tail -n 1 | awk '{print $3}') == "Charging," ]]; then
+        if [ "$(acpi | tail -n 1 | awk '{print $3}')" == "Charging," ]; then
             batt2="+$(acpi | tail -n 1 | awk '{print $4}')"
-        elif [[ $(acpi | tail -n 1 | awk '{print $3}') == "Not" ]];then
+        elif [ "$(acpi | tail -n 1 | awk '{print $3}')" == "Not" ];then
             batt2="$(acpi | tail -n 1 | awk '{print $5}')"
         else
             batt2="$(acpi | tail -n 1 | awk '{print $4}')"
