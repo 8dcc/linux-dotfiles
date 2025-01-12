@@ -144,13 +144,14 @@ x8dcc-suckless:st
 Install some useful fonts, including the [[https://www.dcmembers.com/jibsen/download/61/][Best One in the Entire Planet]]™.
 
 #+begin_src scheme :noweb-ref modules
-#:use-module (gnu packages fonts)
 #:use-module ((x8dcc-channel packages fonts) #:prefix x8dcc-fonts:)
+#:use-module (gnu packages fonts)
 #+end_src
 
 #+begin_src scheme :noweb-ref packages
-font-cozette
 x8dcc-fonts:font-dina
+font-cozette
+font-adobe-source-code-pro
 #+end_src
 
 *** Dictionaries

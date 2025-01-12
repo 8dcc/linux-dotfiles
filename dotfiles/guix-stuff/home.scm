@@ -30,8 +30,8 @@
   #:use-module (gnu packages xorg)
   #:use-module ((x8dcc-channel packages suckless) #:prefix x8dcc-suckless:)
   #:use-module (gnu packages xdisorg)
-  #:use-module (gnu packages fonts)
   #:use-module ((x8dcc-channel packages fonts) #:prefix x8dcc-fonts:)
+  #:use-module (gnu packages fonts)
   #:use-module (gnu packages aspell)
   #:use-module (gnu packages linux)
   #:use-module ((x8dcc-channel packages self) #:prefix x8dcc-self:)
@@ -65,8 +65,9 @@
    xwallpaper
    x8dcc-suckless:dmenu
    x8dcc-suckless:st
-   font-cozette
    x8dcc-fonts:font-dina
+   font-cozette
+   font-adobe-source-code-pro
    aspell
    aspell-dict-en
    aspell-dict-es
