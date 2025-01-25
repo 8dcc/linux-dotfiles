@@ -1,4 +1,6 @@
 sys-kernel/linux-firmware linux-fw-redistributable no-source-code
 
-dev-texlive/texlive-fontsrecommended OFL
 dev-texlive/texlive-basic OFL
+dev-texlive/texlive-fontsrecommended OFL
+
+games-util/steam-launcher ValveSteamLicense
