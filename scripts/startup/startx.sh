@@ -1,6 +1,6 @@
 #!/bin/sh
 
-PREFIX="$HOME/.guix-profile"
+PREFIX="$HOME/.guix-home/profile"
 DEV="/dev/tty1"
 
 if [ "$(tty)" != "$DEV" ]; then
