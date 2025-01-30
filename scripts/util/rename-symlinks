@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Use with 'find', like so:
+#
+#   find PATH -lname 'PATH-WITH-OLDWORD/*' -exec ,rename-simlinks {} \;
+#
+# Credits: https://unix.stackexchange.com/a/27996/526380
+
+# TODO: Change old and new replacements.
+OLDWORD="aaabbbccc"
+NEWWORD="xxxyyyzzz"
+
+# TODO: Change to 'false' after verifying that the commands are correct.
+DRYRUN=true
+
+link="$1"
+target="$(readlink -- "$1")"
+target=${target/"$OLDWORD"/"$NEWWORD"}
+
+if [ -z "$link" ] || [ -z "$target" ]; then
+    echo "Error: A variable was empty." 1>&2
+    exit 1
+fi
+
+if [ $DRYRUN == true ]; then
+    echo "rm -- \"$link\"; ln -s -- \"$target\" \"$link\""
+else
+    rm -- "$link"
+    ln -s -- "$target" "$link"
+fi
