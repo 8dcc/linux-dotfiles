@@ -1,0 +1,104 @@
+#!/usr/bin/env bash
+set -e
+
+# Recursively replace the targets of all (matching) symlinks in the current
+# directory with a custom replacement.
+#
+# For example, if the structure of the current directory is the following:
+#
+#     .
+#     |-- symlinks
+#     |   |-- dir
+#     |   |   `-- link1 -> ../../bad/a.txt           # Invalid
+#     |   |-- link2 -> ../bad/b.txt                  # Invalid
+#     |   `-- link3 -> ../targets/c.txt              # Valid
+#     `-- targets
+#         |-- a.txt
+#         |-- b.txt
+#         `-- c.txt
+#
+# We might want to replace the targets of all the symlinks in the './symlinks/'
+# directory from '../bad' to '../targets'.
+#
+# Credits:
+#   - https://unix.stackexchange.com/a/27996/526380
+#   - https://stackoverflow.com/a/26349346/11715554
+
+# ------------------------------------------------------------------------------
+
+# Temporary file used for logging changes.
+g_log_file="$(mktemp --tmpdir "query-replace-symlinks.XXX.log")"
+
+# Global variable used to store if the user chose to replace all symlinks
+# without confirmation.
+g_ask_confirmation=true
+
+# Ask for user confirmation, and replace the text in the specified symlink's
+# target.
+#
+#     void query_replace_symlink(symlink_path, old_term, new_term);
+#
+# Used below with 'find'.
+query_replace_symlink() {
+    symlink_path="$1"
+    old_term="$2"
+    new_term="$3"
+
+    old_target="$(readlink -- "$symlink_path")"
+    new_target=${old_target/"$old_term"/"$new_term"}
+
+    if [ -z "$symlink_path" ] || [ -z "$new_target" ]; then
+        echo "$(basename "$0"): Empty symlink path or target. Aborting." 1>&2
+        exit 1
+    fi
+
+    choice=y
+    if [ "$g_ask_confirmation" == true ]; then
+        read -r -p "Set symlink '${symlink_path}' from '${old_target}' to '${new_target}'? [Y/n/!] " choice
+        choice="$(echo "${choice::1}" | tr '[:upper:]' '[:lower:]')"
+
+        # Just like in Emacs, the '!' option means to replace all remaining
+        # matches without asking for confirmation.
+        if [ "$choice" == '!' ]; then
+            g_ask_confirmation=false
+            choice="y"
+        fi
+    fi
+
+    if [ "$choice" == 'y' ]; then
+        ln --symbolic --force -- "$new_target" "$symlink_path"
+
+        # The log message contains the 3 parts of the change, so it can be
+        # reversed if needed.
+        echo "Symlink at '${symlink_path}' had target '${old_target}' and becomes '${new_term}'" >> "$g_log_file"
+    fi
+}
+
+# ------------------------------------------------------------------------------
+
+# Directory where the symlinks are (current directory).
+symlink_dir="$(pwd)"
+echo "Query replace symlinks in '${symlink_dir}'..."
+
+read -r -p "Current text in targets: " old_term
+read -r -p "Query replace '${old_term}' with: " new_term
+
+# We can't use the '-exec' argument for 'find' because we are executing a bash
+# function, not a command. We could expose the function, but I think this
+# approach is cleaner.
+#
+# About why we don't use a for-loop, see https://www.shellcheck.net/wiki/SC2044
+symlink_paths=()
+while IFS= read -r -d '' path
+do
+    symlink_paths+=("$path")
+done < <(find "$symlink_dir" -lname "*${old_term}*" -print0)
+
+# Call 'query_replace_symlink' with each stored path. This extra array is
+# important because we will call 'read' from the function, while also using it
+# to populate the array.
+for symlink_path in "${symlink_paths[@]}"; do
+    query_replace_symlink "$symlink_path" "$old_term" "$new_term"
+done
+
+echo "All done. Changes written to '${g_log_file}'."
