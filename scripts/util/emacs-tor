@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Simple script for running `emacs' through the Tor network, using `torsocks'.
 # See: https://gitlab.torproject.org/tpo/core/torsocks/

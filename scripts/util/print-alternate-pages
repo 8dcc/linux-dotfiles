@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 # Print one of every N pages. Used for increasing or decreasing the page number.

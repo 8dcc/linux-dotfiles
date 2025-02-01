@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 # Simple wrapper for `mpv', because it's annoying to specify subtitle files

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 # Since we plan on printing the resulting file, we use 'base58' encoding (used
