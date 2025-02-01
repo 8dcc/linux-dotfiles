@@ -89,7 +89,7 @@ read -r -p "Query replace '${old_term}' with: " new_term
 #
 # About why we don't use a for-loop, see https://www.shellcheck.net/wiki/SC2044
 symlink_paths=()
-while IFS= read -r -d '' path
+while IFS= read -r -d $'\0' path
 do
     symlink_paths+=("$path")
 done < <(find "$symlink_dir" -lname "*${old_term}*" -print0)
