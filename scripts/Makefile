@@ -1,27 +1,10 @@
 
 PREFIX=$(HOME)/.my-scripts
 
-STARTUPDIR=$(PREFIX)/startup
-STARTUP=change-layout.sh dwmbar.sh git-prompt.sh multiple-monitors.sh startx.sh
-
-UTILDIR=$(PREFIX)/util
-UTIL=archive-website \
-	 bin-diff \
-	 bin-print \
-	 emacs-tor \
-	 git-log-short \
-	 gpg-enc \
-	 gpg-dec \
-	 ipatch \
-	 find-similar \
-	 randomize-mac \
-	 scat \
-	 src2ps \
-	 magnet2torrent \
-	 mapc \
-	 mpv-sub \
-	 print-alternate-pages \
-	 mail-fetch
+STARTUPDIR=startup
+STARTUP=$(notdir $(wildcard $(STARTUPDIR)/*))
+UTILDIR=util
+UTIL=$(notdir $(wildcard $(UTILDIR)/*))
 
 # ------------------------------------------------------------------------------
 
@@ -29,17 +12,17 @@ UTIL=archive-website \
 
 install: install-startup install-util
 
-install-startup: $(addprefix $(STARTUPDIR)/, $(STARTUP))
+install-startup: $(addprefix $(PREFIX)/$(STARTUPDIR)/, $(STARTUP))
 
 # About the comma prefix, see:
 # https://rhodesmill.org/brandon/2009/commands-with-comma/
 COMMA=,
-install-util: $(addprefix $(UTILDIR)/, $(addprefix $(COMMA), $(UTIL)))
+install-util: $(addprefix $(PREFIX)/$(UTILDIR)/$(COMMA), $(UTIL))
 
 # ------------------------------------------------------------------------------
 
-$(STARTUPDIR)/% : startup/%
+$(PREFIX)/$(STARTUPDIR)/% : $(STARTUPDIR)/%
 	install -D -m 755 $< $(DESTDIR)$@
 
-$(UTILDIR)/$(COMMA)% : util/%
+$(PREFIX)/$(UTILDIR)/$(COMMA)% : $(UTILDIR)/%
 	install -D -m 755 $< $(DESTDIR)$@
