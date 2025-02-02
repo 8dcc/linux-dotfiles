@@ -1,6 +1,9 @@
-#-------------------------------------------------------------------------------
-# ~/.bash_profile
-#-------------------------------------------------------------------------------
+#!/usr/bin/env bash
+
+#===============================================================================
+# Move this file to '~/.bash_profile'.
+# See https://github.com/8dcc/linux-dotfiles
+#===============================================================================
 
 # Guix stuff
 
@@ -26,10 +29,10 @@ if [ -d "$HOME/.my-scripts/util" ]; then
     export PATH="$HOME/.my-scripts/util:$PATH"
 fi
 
-# Load bashrc once
+# Load '.bashrc' once.
 if [ -f "$HOME/.bashrc" ]; then
     . "$HOME/.bashrc"
 fi
 
-# Start Xorg server, see .xinitrc
+# Start Xorg server, see '.xinitrc'.
 startx

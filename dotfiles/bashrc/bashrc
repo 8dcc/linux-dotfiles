@@ -1,6 +1,8 @@
+#!/usr/bin/env bash
+
 #===============================================================================
-# My personal .bashrc
-# https://github.com/8dcc/linux-dotfiles
+# Move this file to '~/.bashrc'.
+# See https://github.com/8dcc/linux-dotfiles
 #===============================================================================
 
 # If not running interactively, don't do anything
