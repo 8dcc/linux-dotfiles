@@ -44,7 +44,7 @@ tmpdir="$(mktemp --tmpdir -d "magnet2torrent.XXXX")"
 cd "$tmpdir"
 
 echo "$(basename "$0"): Downloading metadata..."
-result="$($ARIA2C $ARIA2CFLAGS --dir="$tempdir" "$1")"
+result="$($ARIA2C $ARIA2CFLAGS --dir="$tmpdir" "$1")"
 echo "$(basename "$0"): Command '$ARIA2C' finished."
 
 set +e
