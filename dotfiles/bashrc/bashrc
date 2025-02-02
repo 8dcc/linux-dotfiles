@@ -13,7 +13,7 @@
 shopt -s checkwinsize
 
 # Enable better color highlighting for 'ls'
-test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+test -r ~/.dircolors && (eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)")
 
 # --- History ------------------------------------------------------------------
 
@@ -59,8 +59,8 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias ip='ip --color=auto'
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+if [ -f "$HOME/.bash_aliases" ]; then
+    . "$HOME/.bash_aliases"
 fi
 
 # --- Custom aliases -----------------------------------------------------------
@@ -81,7 +81,7 @@ fi
 
 archive-ss() {
     IMAGE_DIR="$HOME/02-Media/01-Images/01-Screenshots"  # Can't use '~'
-    mv ~/ss-*.png $IMAGE_DIR
+    mv ~/ss-*.png "$IMAGE_DIR"
 }
 
 # --- Custom exports -----------------------------------------------------------
@@ -99,7 +99,7 @@ fi
 check_git_color() {
     if [[ $(git status -s 2> /dev/null) ]]; then
         echo -e "\033[0;33m"
-    elif [[ $(git diff --stat $(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2> /dev/null) 2> /dev/null) ]]; then
+    elif [[ $(git diff --stat "$(git rev-parse --abbrev-ref --symbolic-full-name '@{u}' 2> /dev/null)" 2> /dev/null) ]]; then
         echo -e "\033[0;35m"
     else
         echo -e "\033[0;32m"
