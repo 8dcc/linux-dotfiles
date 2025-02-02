@@ -52,6 +52,9 @@ if ! shopt -oq posix; then
     fi
 fi
 
+# Bash tries to correct spelling errors during directory completion.
+bind 'set completion-ignore-case on'
+
 # --- Basic aliases ------------------------------------------------------------
 
 # Add color
