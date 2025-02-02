@@ -32,4 +32,4 @@ set -e
 FLAGS="--graph --date-order --date=short"
 FMT="%C(yellow)%h %C(cyan)%cd %C(magenta)%aN%C(auto)%d %Creset%s"
 
-git log $FLAGS --pretty="$FMT" $@
+git log $FLAGS --pretty="$FMT" "$@"

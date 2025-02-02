@@ -6,9 +6,9 @@ if [ $# -lt 2 ]; then
     exit 1
 fi
 
-if [ ! $(command -v "find") ]; then
+if [ ! "$(command -v "find")" ]; then
     echo "The 'find' command is not installed." 1>&2
     exit 1
 fi
 
-find "$1" -iname "*${2}*" ${@:3}
+find "$1" -iname "*${2}*" "${@:3}"

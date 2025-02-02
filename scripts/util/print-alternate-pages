@@ -11,33 +11,33 @@ if [ $# -lt 3 ]; then
     exit 1
 fi
 
-if [ ! $(command -v lpr) ]; then
+if [ ! "$(command -v lpr)" ]; then
     echo "The 'lpr' command is not installed." 1>&2
     exit 1
 fi
 
 #-------------------------------------------------------------------------------
 
-page_start=$1
-page_end=$2
-file=$3
-lprflags=${@:4}
+page_start="$1"
+page_end="$2"
+file="$3"
+lprflags="${*:4}"
 
 print_page() {
     echo "Sending to queue: $1"
-    lpr $lprflags -o page-ranges=$1 "$file"
+    lpr $lprflags -o page-ranges="$1" "$file"
 }
 
 echo "Note: Printing in the specified order ($page_start -> $page_end) with a step of $PAGE_STEP."
-if [ $page_start -le $page_end ]; then
+if [ "$page_start" -le "$page_end" ]; then
     # TODO: We could avoid generating N separate jobs by using the
     # '-o page-set=odd' or '-o page-set=odd' options for 'lpr'. I am not sure
     # if it's possible to print in reverse order (the other loop below).
-    for (( i=$page_start; i<=$page_end; i+=$PAGE_STEP )); do
+    for (( i="$page_start"; i<="$page_end"; i+="$PAGE_STEP" )); do
         print_page $i
     done
 else
-    for (( i=$page_start; i>=$page_end; i-=$PAGE_STEP )); do
+    for (( i="$page_start"; i>="$page_end"; i-="$PAGE_STEP" )); do
         print_page $i
     done
 fi

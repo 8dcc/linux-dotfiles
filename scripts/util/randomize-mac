@@ -5,7 +5,7 @@ INTERFACE="enp7s0"
 
 #-------------------------------------------------------------------------------
 
-if [ $(id -u) -ne 0 ]; then
+if [ "$(id -u)" -ne 0 ]; then
     echo "This script must be ran as root."
     exit 1
 fi
@@ -13,7 +13,7 @@ fi
 #-------------------------------------------------------------------------------
 
 assert_cmd() {
-    if [ ! $(command -v '$1') ]; then
+    if [ ! "$(command -v '$1')" ]; then
         echo "The '$1' command is not installed." 1>&2
         exit 1
     fi

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
+# TODO: Rename to 'SELF'
 PROGRAM_NAME="$(basename "$0")"
 DEFAULT_OUTPUT="-"
 
@@ -18,7 +19,7 @@ fi
 
 inform() {
     echo -n "$PROGRAM_NAME: " 1>&2
-    echo -e $1 1>&2
+    echo -e "$1" 1>&2
 }
 
 if [ $# -ge 1 ]; then
@@ -49,13 +50,13 @@ else
     file_output="$DEFAULT_OUTPUT"
 
     inform "Opening temporary file '$tmp_file' in the '$editor' editor..."
-    $editor $tmp_file
+    $editor "$tmp_file"
     inform "Done editing."
 fi
 
 gpg --output "$file_output" --decrypt "$file_input"
 
-if [ ! -z "$tmp_file" ]; then
+if [ -n "$tmp_file" ]; then
     inform "Done decrypting. Deleting temporary file '$tmp_file'"
     rm "$tmp_file"
 fi

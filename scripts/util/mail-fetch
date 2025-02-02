@@ -25,7 +25,7 @@ DESTFILE="/var/mail/$USER"
 
 #-------------------------------------------------------------------------------
 
-if [ ! $(command -v "$MOVEMAIL") ]; then
+if [ ! "$(command -v "$MOVEMAIL")" ]; then
     echo "The '$MOVEMAIL' command is not installed." 1>&2
     exit 1
 fi

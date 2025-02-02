@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
-HEXDUMP=xxd
+HEXDUMP='xxd'
 HEXDUMPFLAGS=
-DIFF=diff
+DIFF='diff'
 DIFFFLAGS='--color=auto'
 
 #-------------------------------------------------------------------------------
@@ -14,7 +14,7 @@ if [ $# -ne 2 ]; then
 fi
 
 assert_cmd() {
-    if [ ! $(command -v "$1") ]; then
+    if [ ! "$(command -v "$1")" ]; then
         echo "The '$1' command is not installed." 1>&2
         exit 1
     fi
