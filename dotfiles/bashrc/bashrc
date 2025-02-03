@@ -14,8 +14,12 @@
 # number of rows and columns.
 shopt -s checkwinsize
 
-# Enable better color highlighting for 'ls'
-test -r ~/.dircolors && (eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)")
+# Enable better color highlighting for 'ls'.
+if [ -r "$HOME/.dircolors" ]; then
+    eval "$(dircolors -b $HOME/.dircolors)"
+else
+    eval "$(dircolors -b)"
+fi
 
 # --- History ------------------------------------------------------------------
 
