@@ -2,7 +2,7 @@
 # /etc/portage/package.use/package.use
 # ====================================
 
-# Needed for building the surf browser 
+# Needed for building the surf browser
 app-crypt/gcr gtk
 
 # For 32bit qemu support and graphical display
@@ -60,4 +60,4 @@ dev-util/cutter graphviz
 >=net-dns/avahi-0.9 python
 
 # app-crypt/pinentry
-app-crypt/pinentry ncurses gtk
+app-crypt/pinentry ncurses gtk qt5
