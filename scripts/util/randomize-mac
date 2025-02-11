@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 set -e
 
-INTERFACE="enp7s0"
-
-#-------------------------------------------------------------------------------
+if [ $# -ne 1 ]; then
+    echo "Usage: $(basename "$0") INTERFACE" 1>&2
+    exit 1
+fi
 
 if [ "$UID" -ne 0 ]; then
     echo -n "This script must be ran as root, " 1>&2
@@ -28,16 +29,14 @@ assert_cmd "macchanger"
 
 #-------------------------------------------------------------------------------
 
-ip a
-echo
-read -p "Randomizing interface '$INTERFACE'. Press any key to continue..."
+interface="$1"
 
 echo -n "Bringing interface down... "
-ip link set "$INTERFACE" down
+ip link set "$interface" down
 echo "Done."
 
-macchanger -a "$INTERFACE"
+macchanger -a "$interface"
 
 echo -n "Bringing interface up... "
-ip link set "$INTERFACE" up
+ip link set "$interface" up
 echo "Done."
