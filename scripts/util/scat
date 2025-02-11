@@ -6,7 +6,7 @@ if [ $# -lt 1 ]; then
     exit 1
 fi
 
-if [ ! "$(command -v "source-highlight")" ]; then
+if [ ! "$(command -v 'source-highlight')" ]; then
     echo "The 'source-highlight' command is not installed." 1>&2
     exit 1
 fi

@@ -11,7 +11,7 @@ if [ $# -lt 3 ]; then
     exit 1
 fi
 
-if [ ! "$(command -v lpr)" ]; then
+if [ ! "$(command -v 'lpr')" ]; then
     echo "The 'lpr' command is not installed." 1>&2
     exit 1
 fi
