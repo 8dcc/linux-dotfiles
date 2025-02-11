@@ -19,8 +19,8 @@ assert_cmd() {
     fi
 }
 
-assert_command "ip"
-assert_command "macchanger"
+assert_cmd "ip"
+assert_cmd "macchanger"
 
 #-------------------------------------------------------------------------------
 
