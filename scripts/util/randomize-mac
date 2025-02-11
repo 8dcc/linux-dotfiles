@@ -5,12 +5,16 @@ INTERFACE="enp7s0"
 
 #-------------------------------------------------------------------------------
 
-if [ "$(id -u)" -ne 0 ]; then
-    echo "This script must be ran as root."
-    exit 1
+if [ "$UID" -ne 0 ]; then
+    echo -n "This script must be ran as root, " 1>&2
+    if [ "$(command -v 'sudo')" ]; then
+        echo "escalating privileges..." 1>&2
+        exec sudo "$0" "$@"
+    else
+        echo "but 'sudo' was not found in the PATH." 1>&2
+        exit 1
+    fi
 fi
-
-#-------------------------------------------------------------------------------
 
 assert_cmd() {
     if [ ! "$(command -v "$1")" ]; then
