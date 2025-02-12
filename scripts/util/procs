@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -e
+
+PS="ps"
+
+# These flags specify that:
+#   - List all processes ('-e').
+#   - Show them with a tree format ('--forest').
+#   - Use the specified format for each process:
+#     PID TIME %CPU %MEM USER GROUP COMMAND
+#   - Without any terminal width restriction ('-ww').
+PSFLAGS=(-e --forest -o 'pid,cputime,%cpu,%mem,user,group,args' -ww)
+
+if [ ! "$(command -v "$PS")" ]; then
+    echo "The '$PS' command is not installed." 1>&2
+    exit 1
+fi
+
+$PS "${PSFLAGS[@]}"
