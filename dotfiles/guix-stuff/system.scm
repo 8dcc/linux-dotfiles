@@ -94,6 +94,7 @@
    (specification->package "htop")
    (specification->package "gnupg")
    (specification->package "pinentry")
+   (specification->package "pinentry-qt")
    (specification->package "git")
    (specification->package "gcc-toolchain")
    (specification->package "make")
