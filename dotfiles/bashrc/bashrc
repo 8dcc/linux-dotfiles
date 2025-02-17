@@ -79,6 +79,7 @@ fi
 #   https://wiki.gentoo.org/wiki/EMERGE_DEFAULT_OPTS
 
 [[ $(command -v tree) ]]     && alias tree='tree -Aaq'
+[[ $(command -v less) ]]     && alias less='less --chop-long-lines --ignore-case'
 [[ $(command -v diff) ]]     && alias diff='diff -u --color=auto'
 [[ $(command -v objdump) ]]  && alias disassemble='objdump --disassembler-color=terminal -M intel -d'
 [[ $(command -v snc) ]]      && alias snc='snc --print-interfaces --print-peer-info --print-progress'
