@@ -118,4 +118,4 @@ check_git_color() {
 
 # --- Welcome messages, etc. ---------------------------------------------------
 
-echo "( ._.)"
+echo -e "Using bash as '${USER}', in '$(tty)' of '${HOSTNAME}'. Welcome.\n"
