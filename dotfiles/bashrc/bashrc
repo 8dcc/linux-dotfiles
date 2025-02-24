@@ -59,40 +59,68 @@ fi
 # Bash tries to correct spelling errors during directory completion.
 bind 'set completion-ignore-case on'
 
-# --- Basic aliases ------------------------------------------------------------
+# --- Aliases ------------------------------------------------------------------
 
-# Add color
-alias ls='ls --color=auto -l --sort=version --group-directories-first --human-readable'
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-alias ip='ip --color=auto'
-
-if [ -f "$HOME/.bash_aliases" ]; then
-    . "$HOME/.bash_aliases"
-fi
-
-# --- Custom aliases -----------------------------------------------------------
-
-# For other bash scripts, see ../../scripts/usr/
+# For other bash scripts, see ../../scripts/util/
+#
 # Instead of using an alias for emerge, see EMERGE_DEFAULT_OPTS:
 #   https://wiki.gentoo.org/wiki/EMERGE_DEFAULT_OPTS
 
-[[ $(command -v tree) ]]     && alias tree='tree -Aaq'
-[[ $(command -v less) ]]     && alias less='less --chop-long-lines --ignore-case'
-[[ $(command -v diff) ]]     && alias diff='diff -u --color=auto'
-[[ $(command -v objdump) ]]  && alias disassemble='objdump --disassembler-color=terminal -M intel -d'
-[[ $(command -v snc) ]]      && alias snc='snc --print-interfaces --print-peer-info --print-progress'
-[[ $(command -v nvim) ]]     && alias vim='nvim'
-[[ $(command -v rz-asm) ]]   && alias bytes2asm='rz-asm -s intel -D -C'
-[[ $(command -v ghidra) ]]   && alias ghidra='_JAVA_AWT_WM_NONREPARENTING=1 ghidra'
-[[ $(command -v valgrind) ]] && alias valgrind='valgrind --leak-check=full --track-origins=yes'
-[[ $(command -v yt-dlp) ]]   && alias yt-dlp='yt-dlp --embed-metadata --embed-subs --merge-output-format mkv'
+# Usage: alias_safe ALIAS CMD [ARGS]
+alias_safe() {
+    # shellcheck disable=SC2139
+    [[ $(command -v "$2") ]] && alias "$1"="$2 $3"
+}
 
+# Usage: alias_default_args CMD DEFAULT_ARGS
+alias_default_args() {
+    alias_safe "$1" "$1" "${*:2}"
+}
+
+# Usage: alias_env_vars CMD ENV_VARS
+alias_env_vars() {
+    # shellcheck disable=SC2139
+    [[ $(command -v "$1") ]] && alias "$1"="${*:2} $1"
+}
+
+# Add color to common commands.
+alias_default_args ls    '--color=auto -l --sort=version --group-directories-first --human-readable'
+alias_default_args diff  '--color=auto -u'
+alias_default_args grep  '--color=auto'
+alias_default_args fgrep '--color=auto'
+alias_default_args egrep '--color=auto'
+alias_default_args ip    '--color=auto'
+
+# Default arguments.
+alias_default_args tree     '-Aaq'
+alias_default_args less     '--chop-long-lines --ignore-case'
+alias_default_args snc      '--print-interfaces --print-peer-info --print-progress'
+alias_default_args valgrind '--leak-check=full --track-origins=yes'
+alias_default_args yt-dlp   '--embed-metadata --embed-subs --merge-output-format mkv'
+
+# Environment variables.
+alias_env_vars ghidra '_JAVA_AWT_WM_NONREPARENTING=1'
+
+# New aliases.
+alias_safe disassemble 'objdump' '--disassembler-color=terminal -M intel -d'
+alias_safe vi 'nvim'
+alias_safe bytes2asm 'rz-asm' '-s intel -D -C'
+
+# New commands/functions.
 archive-ss() {
     IMAGE_DIR="$HOME/02-Media/01-Images/01-Screenshots"  # Can't use '~'
     mv ~/ss-*.png "$IMAGE_DIR"
 }
+
+# Load an external aliases file, if found.
+if [ -f "$HOME/.bash_aliases" ]; then
+    . "$HOME/.bash_aliases"
+fi
+
+# Unset internal aliasing functions.
+unset -f alias_safe
+unset -f alias_default_args
+unset -f alias_env_vars
 
 # --- Custom exports -----------------------------------------------------------
 
