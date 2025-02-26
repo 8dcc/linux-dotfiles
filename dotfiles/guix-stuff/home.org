@@ -87,17 +87,12 @@ These packages will be installed to the current user, /not/ system-wide.
 I use a custom fork of suckless' [[https://dwm.suckless.org/][dwm]] as my window manager. It will be installed
 through [[https://github.com/8dcc/guix-channel][my Guix channel]].
 
-For more information about using Xorg on Guix, see [[https://lists.gnu.org/archive/html/help-guix/2018-07/msg00080.html][archived email in help-guix
-list]].
-
 #+begin_src scheme :noweb-ref modules
 #:use-module (gnu packages xorg)
 #:use-module ((x8dcc-channel packages suckless) #:prefix x8dcc-suckless:)
 #+end_src
 
 #+begin_src scheme :noweb-ref packages
-xorg-server
-xinit
 xrandr
 xf86-input-libinput
 xf86-video-nouveau

@@ -101,6 +101,8 @@
    (specification->package "gdb")
    (specification->package "xxd")
    (specification->package "neovim")
+   (specification->package "xorg-server")
+   (specification->package "xinit")
    (specification->package "wireguard-tools")
    (specification->package "bash-completion")
    x8dcc-suckless:slock

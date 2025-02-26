@@ -196,7 +196,19 @@ Packages oriented to software development.
 (specification->package "neovim")
 #+end_src
 
-*** Networking package
+*** Xorg
+
+The server for the X window system. For more information about using Xorg on
+Guix, see [[https://lists.gnu.org/archive/html/help-guix/2018-07/msg00080.html][archived email in help-guix list]].
+
+See also [[*General services][=startx-command-service-type=]] below.
+
+#+begin_src scheme :noweb-ref packages
+(specification->package "xorg-server")
+(specification->package "xinit")
+#+end_src
+
+*** Networking packages
 
 Wireguard tools for connecting to VPNs. See also the [[*Networking services][Networking services]] section
 below.

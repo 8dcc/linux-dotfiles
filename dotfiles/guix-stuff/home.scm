@@ -52,8 +52,6 @@
 (home-environment
  (packages
   (list
-   xorg-server
-   xinit
    xrandr
    xf86-input-libinput
    xf86-video-nouveau
