@@ -517,20 +517,21 @@ We use [[https://en.wikipedia.org/wiki/Advanced_Linux_Sound_Architecture][ALSA]]
           (pulseaudio? #t)))
 #+end_src
 
-We specify the keyboard layout for Xorg here, instead of using my
-=change-layout.sh= script. For more information about Xorg, see [[https://lists.gnu.org/archive/html/help-guix/2018-07/msg00080.html][archived email in
-help-guix list]].
+Add a service for adding a proper =startx= script, which will be used for starting
+the Xorg server. We specify the keyboard layout for Xorg here, instead of using
+my =change-layout.sh= script.
 
-TODO: This doesn't work as expected.
+For more information about Xorg and about creating your own =startx= script (the
+old approach), see [[https://lists.gnu.org/archive/html/help-guix/2018-07/msg00080.html][archived email in help-guix list]].
 
 #+begin_src scheme :noweb-ref modules
 (gnu services xorg)
 #+end_src
 
 #+begin_src scheme :noweb-ref services
-(set-xorg-configuration
- (xorg-configuration
-  (keyboard-layout keyboard-layout)))
+(service startx-command-service-type
+         (xorg-configuration
+          (keyboard-layout keyboard-layout)))
 #+end_src
 
 We create services (using =extra-special-file=) for [[https://guix.gnu.org/manual/devel/en/html_node/Base-Services.html#index-special_002dfiles_002dservice_002dtype][special files]], which should be

@@ -137,9 +137,9 @@
    (service alsa-service-type
             (alsa-configuration
              (pulseaudio? #t)))
-   (set-xorg-configuration
-    (xorg-configuration
-     (keyboard-layout keyboard-layout)))
+   (service startx-command-service-type
+            (xorg-configuration
+             (keyboard-layout keyboard-layout)))
    (extra-special-file "/bin/bash" (file-append bash "/bin/bash"))
    (extra-special-file
     "/etc/bash_completion"
