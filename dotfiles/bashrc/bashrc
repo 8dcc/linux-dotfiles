@@ -9,7 +9,8 @@
 [ -z "$PS1" ] && return
 [[ $- == *i* ]] || return
 
-# --- Misc ---------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+# Misc
 
 # After each (non-builtin) command, Bash checks the window size, updating the
 # number of rows and columns.
@@ -22,7 +23,8 @@ else
     eval "$(dircolors -b)"
 fi
 
-# --- History ------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+# History
 
 # Ignore duplicate commands, as well as blank lines. Equivalent to Emacs' shell
 # `eshell-hist-ignoredups' variable.
@@ -35,7 +37,8 @@ HISTFILESIZE=2000
 # Append to the history, rather than overwriting it each time.
 shopt -s histappend
 
-# --- PS1 ----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+# Prompt
 
 PS1='\[\033[0;32m\]\u \[\033[1;34m\]\w\[\033[0m\]\[$(check_git_color)\]$(__git_ps1 " (%s)") \[\033[0m\]\$ '
 PS2='> '
@@ -47,7 +50,8 @@ if [ -n "$GUIX_ENVIRONMENT" ]; then
     fi
 fi
 
-# --- Bash completion ----------------------------------------------------------
+#-------------------------------------------------------------------------------
+# Bash completion
 
 if ! shopt -oq posix; then
     if [ -f /usr/share/bash-completion/bash_completion ]; then
@@ -60,7 +64,8 @@ fi
 # Bash tries to correct spelling errors during directory completion.
 bind 'set completion-ignore-case on'
 
-# --- Aliases ------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+# Aliases
 
 # For other bash scripts, see ../../scripts/util/
 #
@@ -125,11 +130,13 @@ unset -f alias_safe
 unset -f alias_default_args
 unset -f alias_env_vars
 
-# --- Custom exports -----------------------------------------------------------
+#-------------------------------------------------------------------------------
+# Custom exports
 
 export PYTHONDONTWRITEBYTECODE=1  # Remove pycache stuff
 
-# --- Git ----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+# Git
 
 if [ -f "$HOME/.my-scripts/startup/git-prompt.sh" ]; then
     . "$HOME/.my-scripts/startup/git-prompt.sh"
@@ -147,6 +154,7 @@ check_git_color() {
     fi
 }
 
-# --- Welcome messages, etc. ---------------------------------------------------
+#-------------------------------------------------------------------------------
+# Welcome messages, etc.
 
 echo -e "Using bash as '${USER}', in '$(tty)' of '${HOSTNAME}'. Welcome.\n"
