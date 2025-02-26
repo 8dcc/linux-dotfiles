@@ -116,7 +116,7 @@ alias_safe ',git-log-long' 'git' 'log --pretty=fuller --show-signature'
 # New commands/functions.
 # TODO: Some simple "util" scripts could be moved here.
 archive-ss() {
-    IMAGE_DIR="$HOME/02-Media/01-Images/01-Screenshots"  # Can't use '~'
+    local IMAGE_DIR="$HOME/02-Media/01-Images/01-Screenshots"  # Can't use '~'
     mv ~/ss-*.png "$IMAGE_DIR"
 }
 
