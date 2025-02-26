@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC1091
 
 #===============================================================================
 # Move this file to '~/.bashrc'.
@@ -40,10 +41,38 @@ shopt -s histappend
 #-------------------------------------------------------------------------------
 # Prompt
 
-PS1='\[\033[0;32m\]\u \[\033[1;34m\]\w\[\033[0m\]\[$(check_git_color)\]$(__git_ps1 " (%s)") \[\033[0m\]\$ '
+PS1='\[\033[0;32m\]\u \[\033[1;34m\]\w\[\033[0m\] $(_get_git_branch)\$ '
 PS2='> '
 
-# Automatically added by the Guix install script.
+# Git stuff
+if [ -f "$HOME/.my-scripts/startup/git-prompt.sh" ]; then
+    . "$HOME/.my-scripts/startup/git-prompt.sh"
+    _get_git_branch() {
+        local branch_color
+        local branch_name
+        local reset_color
+
+        branch_name="$(__git_ps1 "(%s)")"
+        if [ -z "$branch_name" ]; then
+            return 1
+        fi
+
+        reset_color='\033[0m'
+        if [[ $(git status -s 2> /dev/null) ]]; then
+            branch_color='\033[0;33m'
+        elif [[ $(git diff --stat "$(git rev-parse --abbrev-ref --symbolic-full-name '@{u}' 2> /dev/null)" 2> /dev/null) ]]; then
+            branch_color='\033[0;35m'
+        else
+            branch_color='\033[0;32m'
+        fi
+
+        echo -en "${branch_color}${branch_name}${reset_color} "
+    }
+else
+    _get_git_branch() { echo -n ""; }
+fi
+
+# Guix stuff
 if [ -n "$GUIX_ENVIRONMENT" ]; then
     if [[ $PS1 =~ (.*)"\\$" ]]; then
         PS1="${BASH_REMATCH[1]} [env]\\\$ "
@@ -280,25 +309,6 @@ _assert_cmd() {
 # Custom exports
 
 export PYTHONDONTWRITEBYTECODE=1  # Remove pycache stuff
-
-#-------------------------------------------------------------------------------
-# Git
-
-if [ -f "$HOME/.my-scripts/startup/git-prompt.sh" ]; then
-    . "$HOME/.my-scripts/startup/git-prompt.sh"
-else
-    __git_ps1() { echo -n ""; }
-fi
-
-check_git_color() {
-    if [[ $(git status -s 2> /dev/null) ]]; then
-        echo -e "\033[0;33m"
-    elif [[ $(git diff --stat "$(git rev-parse --abbrev-ref --symbolic-full-name '@{u}' 2> /dev/null)" 2> /dev/null) ]]; then
-        echo -e "\033[0;35m"
-    else
-        echo -e "\033[0;32m"
-    fi
-}
 
 #-------------------------------------------------------------------------------
 # Welcome messages, etc.
