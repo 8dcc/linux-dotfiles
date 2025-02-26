@@ -111,7 +111,6 @@ alias_env_vars ghidra '_JAVA_AWT_WM_NONREPARENTING=1'
 alias_safe disassemble 'objdump' '--disassembler-color=terminal -M intel -d'
 alias_safe vi 'nvim'
 alias_safe bytes2asm 'rz-asm' '-s intel -D -C'
-alias_safe ',git-log-long' 'git' 'log --pretty=fuller --show-signature'
 
 # New commands/functions.
 # TODO: Some simple "util" scripts could be moved here.
@@ -129,6 +128,153 @@ fi
 unset -f alias_safe
 unset -f alias_default_args
 unset -f alias_env_vars
+
+#-------------------------------------------------------------------------------
+# New functions/commands
+
+_assert_cmd() {
+    if [ "$(command -v "$1")" ]; then
+        return 0
+    else
+        echo "The '$1' command is not installed." 1>&2
+        return 1
+    fi
+}
+
+,bin-diff() {
+    local HEXDUMP='xxd'
+    local DIFF='diff'
+    (_assert_cmd "$HEXDUMP" && _assert_cmd "$DIFF") || return 1
+    if [ $# -ne 2 ]; then
+        echo "Usage: ${FUNCNAME[0]} BIN1 BIN2" 1>&2
+        return 1
+    fi
+    # For more information on the <(...) syntax, see:
+    # https://www.gnu.org/software/bash/manual/html_node/Process-Substitution.html
+    $DIFF <($HEXDUMP "$1") <($HEXDUMP "$2")
+}
+
+,emacs-tor() {
+    local TORSOCKS=torsocks
+    local EMACS=emacs
+    (_assert_cmd "$TORSOCKS" && _assert_cmd "$EMACS") || return 1
+    $TORSOCKS $EMACS "$@"
+}
+
+,find-similar() {
+    _assert_cmd 'find' || return 1
+    if [ $# -lt 2 ]; then
+        echo "Usage: ${FUNCNAME[0]} PATH NAME [OPTION]..." 1>&2
+        return 1
+    fi
+    find "$1" -iname "*${2}*" "${@:3}"
+}
+
+,git-log-short() {
+    _assert_cmd 'git' || return 1
+    # Usage:
+    #
+    #     git-log-short [OPTION]... [REVISION_RANGE] [[--] PATH...]
+    #
+    # This command does something pretty similar to:
+    #
+    #     git log --pretty=oneline
+    #
+    # Desired format:
+    #
+    #     <commit> <date> <author> <subject>
+    #
+    # Example:
+    #
+    #     * 6bd6ce1 2024-06-08 8dcc Add yt-dlp alias
+    #     * 6c89169 2024-05-28 8dcc Add history to gdbinit, add xxd
+    #     *   4b6e4c7 2024-05-22 8dcc Merge branch 'main'
+    #     |\
+    #     * | db9eab8 2024-05-22 8dcc Fix remote change detection in PS1 with [...]
+    #     * | 7bf74a4 2024-05-22 8dcc s/opcode bytes/instruction bytes
+    #     | * e0ab3b0 2024-05-21 8dcc Add USE flags for LaTeX
+    #     |/
+    #     * 0f556d3 2024-04-30 8dcc Add Iosevka 8dcc font
+    #
+    # See:
+    # - https://git-scm.com/docs/git-log#_pretty_formats
+    # - https://stackoverflow.com/q/1441010/11715554
+    local FLAGS="--graph --date-order --date=short"
+    local FMT="%C(yellow)%h %C(cyan)%cd %C(magenta)%aN%C(auto)%d %Creset%s"
+    git log $FLAGS --pretty="$FMT" "$@"
+}
+
+,git-log-long() {
+    _assert_cmd 'git' || return 1
+    # Usage:
+    #
+    #     git-log-long [OPTION]... [REVISION_RANGE] [[--] PATH...]
+    #
+    # Shows commit date, author date, and PGP signature information.
+    git log --pretty=fuller --show-signature "$@"
+}
+
+,mapc() {
+    if [ $# -lt 1 ]; then
+        echo "Usage: ${FUNCNAME[0]} CMD ARG..." 1>&2
+        return 1
+    fi
+    # Map each argument to the specified command. For example:
+    #
+    #     mapc shuf a.txt b.txt c.txt
+    #
+    # The previous code will call shuf(1) with the files named 'a.txt', 'b.txt' and
+    # 'c.txt' as arguments, in order. In this example, note how the lines of 'a.txt'
+    # will NOT be shuffled with the lines of the other two files (since they are
+    # part of different calls).
+    #
+    # Note how we don't quote '$1'. This way, the user can provide a command with
+    # arguments when calling 'mapc'. For example, in the following call:
+    #
+    #     mapc "shuf -z" a.txt b.txt c.txt
+    #
+    # Since the first argument of 'mapc' is quoted, both words ('shuf' and '-z')
+    # will be in '$1'. These words will be "unpacked" when calling the command
+    # inside the loop, since we are not quoting '$1'.
+    for element in "${@:2}"; do
+        $1 "$element"
+    done
+}
+
+,mpv-sub() {
+    _assert_cmd 'mpv' || return 1
+    if [ $# -ne 2 ]; then
+        echo "Usage: ${FUNCNAME[0]} SUBFILE FILE" 1>&2
+        return 1
+    fi
+    mpv --sub-file="$1" "$2"
+}
+
+,procs() {
+    _assert_cmd 'ps' || return 1
+    # These flags specify:
+    #   - List all processes ('-e').
+    #   - Show them with a tree format ('--forest').
+    #   - Use the specified format for each process:
+    #     PID TIME %CPU %MEM USER GROUP COMMAND
+    #   - Without any terminal width restriction ('-ww').
+    ps -e --forest -o 'pid,cputime,%cpu,%mem,user,group,args' -ww
+}
+
+,src2ps() {
+    _assert_cmd 'a2ps' || return 1
+    if [ $# -lt 1 ] || [ $# -gt 2 ]; then
+        echo "Usage: ${FUNCNAME[0]} INPUT [OUTPUT]" 1>&2
+        exit 1
+    fi
+    # Either second argument, or '-' (stdout). See:
+    # https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html
+    output=${2:--}
+    input=$1
+    local A2PSFLAGS="--portrait --columns=1 --no-header"
+    echo "Converting '$input' to '$output' with flags '$A2PSFLAGS'." 1>&2
+    a2ps $A2PSFLAGS --output="$output" "$input"
+}
 
 #-------------------------------------------------------------------------------
 # Custom exports
