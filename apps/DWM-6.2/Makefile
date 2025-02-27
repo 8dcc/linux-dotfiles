@@ -44,6 +44,8 @@ install: all
 	install -D -m 755 dwm -t ${DESTDIR}${PREFIX}/bin
 	install -D -m 755 scripts/dwm-menu-layout -t ${DESTDIR}${PREFIX}/bin
 	install -D -m 755 scripts/dwm-menu-quit -t ${DESTDIR}${PREFIX}/bin
+	install -D -m 755 dwm.desktop -t ${DESTDIR}${PREFIX}/share/xsessions
+	install -D -m 755 dwm.svg -t ${DESTDIR}${PREFIX}/share/icons
 	mkdir -p ${DESTDIR}${MANPREFIX}/man1
 	sed "s/VERSION/${VERSION}/g" < dwm.1 > ${DESTDIR}${MANPREFIX}/man1/dwm.1
 	chmod 644 ${DESTDIR}${MANPREFIX}/man1/dwm.1
@@ -52,6 +54,8 @@ uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/dwm\
 		${DESTDIR}${MANPREFIX}/man1/dwm.1\
 		${DESTDIR}${PREFIX}/bin/scripts/dwm-menu-layout\
-		${DESTDIR}${PREFIX}/bin/scripts/dwm-menu-quit
+		${DESTDIR}${PREFIX}/bin/scripts/dwm-menu-quit\
+		${DESTDIR}${PREFIX}/share/xsessions/dwm.desktop\
+		${DESTDIR}${PREFIX}/share/icons/dwm.svg
 
 .PHONY: all options clean cleaner dist install uninstall
