@@ -11,9 +11,6 @@
 # DWM statusbar loop
 [[ -f ~/.my-scripts/startup/dwmbar.sh ]] && bash ~/.my-scripts/startup/dwmbar.sh 2>/dev/null
 
-# See scripts/home
-[[ -f ~/.my-scripts/startup/change-layout.sh ]] && bash ~/.my-scripts/startup/change-layout.sh
-
 # Saved with arandr
 [[ -f ~/.my-scripts/startup/multiple-monitors.sh ]] && bash ~/.my-scripts/startup/multiple-monitors.sh
 
