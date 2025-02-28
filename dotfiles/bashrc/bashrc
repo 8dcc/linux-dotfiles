@@ -118,6 +118,12 @@ alias_env_vars() {
     [[ $(command -v "$1") ]] && alias "$1"="${*:2} $1"
 }
 
+# Usage: alias_deprecate OLD_CMD NEW_CMD
+alias_deprecate() {
+    # shellcheck disable=SC2139
+    alias "$1"="echo \"The '$1' command is masked by your '.bashrc', use '$2' instead.\""
+}
+
 # Add color to common commands.
 alias_default_args ls    '--color=auto -l --sort=version --group-directories-first --human-readable'
 alias_default_args diff  '--color=auto -u'
@@ -139,6 +145,7 @@ alias_env_vars ghidra '_JAVA_AWT_WM_NONREPARENTING=1'
 # New aliases.
 alias_safe disassemble 'objdump' '--disassembler-color=terminal -M intel -d'
 alias_safe vi 'nvim'
+alias_deprecate vim vi
 alias_safe bytes2asm 'rz-asm' '-s intel -D -C'
 
 # New commands/functions.
@@ -157,6 +164,7 @@ fi
 unset -f alias_safe
 unset -f alias_default_args
 unset -f alias_env_vars
+unset -f alias_deprecate
 
 #-------------------------------------------------------------------------------
 # New functions/commands
