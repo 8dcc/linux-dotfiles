@@ -21,11 +21,11 @@ fi
 page_start="$1"
 page_end="$2"
 file="$3"
-lprflags="${*:4}"
+lprflags=( "${@:4}" )
 
 print_page() {
     echo "Sending to queue: $1"
-    lpr $lprflags -o page-ranges="$1" "$file"
+    lpr "${lprflags[@]}" -o page-ranges="$1" "$file"
 }
 
 echo "Note: Printing in the specified order ($page_start -> $page_end) with a step of $PAGE_STEP."

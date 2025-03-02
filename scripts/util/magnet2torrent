@@ -13,9 +13,13 @@ set -e
 # For better performance.
 
 ARIA2C="aria2c"
-ARIA2CFLAGS="--bt-save-metadata=true --bt-metadata-only=true \
---enable-dht --dht-listen-port=6881 --listen-port=6881 \
---dht-entry-point=router.bittorrent.com:6881 --console-log-level=notice"
+ARIA2CFLAGS=(--bt-save-metadata=true
+             --bt-metadata-only=true
+             --enable-dht
+             --dht-listen-port=6881
+             --listen-port=6881
+             --dht-entry-point='router.bittorrent.com:6881'
+             --console-log-level='notice')
 
 # Text right before the torrent name.
 DOWNLOADCOMPLETE="Download complete:"
@@ -44,7 +48,7 @@ tmpdir="$(mktemp --tmpdir -d "magnet2torrent.XXXX")"
 cd "$tmpdir"
 
 echo "$(basename "$0"): Downloading metadata..."
-result="$($ARIA2C $ARIA2CFLAGS --dir="$tmpdir" "$1")"
+result="$($ARIA2C "${ARIA2CFLAGS[@]}" --dir="$tmpdir" "$1")"
 echo "$(basename "$0"): Command '$ARIA2C' finished."
 
 set +e

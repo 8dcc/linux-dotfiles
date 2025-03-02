@@ -15,7 +15,7 @@ CHECKSUM=md5sum
 #
 # FIXME: Specify the font face.
 A2PS=a2ps
-A2PSFLAGS="--portrait --columns=1 --borders=no --no-header"
+A2PSFLAGS=(--portrait --columns=1 --borders=no --no-header)
 
 #-------------------------------------------------------------------------------
 
@@ -78,7 +78,7 @@ Encoded checksum.: '${checksum_encoded}'
 # Print the header, along with the encoded text.
 # NOTE: You could just 'echo' it, instead of converting it to PostScript.
 status "Prepending header to '${path_encoded}', and converting to PostScript into '${path_postscript}'."
-$A2PS $A2PSFLAGS --output="${path_postscript}" <(echo "$header" && cat "$path_encoded")
+$A2PS "${A2PSFLAGS[@]}" --output="${path_postscript}" <(echo "$header" && cat "$path_encoded")
 
 if [ -e "$path_encoded" ]; then
     status "Deleting temporary file '${path_encoded}'."

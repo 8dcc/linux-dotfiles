@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-# TODO: Rename to 'SELF'
-PROGRAM_NAME="$(basename "$0")"
+SELF="$(basename "$0")"
 DEFAULT_OUTPUT="-"
 
 # Set the default GPG flags, unless overwritten.
@@ -14,16 +13,16 @@ fi
 
 if [ $# -lt 1 ] || [ $# -gt 3 ]; then
     echo "Usage:"                                    1>&2
-    echo "    $PROGRAM_NAME RECIPIENT"               1>&2
-    echo "    $PROGRAM_NAME RECIPIENT < FILE"        1>&2
-    echo "    $PROGRAM_NAME RECIPIENT FILE [OUTPUT]" 1>&2
+    echo "    ${SELF} RECIPIENT"               1>&2
+    echo "    ${SELF} RECIPIENT < FILE"        1>&2
+    echo "    ${SELF} RECIPIENT FILE [OUTPUT]" 1>&2
     exit 1
 fi
 
 #-------------------------------------------------------------------------------
 
 inform() {
-    echo -n "$PROGRAM_NAME: " 1>&2
+    echo -n "${SELF}: " 1>&2
     echo -e "$1" 1>&2
 }
 
@@ -57,14 +56,15 @@ else
     file_input="$tmp_file"
     file_output="$DEFAULT_OUTPUT"
 
-    inform "Opening temporary file '$tmp_file' in the '$editor' editor..."
+    inform "Opening temporary file '${tmp_file}' in the '${editor}' editor..."
     $editor "$tmp_file"
-    inform "Done editing. Encrypting to '$file_output'"
+    inform "Done editing. Encrypting to '${file_output}'"
 fi
 
+# shellcheck disable=2086
 gpg $GPGFLAGS --recipient "$recipient" --output "$file_output" --encrypt "$file_input"
 
 if [ -n "$tmp_file" ]; then
-    inform "Done encrypting. Deleting temporary file '$tmp_file'"
+    inform "Done encrypting. Deleting temporary file '${tmp_file}'"
     rm "$tmp_file"
 fi
