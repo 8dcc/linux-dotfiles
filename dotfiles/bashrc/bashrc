@@ -236,9 +236,9 @@ _assert_cmd() {
     # See:
     # - https://git-scm.com/docs/git-log#_pretty_formats
     # - https://stackoverflow.com/q/1441010/11715554
-    local FLAGS="--graph --date-order --date=short"
+    local FLAGS=(--graph --date-order --date=short)
     local FMT="%C(yellow)%h %C(cyan)%cd %C(magenta)%aN%C(auto)%d %Creset%s"
-    git log $FLAGS --pretty="$FMT" "$@"
+    git log "${FLAGS[@]}" --pretty="$FMT" "$@"
 }
 
 ,git-log-long() {
@@ -308,9 +308,9 @@ _assert_cmd() {
     # https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html
     output=${2:--}
     input=$1
-    local A2PSFLAGS="--portrait --columns=1 --no-header"
-    echo "Converting '$input' to '$output' with flags '$A2PSFLAGS'." 1>&2
-    a2ps $A2PSFLAGS --output="$output" "$input"
+    local A2PSFLAGS=(--portrait --columns=1 --no-header)
+    echo "Converting '$input' to '$output' with flags '${A2PSFLAGS[*]}'." 1>&2
+    a2ps "${A2PSFLAGS[@]}" --output="$output" "$input"
 }
 
 #-------------------------------------------------------------------------------
