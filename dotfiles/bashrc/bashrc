@@ -313,6 +313,17 @@ _assert_cmd() {
     a2ps "${A2PSFLAGS[@]}" --output="$output" "$input"
 }
 
+,copy-image() {
+    (_assert_cmd 'file' && _assert_cmd 'xclip') || return 1
+    if [ $# -ne 1 ]; then
+        echo "Usage: ${FUNCNAME[0]} INPUT" 1>&2
+        return 1
+    fi
+    local filetype
+    filetype="$(file --brief --mime-type "$1")"
+    xclip -selection clipboard -t "$filetype" -i < "$1"
+}
+
 #-------------------------------------------------------------------------------
 # Custom exports
 
