@@ -22,7 +22,7 @@ AlwaysBreakAfterReturnType: None
 AlwaysBreakBeforeMultilineStrings: 'false'
 AlwaysBreakTemplateDeclarations: Yes
 BinPackArguments: 'false'
-BinPackParameters: 'true'
+BinPackParameters: 'false'
 BitFieldColonSpacing: Both
 BreakBeforeBinaryOperators: 'false'
 BreakBeforeBraces: Attach
