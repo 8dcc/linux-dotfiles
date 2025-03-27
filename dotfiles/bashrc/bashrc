@@ -58,35 +58,41 @@ shopt -s histappend
 #-------------------------------------------------------------------------------
 # Prompt
 
-PS1='\[\033[0;32m\]\u \[\033[1;34m\]\w\[\033[0m\] $(_get_git_branch)\$ '
+PS1='\[\033[0;32m\]\u \[\033[1;34m\]\w\[\033[0m\] \[$(_get_git_branch_pre)\]$(_get_git_branch_name)\[$(_get_git_branch_post)\]\$ '
 PS2='> '
 
 # Git stuff
 if [ -f "$HOME/.my-scripts/startup/git-prompt.sh" ]; then
     . "$HOME/.my-scripts/startup/git-prompt.sh"
-    _get_git_branch() {
-        local branch_color
-        local branch_name
-        local reset_color
+    _get_git_branch_pre() {
+        # TODO: We should not change color if '__git_ps1' returns an empty
+        # string, but we have to enclose escape sequences with '\[...\]' in the
+        # PS1.
+        if [[ $(git status -s 2> /dev/null) ]]; then
+            printf '\033[0;33m'
+        elif [[ $(git diff --stat "$(git rev-parse --abbrev-ref --symbolic-full-name '@{u}' 2> /dev/null)" 2> /dev/null) ]]; then
+            printf '\033[0;35m'
+        else
+            printf '\033[0;32m'
+        fi
+    }
 
+    _get_git_branch_name() {
         branch_name="$(__git_ps1 "(%s)")"
         if [ -z "$branch_name" ]; then
             return 1
-        fi
-
-        reset_color='\033[0m'
-        if [[ $(git status -s 2> /dev/null) ]]; then
-            branch_color='\033[0;33m'
-        elif [[ $(git diff --stat "$(git rev-parse --abbrev-ref --symbolic-full-name '@{u}' 2> /dev/null)" 2> /dev/null) ]]; then
-            branch_color='\033[0;35m'
         else
-            branch_color='\033[0;32m'
+            printf '%s ' "$branch_name"
         fi
+    }
 
-        echo -en "${branch_color}${branch_name}${reset_color} "
+    _get_git_branch_post() {
+        printf '\033[0m'  # Reset color
     }
 else
-    _get_git_branch() { echo -n ""; }
+    _get_git_branch_pre()  { printf ''; }
+    _get_git_branch_name() { printf ''; }
+    _get_git_branch_post() { printf ''; }
 fi
 
 # Guix stuff
