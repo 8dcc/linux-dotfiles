@@ -183,8 +183,8 @@ static MouseShortcut mshortcuts[] = {
 
 MouseKey mkeys[] = {
 	/* button               mask            function        argument */
-	{ Button4,              ShiftMask,      kscrollup,      {.i =  mousescrollincrement} }, /* Scroll with Shift+MWheel */
-	{ Button5,              ShiftMask,      kscrolldown,    {.i =  mousescrollincrement} }, /* Scroll with Shift+MWheel */
+	{ Button4,              ShiftMask,      kscrollup,      {.i =  -1} }, /* Scroll with Shift+MWheel */
+	{ Button5,              ShiftMask,      kscrolldown,    {.i =  -1} }, /* Scroll with Shift+MWheel */
 	{ Button4,              XK_NO_MOD,      kscrollup,      {.i =  mousescrollincrement} }, /* Scroll with just MWheel */
 	{ Button5,              XK_NO_MOD,      kscrolldown,    {.i =  mousescrollincrement} }, /* Scroll with just MWheel */
 };
