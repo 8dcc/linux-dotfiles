@@ -1119,11 +1119,13 @@ kscrollup(const Arg* a)
 	if (n < 0)
 		n = term.row + n;
 
-	if (term.scr <= HISTSIZE-n) {
-		term.scr += n;
-		selscroll(0, n);
-		tfulldirt();
-	}
+	/* Don't exceed the history size, but still reach the first line */
+	if (term.scr > HISTSIZE-n)
+		n = HISTSIZE - term.scr;
+
+	term.scr += n;
+	selscroll(0, n);
+	tfulldirt();
 }
 
 void
