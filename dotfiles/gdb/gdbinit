@@ -17,15 +17,19 @@ set debuginfod enabled off
 # Display instructions in Intel format
 set disassembly-flavor intel
 
-# Alias for printing 20 bytes of the stack
-alias stk = x/20b $sp
+alias x8dcc_print_stack = x/64b $sp
+document x8dcc_print_stack
+  Usage: x8dcc_print_stack
 
-define xxd
+  Print 64 bytes of the stack ($sp).
+end
+
+define x8dcc_xxd
   dump binary memory /tmp/gdb-xdd-dump.bin $arg0 ((char *)$arg0)+$arg1
   shell xxd /tmp/gdb-xdd-dump.bin
 end
-document xxd
-  Runs xxd on a memory ADDR and LENGTH
+document x8dcc_xxd
+  Usage: x8dcc_xxd ADDR LENGTH
 
-  xxd ADDR LENTH
+  Dump LENGTH bytes from the specified memory ADDR using 'xxd'.
 end
