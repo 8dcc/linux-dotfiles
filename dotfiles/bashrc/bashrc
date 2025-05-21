@@ -158,6 +158,7 @@ alias_default_args ip    '--color=auto'
 # Default arguments.
 alias_default_args tree     '--charset=ascii -a -q' # All + Quote non-printable
 alias_default_args less     '--chop-long-lines --ignore-case'
+alias_default_args gdb      '--silent'
 alias_default_args snc      '--print-interfaces --print-peer-info --print-progress'
 alias_default_args valgrind '--leak-check=full --track-origins=yes'
 alias_default_args yt-dlp   '--embed-metadata --embed-subs --merge-output-format mkv'
