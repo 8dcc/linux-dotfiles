@@ -1,8 +1,8 @@
 # Some inspiration for this config:
 #   https://interrupt.memfault.com/blog/advanced-gdb
 
-# Allow loading of project-specific gdbinit. See section 2.1.4.4 "Local
-# directory initialization file" of GDB Manual.
+# Allow loading of project-specific gdbinit.
+# See GDB Manual, Section 2.1.4.4 "Local directory initialization file".
 set auto-load local-gdbinit
 add-auto-load-safe-path ~
 
@@ -14,8 +14,22 @@ set history filename ~/.gdb_history
 # Don't ask for stupid debuginfod prompt when running
 set debuginfod enabled off
 
+# ------------------------------------------------------------------------------
+# Visual changes
+
 # Display instructions in Intel format
 set disassembly-flavor intel
+
+# Print arrays/structures in a cleaner way.
+# See GDB Manual, Section 10.9 "Print Settings".
+set print array on
+set print pretty on
+
+# Print the symbol corresponding to an address, if one exists.
+set print symbol on
+
+# ------------------------------------------------------------------------------
+# New features
 
 alias x8dcc_print_stack = x/64b $sp
 document x8dcc_print_stack
