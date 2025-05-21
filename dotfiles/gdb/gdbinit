@@ -18,7 +18,7 @@ set debuginfod enabled off
 set disassembly-flavor intel
 
 # Alias for printing 20 bytes of the stack
-alias stk = x/20b $esp
+alias stk = x/20b $sp
 
 define xxd
   dump binary memory /tmp/gdb-xdd-dump.bin $arg0 ((char *)$arg0)+$arg1
