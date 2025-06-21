@@ -162,7 +162,6 @@ alias_default_args gdb       '--silent'
 alias_default_args addr2line '--pretty-print --basenames --addresses --functions'
 alias_default_args tree      '--charset=ascii -a -q' # All + Quote non-printable
 alias_default_args snc       '--print-interfaces --print-peer-info --print-progress'
-alias_default_args valgrind  '--leak-check=full --track-origins=yes'
 alias_default_args yt-dlp    '--embed-metadata --embed-subs --merge-output-format mkv'
 
 # Environment variables.
@@ -175,6 +174,7 @@ alias_deprecate vim vi
 # New aliases.
 alias_safe ,disassemble 'objdump' '--disassembler-color=terminal -M intel -d'
 alias_safe ,git-rebase-interactive 'git' 'rebase --interactive --committer-date-is-author-date --rebase-merges'
+alias_safe ,memcheck  'valgrind --tool=memcheck --leak-check=full --track-origins=yes'
 alias_safe ,bytes2asm 'rz-asm' '-s intel -D -C'
 
 # New commands/functions.
