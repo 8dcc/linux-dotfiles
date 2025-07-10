@@ -157,7 +157,7 @@ alias_default_args ip    '--color=auto'
 
 # Default arguments.
 alias_default_args dd        'status=progress'
-alias_default_args less      '--chop-long-lines --ignore-case'
+alias_default_args less      '--chop-long-lines --ignore-case --RAW-CONTROL-CHARS'
 alias_default_args gdb       '--silent'
 alias_default_args addr2line '--pretty-print --basenames --addresses --functions'
 alias_default_args tree      '--charset=ascii -a -q' # All + Quote non-printable
