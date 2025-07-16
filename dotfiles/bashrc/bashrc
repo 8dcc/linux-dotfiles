@@ -383,6 +383,22 @@ _assert_cmd() {
     sed 's/\x1B\[[0-9;]\{1,\}[A-Za-z]//g' "$@"
 }
 
+,flac2mp3() {
+    _assert_cmd 'ffmpeg' || return 1
+    if [ $# -ne 2 ]; then
+        echo "Usage: ${FUNCNAME[0]} INPUT.flac OUTPUT.mp3" 1>&2
+        return 1
+    fi
+    local input="$1"
+    local output="$2"
+    # 'map_metadata': Map metadata from the input
+    # 'id3v2_version': Specify the ID3 tag version for MP3 metadata (to 2.3).
+    # '-q:a': Use the highest quality for MP3s.
+    # '-c:v': Preserve album art.
+    local FFMPEGFLAGS=(-map_metadata 0 -id3v2_version 3 -q:a 0 -c:v copy)
+    ffmpeg -i "$input" "${FFMPEGFLAGS[@]}" "$output"
+}
+
 #-------------------------------------------------------------------------------
 # Custom exports
 
