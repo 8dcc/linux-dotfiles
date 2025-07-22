@@ -136,6 +136,14 @@ static Key keys[] = {
     { MODKEY,           XK_F12,    spawn,          SHCMD("maim --hidecursor -s | tee ~/ss-$(date +%s).png | xclip -selection clipboard -t image/png") },
     { MODKEY|ShiftMask, XK_F12,    spawn,          SHCMD("maim --hidecursor | tee ~/ss-$(date +%s).png | xclip -selection clipboard -t image/png") },
     { MODKEY|ShiftMask, XK_l,      spawn,          SHCMD("slock") },
+    { 0, XF86XK_AudioRaiseVolume,  spawn,          SHCMD("amixer sset Master playback 1%+") },
+    { 0, XF86XK_AudioLowerVolume,  spawn,          SHCMD("amixer sset Master playback 1%-") },
+    { 0, XF86XK_AudioMute,         spawn,          SHCMD("amixer sset Master playback toggle") },
+    { 0, XF86XK_AudioPrev,         spawn,          SHCMD("playerctl previous") },
+    { 0, XF86XK_AudioNext,         spawn,          SHCMD("playerctl next") },
+    { 0, XF86XK_AudioPlay,         spawn,          SHCMD("playerctl play-pause") },
+    { 0, XF86XK_MonBrightnessUp,   spawn,          SHCMD("xbacklight -inc 10") },
+    { 0, XF86XK_MonBrightnessDown, spawn,          SHCMD("xbacklight -dec 10") },
 };
 
 /* button definitions */
