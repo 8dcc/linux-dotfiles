@@ -50,7 +50,7 @@ HISTCONTROL=ignoreboth
 
 # History size on memory, and on disk.
 HISTSIZE=1000
-HISTFILESIZE=2000
+HISTFILESIZE=10000
 
 # Append to the history, rather than overwriting it each time.
 shopt -s histappend
