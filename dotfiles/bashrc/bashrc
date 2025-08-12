@@ -174,7 +174,7 @@ alias_deprecate vim vi
 # New aliases.
 alias_safe ,disassemble 'objdump' '--disassembler-color=terminal -M intel -d'
 alias_safe ,git-rebase-interactive 'git' 'rebase --interactive --committer-date-is-author-date --rebase-merges'
-alias_safe ,memcheck  'valgrind --tool=memcheck --leak-check=full --track-origins=yes'
+alias_safe ,memcheck 'valgrind' '--tool=memcheck --leak-check=full --track-origins=yes'
 alias_safe ,bytes2asm 'rz-asm' '-s intel -D -C'
 
 # New commands/functions.
