@@ -101,43 +101,52 @@ char *termname = "st-256color";
  */
 unsigned int tabspaces = 4;
 
-/* Terminal colors (16 first used in escape sequence) */
-static const char *colorname[] = {
-	/* 8 normal colors */
-	"black",
-	"#e74c3c",
-	"#a6e22e",
-	"#e6db74",
-	"#268bd2",
-	"#f92660",
-	"#66d9ef",
-	"gray90",
-
-	/* 8 bright colors */
-	"gray50",
-	"#e74c3c",
-	"#a6e22e",
-	"#e6db74",
-	"#268bd2",
-	"#f92660",
-	"#66d9ef",
-	"white",
-
-	[255] = 0,
-
-	/* more colors can be added after 255 to use with DefaultXX */
-	"#cccccc",
-	"#555555",
-	"#111111",
+/* Themes */
+static const struct {
+	const char* const colors[259]; /* terminal colors */
+	unsigned int fg;               /* foreground idx */
+	unsigned int bg;               /* background idx */
+	unsigned int cs;               /* cursor idx */
+	unsigned int rcs;              /* reverse cursor idx */
+} schemes[] = {
+	/* Dark */
+	{
+        .colors = {
+            "black", "#e74c3c", "#a6e22e", "#e6db74",
+            "#268bd2", "#f92660", "#66d9ef", "gray90",
+            "gray50", "#e74c3c", "#a6e22e", "#e6db74",
+            "#268bd2", "#f92660", "#66d9ef", "white",
+            /* Custom colors for other struct members */
+            [256] = "#111111", "#cccccc", "#555555",
+        },
+        .fg = 7,
+        .bg = 256,
+        .cs = 257,
+        .rcs = 258,
+    },
+	/* Light */
+	{
+        .colors = {
+            "black", "#a60000", "#006800", "#695500",
+            "#0031a9", "#721045", "#005e8b", "#a6a6a6",
+            "black", "#a60000", "#006800", "#695500",
+            "#0031a9", "#721045", "#005e8b", "#a6a6a6",
+            /* Custom colors for other struct members */
+            [256] = "#fbf7f0", "black", "#333333",
+        },
+        .fg = 0,
+        .bg = 256,
+        .cs = 257,
+        .rcs = 258,
+    },
 };
 
+/* Default color scheme */
+int colorscheme = 0;
 
-/*
- * Default colors (colorname index)
- * foreground, background, cursor, reverse cursor
- */
-unsigned int defaultfg = 7;
-unsigned int defaultbg = 258;
+static const char * const * colorname;
+unsigned int defaultfg;
+unsigned int defaultbg;
 static unsigned int defaultcs = 256;
 static unsigned int defaultrcs = 257;
 
@@ -230,6 +239,7 @@ static Shortcut shortcuts[] = {
 	{ ControlMask,          XK_Home,        zoomreset,      {.f =  0} },  /* Reset zoom level with Ctrl and Home */
 	{ TERMMOD,              XK_C,           clipcopy,       {.i =  0} },
 	{ TERMMOD,              XK_V,           clippaste,      {.i =  0} },
+	{ TERMMOD,              XK_T,           nextscheme,     {.i = +1} },
 #if 0
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
 	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
