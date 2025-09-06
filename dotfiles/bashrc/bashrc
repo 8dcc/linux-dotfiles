@@ -144,7 +144,7 @@ alias_env_vars() {
 # Usage: alias_deprecate OLD_CMD NEW_CMD
 alias_deprecate() {
     # shellcheck disable=SC2139
-    alias "$1"="echo \"The '$1' command is masked by your '.bashrc', use '$2' instead.\""
+    alias "$1"="echo \"The '$1' command is masked by your '.bashrc', use '$2' instead.\"; echo ${*:2} > /dev/null"
 }
 
 # Raw aliases.
