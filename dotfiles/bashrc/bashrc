@@ -148,7 +148,7 @@ alias_deprecate() {
 }
 
 # Raw aliases.
-alias ed='$EDITOR'
+alias ,ed='$EDITOR'
 
 # Add color to common commands.
 alias_default_args ls    '--color=auto -l --sort=version --group-directories-first --human-readable'
