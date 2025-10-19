@@ -109,7 +109,15 @@ if [ "$(command -v 'emacs')" ]; then
         fi
     }
     vterm_prompt_end(){
-        vterm_printf "51;A$(whoami)@$(hostname):$(pwd)"
+        local hostname
+        if [ "$(command -v 'hostname')" ]; then
+            hostname="$(hostname)"
+        elif [ -n "${HOSTNAME}" ]; then
+            hostname="${HOSTNAME}"
+        else
+            hostname="unknown"
+        fi
+        vterm_printf "51;A$(whoami)@${hostname}:$(pwd)"
     }
     PS1=$PS1'\[$(vterm_prompt_end)\]'
 fi
