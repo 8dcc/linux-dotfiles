@@ -98,6 +98,12 @@ fi
 # Emacs Vterm stuff. See: https://github.com/akermu/emacs-libvterm
 if [ "$(command -v 'emacs')" ]; then
     vterm_printf() {
+        # This check was added to avoid escaping issues when exiting commands
+        # like 'nvim' in other terminals (e.g. Suckless' ST).
+        if [[ "$INSIDE_EMACS" != 'vterm' ]]; then
+            return 1
+        fi
+
         if [ -n "$TMUX" ] \
                && { [ "${TERM%%-*}" = "tmux" ] \
                         || [ "${TERM%%-*}" = "screen" ]; }; then
@@ -108,6 +114,7 @@ if [ "$(command -v 'emacs')" ]; then
             printf "\e]%s\e\\" "$1"
         fi
     }
+
     vterm_prompt_end(){
         local hostname
         if [ "$(command -v 'hostname')" ]; then
@@ -119,6 +126,7 @@ if [ "$(command -v 'emacs')" ]; then
         fi
         vterm_printf "51;A$(whoami)@${hostname}:$(pwd)"
     }
+
     PS1=$PS1'\[$(vterm_prompt_end)\]'
 fi
 
