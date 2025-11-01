@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+#
+# Copyright 2025 8dcc. All Rights Reserved.
+#
+# This program is free software: you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation, either version 3 of the License, or (at your option) any later
+# version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+# details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program.  If not, see <https://www.gnu.org/licenses/>.
+set -e
+
+if [ $# -lt 2 ]; then
+    echo "Usage: $(basename "$0") [OPTION...] A.kdbx B.kdbx" 1>&2
+    exit 1
+fi
+
+assert_cmd() {
+    if [ ! "$(command -v "$1")" ]; then
+        echo "$(basename "$0"): The '$1' command is not installed." 1>&2
+        exit 1
+    fi
+}
+
+KEEPASS='keepassxc-cli'
+DIFF='diff'
+DIFFFLAGS=(--unified --color)
+
+assert_cmd "$KEEPASS"
+assert_cmd "$DIFF"
+
+# ------------------------------------------------------------------------------
+
+keepass_opts=("${@:1:$#-2}")
+file1="${*: -2:1}"
+file2="${*: -1}"
+
+if [ ! -f "$file1" ] || [ ! -f "$file2" ]; then
+    echo "$(basename "$0"): One of the input files does not exist." 1>&2
+    exit 1
+fi
+
+read -r -s -p "Database password: " db_pwd
+echo
+
+$DIFF "${DIFFFLAGS[@]}" \
+      <(echo "$db_pwd" | "$KEEPASS" export -f csv --quiet "${keepass_opts[@]}" "$file1") \
+      <(echo "$db_pwd" | "$KEEPASS" export -f csv --quiet "${keepass_opts[@]}" "$file2")
