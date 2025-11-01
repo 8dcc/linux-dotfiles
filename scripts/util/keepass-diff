@@ -50,5 +50,5 @@ read -r -s -p "Database password: " db_pwd
 echo
 
 $DIFF "${DIFFFLAGS[@]}" \
-      <(echo "$db_pwd" | "$KEEPASS" export -f csv --quiet "${keepass_opts[@]}" "$file1") \
-      <(echo "$db_pwd" | "$KEEPASS" export -f csv --quiet "${keepass_opts[@]}" "$file2")
+      --label="$file1" <(echo "$db_pwd" | "$KEEPASS" export -f csv --quiet "${keepass_opts[@]}" "$file1") \
+      --label="$file2" <(echo "$db_pwd" | "$KEEPASS" export -f csv --quiet "${keepass_opts[@]}" "$file2")
