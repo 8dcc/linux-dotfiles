@@ -438,6 +438,11 @@ _assert_cmd() {
     ffmpeg -i "$input" "${FFMPEGFLAGS[@]}" "$output"
 }
 
+,watch-ip() {
+    (_assert_cmd 'watch' && _assert_cmd 'ip') || return 1
+    watch --color ip -color addr
+}
+
 #-------------------------------------------------------------------------------
 # Custom exports
 
