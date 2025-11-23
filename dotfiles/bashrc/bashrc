@@ -443,6 +443,25 @@ _assert_cmd() {
     watch --color ip -color addr
 }
 
+,syncthing-conflict-diff() {
+    _assert_cmd 'diff' || return 1
+    if [ $# -ne 1 ]; then
+        echo "Usage: ${FUNCNAME[0]} FILE.sync-conflict-XXXXX.txt" 1>&2
+        return 1
+    fi
+    input="$1"
+    if [ ! -e "$input" ]; then
+        echo "${FUNCNAME[0]}: Input file '$input' does not exist. Aborting." 1>&2
+        return 1
+    fi
+    current="${input/.sync-conflict-+([0-9])-+([0-9])-+([^.])/}"
+    if [ ! -e "$current" ]; then
+        echo "${FUNCNAME[0]}: Current file '$current' does not exist. Aborting." 1>&2
+        return 1
+    fi
+    diff "$input" "$current"
+}
+
 #-------------------------------------------------------------------------------
 # Custom exports
 
