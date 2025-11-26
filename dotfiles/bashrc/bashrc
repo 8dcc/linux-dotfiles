@@ -186,7 +186,7 @@ alias_deprecate() {
 alias ,ed='$EDITOR'
 
 # Add color to common commands.
-alias_default_args ls    '--color=auto -l --sort=version --group-directories-first --human-readable'
+alias_default_args ls    '--color=auto -l --sort=version --group-directories-first --human-readable --time-style=+"$(echo -e '%Y.%m.%d %R')"'
 alias_default_args diff  '--color=auto -u'
 alias_default_args grep  '--color=auto'
 alias_default_args fgrep '--color=auto'
