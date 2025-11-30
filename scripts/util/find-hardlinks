@@ -25,7 +25,7 @@ else
 fi
 
 # Get the inode of the input file, which is shared by the hardlinks.
-inode="$(ls --inode --directory "$input_file" | cut -d ' ' -f 1)"
+inode="$(stat -c '%i' "$input_file")"
 if [ -z "$inode" ]; then
     echo "$(basename "$0"): Could not determine inode of '$input_file'." 1>&2
     exit 1
