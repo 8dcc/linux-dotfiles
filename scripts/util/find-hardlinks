@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+if [ $# -lt 1 ] || [ $# -gt 2 ]; then
+    echo "Usage: $(basename "$0") FILE-OR-DIR [SEARCH-DIR]" 1>&2
+    exit 1
+fi
+
+input_file="$1"
+if [ ! -e "$input_file" ]; then
+    echo "$(basename "$0"): File or directory '$input_file' does not exist." 1>&2
+    exit 1
+fi
+
+# If the second argument is specified, use as the search directory. Otherwise,
+# search in the root of the filesystem where the original file is located.
+if [ $# -ge 2 ]; then
+    search_dir="$2"
+else
+    mount_point="$(df --output=target "$input_file" | tail -n 1 | cut -d ' ' -f 1)"
+    if [ -z "$mount_point" ]; then
+        echo "$(basename "$0"): Could not determine mount point of device where target resides." 1>&2
+        exit 1
+    fi
+    search_dir="$mount_point"
+fi
+
+# Get the inode of the input file, which is shared by the hardlinks.
+inode="$(ls --inode --directory "$input_file" | cut -d ' ' -f 1)"
+if [ -z "$inode" ]; then
+    echo "$(basename "$0"): Could not determine inode of '$input_file'." 1>&2
+    exit 1
+fi
+
+if [ -n "$VERBOSE" ]; then
+    echo "$(basename "$0"): Searching for inode $inode in '$search_dir'..."
+fi
+
+# Specify '-xdev' to avoid descending into directories on other filesystems.
+find "$search_dir" -xdev -inum "$inode" 2>/dev/null
