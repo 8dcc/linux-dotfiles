@@ -16,16 +16,32 @@
 # this program. If not, see <https://www.gnu.org/licenses/>.
 set -e
 
-# If not in a git repo, just run ls -l
-if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+# Find the target directory from arguments (last non-flag arg, or PWD)
+target=""
+for arg in "$@"; do
+    [[ "$arg" != -* ]] && target="$arg"
+done
+target="${target:-.}"
+
+# Resolve to absolute path; if target is a file, use its parent
+if [[ -f "$target" ]]; then
+    target=$(cd "$(dirname "$target")" 2>/dev/null && pwd)
+elif [[ -d "$target" ]]; then
+    target=$(cd "$target" 2>/dev/null && pwd)
+else
     exec ls -l "$@"
 fi
 
-root=$(git rev-parse --show-toplevel)
+# If not in a git repo, just run ls -l
+if ! git -C "$target" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    exec ls -l "$@"
+fi
+
+root=$(git -C "$target" rev-parse --show-toplevel)
 
 prefix=""
-if [[ "$PWD" != "$root" ]]; then
-    prefix="${PWD#$root/}/"
+if [[ "$target" != "$root" ]]; then
+    prefix="${target#$root/}/"
 fi
 
 declare -A status_map=()
@@ -36,7 +52,7 @@ while IFS= read -r line; do
     file="${line:3}"
     file="${file%% ->*}"
     status_map["$file"]="$code"
-done < <(git status --porcelain --untracked-files=all --ignored 2>/dev/null)
+done < <(git -C "$root" status --porcelain --untracked-files=all --ignored 2>/dev/null)
 
 ls -l --color=always "$@" | while IFS= read -r line; do
     # Strip ANSI escape codes to parse fields
