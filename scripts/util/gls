@@ -16,6 +16,32 @@
 # this program. If not, see <https://www.gnu.org/licenses/>.
 set -e
 
+# Verify required tools and versions
+if (( BASH_VERSINFO[0] < 4 )); then
+    echo "gls: requires bash 4.0+ (for associative arrays), found $BASH_VERSION" >&2
+    exit 1
+fi
+
+for cmd in git sed ls; do
+    if ! command -v "$cmd" >/dev/null 2>&1; then
+        echo "gls: required command '$cmd' not found" >&2
+        exit 1
+    fi
+done
+
+if ! ls --version 2>/dev/null | grep -q 'GNU coreutils'; then
+    echo "gls: requires GNU ls (coreutils)" >&2
+    exit 1
+fi
+
+git_version=$(git --version | grep -oP '\d+\.\d+')
+git_major=${git_version%%.*}
+git_minor=${git_version#*.}
+if (( git_major < 2 || (git_major == 2 && git_minor < 17) )); then
+    echo "gls: requires git 2.17+ (for --ignored=matching), found $(git --version)" >&2
+    exit 1
+fi
+
 LS_FLAGS=(-l --sort=version --group-directories-first --human-readable
           --time-style=+"$(echo -e '%Y.%m.%d %R')")
 
