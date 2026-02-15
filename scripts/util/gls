@@ -58,7 +58,6 @@ declare -A status_pri=(
     ["M "]=4 ["AM"]=4 ["AD"]=4 ["AT"]=4
     ["A "]=3 ["AC"]=3 ["AT"]=3
     ["D "]=3 ["R "]=3 ["RM"]=3 ["RD"]=3 ["RT"]=3
-    ["!!"]=1
 )
 
 while IFS= read -r line; do
@@ -66,8 +65,9 @@ while IFS= read -r line; do
     code="${line:0:2}"
     file="${line:3}"
     file="${file%% ->*}"
+    file="${file%/}"
     status_map["$file"]="$code"
-done < <(git -C "$root" status --porcelain --untracked-files=all --ignored 2>/dev/null)
+done < <(git -C "$root" status --porcelain --untracked-files=normal --ignored=matching 2>/dev/null)
 
 # Propagate file statuses upward to parent directories
 for file in "${!status_map[@]}"; do
