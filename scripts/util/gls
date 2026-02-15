@@ -48,6 +48,18 @@ if [[ "$target" != "$root" ]]; then
 fi
 
 declare -A status_map=()
+declare -A dir_status_map=()
+
+# Priority table for propagating status to parent directories.
+# Higher value wins when multiple children have different statuses.
+declare -A status_pri=(
+    ["??"]=5
+    [" M"]=4 [" D"]=4 [" T"]=4 ["MM"]=4 ["MD"]=4 ["MT"]=4
+    ["M "]=4 ["AM"]=4 ["AD"]=4 ["AT"]=4
+    ["A "]=3 ["AC"]=3 ["AT"]=3
+    ["D "]=3 ["R "]=3 ["RM"]=3 ["RD"]=3 ["RT"]=3
+    ["!!"]=1
+)
 
 while IFS= read -r line; do
     [[ -z "$line" ]] && continue
@@ -56,6 +68,23 @@ while IFS= read -r line; do
     file="${file%% ->*}"
     status_map["$file"]="$code"
 done < <(git -C "$root" status --porcelain --untracked-files=all --ignored 2>/dev/null)
+
+# Propagate file statuses upward to parent directories
+for file in "${!status_map[@]}"; do
+    code="${status_map[$file]}"
+    pri=${status_pri[$code]:-2}
+    dir="$file"
+    while [[ "$dir" == */* ]]; do
+        dir="${dir%/*}"
+        existing="${dir_status_map[$dir]:-}"
+        if [[ -z "$existing" ]]; then
+            dir_status_map["$dir"]="$code"
+        else
+            existing_pri=${status_pri[$existing]:-2}
+            (( pri > existing_pri )) && dir_status_map["$dir"]="$code"
+        fi
+    done
+done
 
 ls "${LS_FLAGS[@]}" --color=always "$@" | while IFS= read -r line; do
     # Strip ANSI escape codes to parse fields
@@ -74,7 +103,11 @@ ls "${LS_FLAGS[@]}" --color=always "$@" | while IFS= read -r line; do
     # Strip symlink target for lookup
     base="${filename%% -> *}"
     key="$path_prefix$base"
-    code="${status_map[$key]:-  }"
+    code="${status_map[$key]:-}"
+    # For directories, check the propagated status from descendants
+    if [[ -z "$code" ]]; then
+        code="${dir_status_map[$key]:-  }"
+    fi
 
     # Get the color from the code. Code table from the man-page of
     # git-status(1):
