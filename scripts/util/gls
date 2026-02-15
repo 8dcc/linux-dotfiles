@@ -98,6 +98,11 @@ done < <(git -C "$root" status --porcelain --untracked-files=normal --ignored=ma
 # Propagate file statuses upward to parent directories
 for file in "${!status_map[@]}"; do
     code="${status_map[$file]}"
+
+    # The "ignored" status doesn't propagate upwards; it should only be shown
+    # on the ignored file/directory itself.
+    [[ "$code" == "!!" ]] && continue
+
     pri=${status_pri[$code]:-2}
     dir="$file"
     while [[ "$dir" == */* ]]; do
