@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #####################
-multibattery=false  #
+multibattery=false  # FIXME: Detect automatically based on line count.
 hourchange=false    #
 hourdiff=-1         # Ignored if !hourchange
 #####################
@@ -130,18 +130,49 @@ batt() {
     fi
 }
 
+bt() {
+    systemctl status bluetooth &>/dev/null
+    exit_status=$?
+    if [ $exit_status -eq 3 ]; then
+        echo "Disabled"
+    elif [ $exit_status -eq 0 ]; then
+        connected_devices="$(bluetoothctl devices Connected)"
+        num_connected_devices="$(echo "$connected_devices" | wc -l)"
+        if [ -z "$connected_devices" ]; then
+            echo "Disconnected"
+        elif [ "$num_connected_devices" -eq 1 ]; then
+            echo "$connected_devices"
+        elif [ "$num_connected_devices" -gt 1 ]; then
+            echo "[...]"
+        fi
+    fi
+}
+
 status() {
     local battery
+    local bluetooth
     battery="$(batt)"
+    bluetooth="$(bt)"
 
-    echo -n " Cpu: $(cpu) | Mem: $(mem) | Disk: $(dsk) | VPN: $(vpn) | "
-    if [ ! -z "$battery" ]; then
-        echo -n "Batt: $(batt) | "
+    echo -n " CPU: $(cpu) | Mem: $(mem) | Disk: $(dsk) | "
+
+    # NOTE: VPN is commented for now.
+    #echo -n "VPN: $(vpn) | "
+
+    if [ ! -z "$bluetooth" ]; then
+        echo -n "BT: $bluetooth | "
     fi
+
+    if [ ! -z "$battery" ]; then
+        echo -n "Batt: $battery | "
+    fi
+
     echo "Vol: $(vol) | $(dte) "
 }
 
 while true; do
+    # TODO: Separate the update rate of each element, since some should refresh
+    # slower than others.
     xsetroot -name "$(status)"
     sleep 5
 done &
