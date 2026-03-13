@@ -141,7 +141,8 @@ bt() {
         if [ -z "$connected_devices" ]; then
             echo "Disconnected"
         elif [ "$num_connected_devices" -eq 1 ]; then
-            echo "$connected_devices"
+            # First two columns are "Device" and the MAC.
+            echo "$connected_devices" | cut -d ' ' -f 3-
         elif [ "$num_connected_devices" -gt 1 ]; then
             echo "[...]"
         fi
