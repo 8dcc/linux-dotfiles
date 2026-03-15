@@ -142,7 +142,7 @@ bt() {
     fi
 
     connected_devices="$(bluetoothctl devices Connected)"
-    if [ -z "$connected_devices" ]; then
+    if [ -z "$connected_devices" ] || [ "$connected_devices" == "No default controller available" ]; then
         echo "Disconnected"
         return
     fi
