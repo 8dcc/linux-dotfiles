@@ -133,19 +133,26 @@ batt() {
 bt() {
     systemctl status bluetooth &>/dev/null
     exit_status=$?
+
     if [ $exit_status -eq 3 ]; then
         echo "Disabled"
-    elif [ $exit_status -eq 0 ]; then
-        connected_devices="$(bluetoothctl devices Connected)"
-        num_connected_devices="$(echo "$connected_devices" | wc -l)"
-        if [ -z "$connected_devices" ]; then
-            echo "Disconnected"
-        elif [ "$num_connected_devices" -eq 1 ]; then
-            # First two columns are "Device" and the MAC.
-            echo "$connected_devices" | cut -d ' ' -f 3-
-        elif [ "$num_connected_devices" -gt 1 ]; then
-            echo "[...]"
-        fi
+        return
+    elif [ $exit_status -ne 0 ]; then
+        return  # Unknown, don't show
+    fi
+
+    connected_devices="$(bluetoothctl devices Connected)"
+    if [ -z "$connected_devices" ]; then
+        echo "Disconnected"
+        return
+    fi
+
+    num_connected_devices="$(echo "$connected_devices" | wc -l)"
+    if [ "$num_connected_devices" -eq 1 ]; then
+        # First two columns are "Device" and the MAC.
+        echo "$connected_devices" | cut -d ' ' -f 3-
+    elif [ "$num_connected_devices" -gt 1 ]; then
+        echo "[...]"
     fi
 }
 
