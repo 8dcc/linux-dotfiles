@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# List of authors whose commits should not be pushed.
+BLOCKED_AUTHORS=(
+    "8dcc.git@gmail.com"
+)
+
+while read local_ref local_sha remote_ref remote_sha; do
+    # When pushing a new branch that doesn't exist on the remote, git uses a
+    # null hash as the remote.
+    if [ "$remote_sha" = "0000000000000000000000000000000000000000" ]; then
+        commits=$(git log "$local_sha" --format="%ae")
+    else
+        commits=$(git log "$remote_sha..$local_sha" --format="%ae")
+    fi
+
+    # Check if any commit is made by a blocked author.
+    for author in "${BLOCKED_AUTHORS[@]}"; do
+        if echo "$commits" | grep -q "^$author$"; then
+            echo "Push rejected: commit authored as $author. Check your git identity for this repo."
+            exit 1
+        fi
+    done
+done
+
+exit 0
