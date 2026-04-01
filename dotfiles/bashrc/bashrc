@@ -216,13 +216,6 @@ alias_safe ,git-am 'git' 'am --committer-date-is-author-date'
 alias_safe ,memcheck 'valgrind' '--tool=memcheck --leak-check=full --track-origins=yes'
 alias_safe ,bytes2asm 'rz-asm' '-s intel -D -C'
 
-# New commands/functions.
-# TODO: Some simple "util" scripts could be moved here.
-archive-ss() {
-    local IMAGE_DIR="$HOME/02-Media/01-Images/01-Screenshots"  # Can't use '~'
-    mv ~/ss-*.png "$IMAGE_DIR"
-}
-
 # Load an external aliases file, if found.
 if [ -f "$HOME/.bash_aliases" ]; then
     . "$HOME/.bash_aliases"
@@ -244,6 +237,11 @@ _assert_cmd() {
         echo "The '$1' command is not installed." 1>&2
         return 1
     fi
+}
+
+,archive-ss() {
+    local IMAGE_DIR="$HOME/02-Media/01-Images/01-Screenshots"  # Can't use '~'
+    mv ~/ss-*.png "$IMAGE_DIR"
 }
 
 ,bin-diff() {
