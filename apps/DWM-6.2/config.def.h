@@ -40,6 +40,7 @@ static const char* colors[][3] = {
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *workspaces[] = { "A", "B", "C" };
 
 static const Rule rules[] = {
     /*
@@ -71,6 +72,9 @@ static const Layout layouts[] = {
 { MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 { MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 { MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
+#define WSKEYS(KEY,WS) \
+    { MODKEY,           KEY,      viewws,         {.i = (WS)} }, \
+    { MODKEY|ShiftMask, KEY,      tagws,          {.i = (WS)} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd)                     \
@@ -129,6 +133,9 @@ static Key keys[] = {
     TAGKEYS(            XK_7,                      6)
     TAGKEYS(            XK_8,                      7)
     TAGKEYS(            XK_9,                      8)
+    WSKEYS(             XK_F1,                     0)
+    WSKEYS(             XK_F2,                     1)
+    WSKEYS(             XK_F3,                     2)
     { MODKEY|ShiftMask, XK_q,      spawn,          SHCMD("dwm-menu-quit") },
     { MODKEY,           XK_h,      setmfact,       {.f = -0.05} },
     { MODKEY,           XK_l,      setmfact,       {.f = +0.05} },
@@ -150,6 +157,7 @@ static Key keys[] = {
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
     /* click                event mask      button          function        argument */
+    { ClkWsBar,             0,              Button1,        viewws,         {0} },
     { ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
     { ClkLtSymbol,          0,              Button3,        layoutmenu,     {0} },
     { ClkWinTitle,          0,              Button2,        zoom,           {0} },
