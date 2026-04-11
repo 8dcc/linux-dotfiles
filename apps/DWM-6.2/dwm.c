@@ -452,22 +452,23 @@ buttonpress(XEvent *e)
 	if (ev->window == selmon->barwin) {
 		i = x = 0;
 		do
-			x += TEXTW(workspaces[i]);
-		while (ev->x >= x && ++i < LENGTH(workspaces));
-		if (i < LENGTH(workspaces)) {
-			click = ClkWsBar;
-			arg.i = i;
+			x += TEXTW(tags[i]);
+		while (ev->x >= x && ++i < LENGTH(tags));
+		if (i < LENGTH(tags)) {
+			click = ClkTagBar;
+			arg.ui = 1 << i;
+		} else if (ev->x < x + blw) {
+			click = ClkLtSymbol;
 		} else {
+			x += blw;
 			i = 0;
 			do
-				x += TEXTW(tags[i]);
-			while (ev->x >= x && ++i < LENGTH(tags));
-			if (i < LENGTH(tags)) {
-				click = ClkTagBar;
-				arg.ui = 1 << i;
-			} else if (ev->x < x + blw)
-				click = ClkLtSymbol;
-			else if (ev->x > selmon->ww - TEXTW(stext))
+				x += TEXTW(workspaces[i]);
+			while (ev->x >= x && ++i < LENGTH(workspaces));
+			if (i < LENGTH(workspaces)) {
+				click = ClkWsBar;
+				arg.i = i;
+			} else if (ev->x > selmon->ww - TEXTW(stext))
 				click = ClkStatusText;
 			else
 				click = ClkWinTitle;
@@ -753,13 +754,6 @@ drawbar(Monitor *m)
 			urg |= c->tags;
 	}
 	x = 0;
-	for (i = 0; i < LENGTH(workspaces); i++) {
-		w = TEXTW(workspaces[i]);
-		drw_setscheme(drw, scheme[i == (unsigned int)m->selws
-		              ? SchemeSelTag : SchemeNorm]);
-		drw_text(drw, x, 0, w, bh, lrpad / 2, workspaces[i], 0);
-		x += w;
-	}
 	for (i = 0; i < LENGTH(tags); i++) {
 		w = TEXTW(tags[i]);
 		drw_setscheme(drw, scheme[MWS(m).tagset[MWS(m).seltags] & 1 << i ? SchemeSelTag : SchemeNorm]);
@@ -773,6 +767,13 @@ drawbar(Monitor *m)
 	w = blw = TEXTW(MWS(m).ltsymbol);
 	drw_setscheme(drw, scheme[SchemeNorm]);
 	x = drw_text(drw, x, 0, w, bh, lrpad / 2, MWS(m).ltsymbol, 0);
+	for (i = 0; i < LENGTH(workspaces); i++) {
+		w = TEXTW(workspaces[i]);
+		drw_setscheme(drw, scheme[i == (unsigned int)m->selws
+		              ? SchemeSelTag : SchemeNorm]);
+		drw_text(drw, x, 0, w, bh, lrpad / 2, workspaces[i], 0);
+		x += w;
+	}
 
 	if ((w = m->ww - sw - x) > bh) {
 		if (m->sel) {
