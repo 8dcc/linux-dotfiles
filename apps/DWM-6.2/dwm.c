@@ -425,8 +425,8 @@ arrange(Monitor *m)
 void
 arrangemon(Monitor *m)
 {
-	strncpy(MWS(m).ltsymbol, MWS(m).lt[MWS(m).sellt]->symbol,
-	        sizeof MWS(m).ltsymbol);
+	snprintf(MWS(m).ltsymbol, sizeof MWS(m).ltsymbol, "%s",
+	         MWS(m).lt[MWS(m).sellt]->symbol);
 	if (MWS(m).lt[MWS(m).sellt]->arrange)
 		MWS(m).lt[MWS(m).sellt]->arrange(m);
 }
@@ -1620,8 +1620,8 @@ setlayout(const Arg *arg)
 		MWS(selmon).sellt = MWS(selmon).pertag->sellts[MWS(selmon).pertag->curtag] ^= 1;
 	if (arg && arg->v)
 		MWS(selmon).lt[MWS(selmon).sellt] = MWS(selmon).pertag->ltidxs[MWS(selmon).pertag->curtag][MWS(selmon).sellt] = (Layout *)arg->v;
-	strncpy(MWS(selmon).ltsymbol, MWS(selmon).lt[MWS(selmon).sellt]->symbol,
-	        sizeof MWS(selmon).ltsymbol);
+	snprintf(MWS(selmon).ltsymbol, sizeof MWS(selmon).ltsymbol, "%s",
+	         MWS(selmon).lt[MWS(selmon).sellt]->symbol);
 	if (selmon->sel)
 		arrange(selmon);
 	else
