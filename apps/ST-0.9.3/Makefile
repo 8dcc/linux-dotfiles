@@ -40,6 +40,8 @@ dist: clean
 
 install: st
 	install -D -m 755 st -t $(DESTDIR)$(PREFIX)/bin
+	install -D -m 755 st.desktop -t $(DESTDIR)$(PREFIX)/share/applications
+	install -D -m 755 st.svg -t $(DESTDIR)$(PREFIX)/share/icons
 	mkdir -p $(DESTDIR)$(MANPREFIX)/man1
 	sed "s/VERSION/$(VERSION)/g" < st.1 > $(DESTDIR)$(MANPREFIX)/man1/st.1
 	chmod 644 $(DESTDIR)$(MANPREFIX)/man1/st.1
@@ -48,6 +50,8 @@ install: st
 
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/st\
-		$(DESTDIR)$(MANPREFIX)/man1/st.1
+		$(DESTDIR)$(MANPREFIX)/man1/st.1\
+		$(DESTDIR)$(PREFIX)/share/applications/st.desktop\
+		$(DESTDIR)$(PREFIX)/share/icons/st.svg
 
 .PHONY: all clean dist install uninstall
