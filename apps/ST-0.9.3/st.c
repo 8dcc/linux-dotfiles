@@ -55,6 +55,7 @@ enum term_mode {
 	MODE_ECHO        = 1 << 4,
 	MODE_PRINT       = 1 << 5,
 	MODE_UTF8        = 1 << 6,
+	MODE_ASCIIONLY   = 1 << 8,
 };
 
 enum cursor_movement {
@@ -117,6 +118,7 @@ typedef struct {
 typedef struct {
 	int row;      /* nb row */
 	int col;      /* nb col */
+	int maxcol;   /* Maximum number of columns */
 	Line *line;   /* screen */
 	Line *alt;    /* alternate screen */
 	Line hist[HISTSIZE]; /* history buffer */
@@ -158,6 +160,9 @@ typedef struct {
 	char *args[STR_ARG_SIZ];
 	int narg;              /* nb of args */
 } STREscape;
+
+
+static inline int isasciiprintable(Rune u);
 
 static void execsh(char *, char **);
 static void stty(char **);
@@ -1034,6 +1039,8 @@ treset(void)
 	term.top = 0;
 	term.bot = term.row - 1;
 	term.mode = MODE_WRAP|MODE_UTF8;
+	if (!asciionly)
+		term.mode |= MODE_ASCIIONLY;
 	memset(term.trantbl, CS_USA, sizeof(term.trantbl));
 	term.charset = 0;
 
@@ -1293,8 +1300,8 @@ tclearregion(int x1, int y1, int x2, int y2)
 	if (y1 > y2)
 		temp = y1, y1 = y2, y2 = temp;
 
-	LIMIT(x1, 0, term.col-1);
-	LIMIT(x2, 0, term.col-1);
+	LIMIT(x1, 0, term.maxcol-1);
+	LIMIT(x2, 0, term.maxcol-1);
 	LIMIT(y1, 0, term.row-1);
 	LIMIT(y2, 0, term.row-1);
 
@@ -2133,6 +2140,12 @@ tprinter(char *s, size_t len)
 }
 
 void
+toggleasciionly(const Arg *arg)
+{
+	term.mode ^= MODE_ASCIIONLY;
+}
+
+void
 toggleprinter(const Arg *arg)
 {
 	term.mode ^= MODE_PRINT;
@@ -2258,6 +2271,28 @@ tstrsequence(uchar c)
 	strreset();
 	strescseq.type = c;
 	term.esc |= ESC_STR;
+}
+
+void
+tupdatebgcolor(unsigned int oldbg, unsigned int newbg)
+{
+	for (int y = 0; y < term.row; y++) {
+		for (int x = 0; x < term.col; x++) {
+			if (term.line[y][x].bg == oldbg)
+				term.line[y][x].bg = newbg;
+		}
+	}
+}
+
+void
+tupdatefgcolor(unsigned int oldfg, unsigned int newfg)
+{
+	for (int y = 0; y < term.row; y++) {
+		for (int x = 0; x < term.col; x++) {
+			if (term.line[y][x].fg == oldfg)
+				term.line[y][x].fg = newfg;
+		}
+	}
 }
 
 void
@@ -2445,6 +2480,18 @@ eschandle(uchar ascii)
 	return 1;
 }
 
+int
+isasciiprintable(Rune u)
+{
+	char* c;
+
+	for (c = ascii_printable; *c != '\0'; c++)
+		if (u == *c)
+			return 1;
+
+	return 0;
+}
+
 void
 tputc(Rune u)
 {
@@ -2577,7 +2624,13 @@ check_control_code:
 	tsetchar(u, &term.c.attr, term.c.x, term.c.y);
 	term.lastc = u;
 
-	if (width == 2) {
+	if (IS_SET(MODE_ASCIIONLY)) {
+		if (!isasciiprintable(u)) {
+			gp[0].u = '?';
+			gp[0].mode |= ATTR_FAINT;
+			width = 1;
+		}
+	} else if (width == 2) {
 		gp->mode |= ATTR_WIDE;
 		if (term.c.x+1 < term.col) {
 			if (gp[1].mode == ATTR_WIDE && term.c.x+2 < term.col) {
@@ -2631,10 +2684,17 @@ void
 tresize(int col, int row)
 {
 	int i, j;
-	int minrow = MIN(row, term.row);
-	int mincol = MIN(col, term.col);
+	int tmp;
+	int minrow, mincol;
 	int *bp;
 	TCursor c;
+
+	tmp = col;
+	if (!term.maxcol)
+		term.maxcol = term.col;
+	col = MAX(col, term.maxcol);
+	minrow = MIN(row, term.row);
+	mincol = MIN(col, term.maxcol);
 
 	if (col < 1 || row < 1) {
 		fprintf(stderr,
@@ -2686,17 +2746,18 @@ tresize(int col, int row)
 		term.line[i] = xmalloc(col * sizeof(Glyph));
 		term.alt[i] = xmalloc(col * sizeof(Glyph));
 	}
-	if (col > term.col) {
-		bp = term.tabs + term.col;
+	if (col > term.maxcol) {
+		bp = term.tabs + term.maxcol;
 
-		memset(bp, 0, sizeof(*term.tabs) * (col - term.col));
+		memset(bp, 0, sizeof(*term.tabs) * (col - term.maxcol));
 		while (--bp > term.tabs && !*bp)
 			/* nothing */ ;
 		for (bp += tabspaces; bp < term.tabs + col; bp += tabspaces)
 			*bp = 1;
 	}
 	/* update terminal size */
-	term.col = col;
+	term.col = tmp;
+	term.maxcol = col;
 	term.row = row;
 	/* reset scrolling region */
 	tsetscroll(0, row-1);

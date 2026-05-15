@@ -93,6 +93,7 @@ void kscrollup(const Arg *);
 void printscreen(const Arg *);
 void printsel(const Arg *);
 void sendbreak(const Arg *);
+void toggleasciionly(const Arg *);
 void toggleprinter(const Arg *);
 
 int tattrset(int);
@@ -106,6 +107,9 @@ void ttyresize(int, int);
 void ttywrite(const char *, size_t, int);
 
 void resettitle(void);
+
+void tupdatebgcolor(unsigned int, unsigned int);
+void tupdatefgcolor(unsigned int, unsigned int);
 
 void selclear(void);
 void selinit(void);
@@ -134,3 +138,5 @@ extern unsigned int defaultfg;
 extern unsigned int defaultbg;
 extern unsigned int defaultcs;
 extern MouseKey mkeys[];
+extern char ascii_printable[];
+extern int asciionly;
