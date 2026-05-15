@@ -203,22 +203,19 @@ static uint forcemousemod = ShiftMask;
  */
 const unsigned int mousescrollincrement = 2;
 static MouseShortcut mshortcuts[] = {
-	/* mask                 button   function        argument       release */
-	{ XK_ANY_MOD,           Button2, selpaste,       {.i = 0},      1 },
-#if 0 /* Original keybinds from 0.9.3 */
-	{ ShiftMask,            Button4, ttysend,        {.s = "\033[5;2~"} },
-	{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"} },
-	{ ShiftMask,            Button5, ttysend,        {.s = "\033[6;2~"} },
-	{ XK_ANY_MOD,           Button5, ttysend,        {.s = "\005"} },
-#endif
-};
-
-MouseKey mkeys[] = {
-	/* button               mask            function        argument */
-	{ Button4,              ShiftMask,      kscrollup,      {.i =  -1} }, /* Scroll with Shift+MWheel */
-	{ Button5,              ShiftMask,      kscrolldown,    {.i =  -1} }, /* Scroll with Shift+MWheel */
-	{ Button4,              XK_NO_MOD,      kscrollup,      {.i =  mousescrollincrement} }, /* Scroll with just MWheel */
-	{ Button5,              XK_NO_MOD,      kscrolldown,    {.i =  mousescrollincrement} }, /* Scroll with just MWheel */
+	/* mask                 button   function        argument                       release */
+	{ XK_ANY_MOD,           Button2, selpaste,       {.i = 0},                      1 },
+	/* MWheel scrolls local scrollback */
+	{ XK_NO_MOD,            Button4, kscrollup,      {.i = mousescrollincrement} },
+	{ XK_NO_MOD,            Button5, kscrolldown,    {.i = mousescrollincrement} },
+	/* Shift+MWheel page-scrolls local scrollback */
+	{ ShiftMask,            Button4, kscrollup,      {.i = -1} },
+	{ ShiftMask,            Button5, kscrolldown,    {.i = -1} },
+	/* Ctrl+MWheel and Ctrl+Shift+MWheel forward to the terminal app (upstream's MWheel bindings) */
+	{ ControlMask,          Button4, ttysend,        {.s = "\031"} },
+	{ ControlMask,          Button5, ttysend,        {.s = "\005"} },
+	{ ControlMask|ShiftMask, Button4, ttysend,       {.s = "\033[5;2~"} },
+	{ ControlMask|ShiftMask, Button5, ttysend,       {.s = "\033[6;2~"} },
 };
 
 /* Internal keyboard shortcuts. */

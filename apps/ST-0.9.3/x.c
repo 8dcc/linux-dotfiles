@@ -482,7 +482,6 @@ bpress(XEvent *e)
 {
 	int btn = e->xbutton.button;
 	struct timespec now;
-	MouseKey *mk;
 	int snap;
 
 	if (1 <= btn && btn <= 11)
@@ -495,13 +494,6 @@ bpress(XEvent *e)
 
 	if (mouseaction(e, 0))
 		return;
-
-	for (mk = mkeys; mk < mkeys + LEN(mkeys); mk++) {
-		if (btn == mk->b && match(mk->mask, e->xbutton.state)) {
-			mk->func(&mk->arg);
-			return;
-		}
-	}
 
 	if (btn == Button1) {
 		/*
