@@ -1,7 +1,9 @@
-/* See LICENSE file for copyright and license details. */
+/* -------------------------------------------------------------------------- */
+/* APPEARANCE                                                                 */
+/* -------------------------------------------------------------------------- */
 
 /*
- * appearance
+ * Font selection.
  *
  * NOTE: See http://freedesktop.org/software/fontconfig/fontconfig-user.html
  * NOTE: Font list:
@@ -12,111 +14,45 @@
 static char *font = "Dina:pixelsize=11";
 static char *font2 = "Cozette:pixelsize=11";
 
-static int borderpx = 2;
-
 /* disable bold, italic and roman fonts globally */
 int disablebold   = 0;
 int disableitalic = 0;
 int disableroman  = 0;
 
-/*
- * What program is execed by st depends of these precedence rules:
- * 1: program passed with -e
- * 2: scroll and/or utmp
- * 3: SHELL environment variable
- * 4: value of shell in /etc/passwd
- * 5: value of shell in config.h
- */
-static char *shell = "/bin/sh";
-char *utmp = NULL;
-
-/*
- * Scroll program: to enable use a string like "scroll". Left NULL because
- * we use the scrollback patch (in-process history buffer) instead.
- */
-char *scroll = NULL;
-char *stty_args = "stty raw pass8 nl -echo -iexten -cstopb 38400";
-
-/* identification sequence returned in DA and DECID */
-char *vtiden = "\033[?6c";
-
-/*
- * plumb_cmd is run on mouse button 3 click (right mouse), with argument set to
- * current selection and with cwd set to the cwd of the active shell
- *
- * NOTE: In my case, I use my own plumber at https://github.com/8dcc/plumber
- */
-static char *plumb_cmd = "plumber";
+/* pixel padding inside the window border */
+static int borderpx = 2;
 
 /* Kerning / character bounding-box multipliers */
 static float cwscale = 1.0;
 static float chscale = 1.0;
 
 /*
- * word delimiter string
- *
- * More advanced example: L" `'\"()[]{}"
+ * Default shape of cursor
+ * 2: Block ("█")
+ * 4: Underline ("_")
+ * 6: Bar ("|")
+ * 7: Snowman ("☃")
  */
-wchar_t *worddelimiters = L" ";
+static unsigned int cursorshape = 2;
 
-/* selection timeouts (in milliseconds) */
-static unsigned int doubleclicktimeout = 250;
-static unsigned int tripleclicktimeout = 500;
-
-/* alt screens */
-int allowaltscreen = 1;
-
-/* allow certain non-interactive (insecure) window operations such as:
-   setting the clipboard text */
-int allowwindowops = 1;
-
-/*
- * draw latency range in ms - from new content/keypress/etc until drawing.
- * within this range, st draws when content stops arriving (idle). mostly it's
- * near minlatency, but it waits longer for slow updates to avoid partial draw.
- * low minlatency will tear/flicker more, as it can "detect" idle too early.
- */
-static double minlatency = 2;
-static double maxlatency = 16;
-
-/*
- * blinking timeout (set to 0 to disable blinking) for the terminal blinking
- * attribute.
- */
-static unsigned int blinktimeout = 800;
-
-/*
- * thickness of underline and bar cursors
- */
+/* thickness of underline and bar cursors */
 static unsigned int cursorthickness = 2;
 
-/*
- * bell volume. It must be a value between -100 and 100. Use 0 for disabling
- * it
- */
-static int bellvolume = 0;
-
-/* default TERM value */
-char *termname = "st-256color";
+/* Default colour and shape of the mouse cursor */
+static unsigned int mouseshape = XC_xterm;
+static unsigned int mousefg = 7;
+static unsigned int mousebg = 0;
 
 /*
- * spaces per tab
- *
- * When you are changing this value, don't forget to adapt the »it« value in
- * the st.info and appropriately install the st.info in the environment where
- * you use this st version.
- *
- *	it#$tabspaces,
- *
- * Secondly make sure your kernel is not expanding tabs. When running `stty
- * -a` »tab0« should appear. You can tell the terminal to not expand tabs by
- *  running following command:
- *
- *	stty tabs
+ * Color used to display font attributes when fontconfig selected a font which
+ * doesn't match the ones requested.
  */
-unsigned int tabspaces = 4;
+static unsigned int defaultattr = 11;
 
-/* Themes */
+/* -------------------------------------------------------------------------- */
+/* THEMES                                                                     */
+/* -------------------------------------------------------------------------- */
+
 static const struct {
 	const char* const colors[259]; /* terminal colors */
 	unsigned int fg;               /* foreground idx */
@@ -159,40 +95,139 @@ static const struct {
 /* Default color scheme */
 int colorscheme = 0;
 
+/* Pointed at the active scheme's colors[] at runtime by updatescheme(). */
 static const char * const * colorname;
+
+/* Default fg/bg/cursor color indices into the active scheme. */
 unsigned int defaultfg;
 unsigned int defaultbg;
 unsigned int defaultcs = 256;
 static unsigned int defaultrcs = 257;
 
-/*
- * Default shape of cursor
- * 2: Block ("█")
- * 4: Underline ("_")
- * 6: Bar ("|")
- * 7: Snowman ("☃")
- */
-static unsigned int cursorshape = 2;
+/* -------------------------------------------------------------------------- */
+/* WINDOW                                                                     */
+/* -------------------------------------------------------------------------- */
 
-/*
- * Default columns and rows numbers
- */
-
+/* Default columns and rows numbers */
 static unsigned int cols = 120;
 static unsigned int rows = 35;
 
-/*
- * Default colour and shape of the mouse cursor
- */
-static unsigned int mouseshape = XC_xterm;
-static unsigned int mousefg = 7;
-static unsigned int mousebg = 0;
+/* alt screens */
+int allowaltscreen = 1;
 
 /*
- * Color used to display font attributes when fontconfig selected a font which
- * doesn't match the ones requested.
+ * Allow certain non-interactive (insecure) window operations such as setting
+ * the clipboard text via OSC 52. Useful for tmux/neovim integration.
  */
-static unsigned int defaultattr = 11;
+int allowwindowops = 1;
+
+/* -------------------------------------------------------------------------- */
+/* SHELL & PROCESS                                                            */
+/* -------------------------------------------------------------------------- */
+
+/*
+ * What program is execed by st depends of these precedence rules:
+ * 1: program passed with -e
+ * 2: scroll and/or utmp
+ * 3: SHELL environment variable
+ * 4: value of shell in /etc/passwd
+ * 5: value of shell in config.h
+ */
+static char *shell = "/bin/sh";
+char *utmp = NULL;
+
+/*
+ * Scroll program: to enable use a string like "scroll". Left NULL because
+ * we use the scrollback patch (in-process history buffer) instead.
+ */
+char *scroll = NULL;
+char *stty_args = "stty raw pass8 nl -echo -iexten -cstopb 38400";
+
+/* identification sequence returned in DA and DECID */
+char *vtiden = "\033[?6c";
+
+/* default TERM value */
+char *termname = "st-256color";
+
+/*
+ * plumb_cmd is run on mouse button 3 click (right mouse), with argument set to
+ * current selection and with cwd set to the cwd of the active shell
+ *
+ * NOTE: In my case, I use my own plumber at https://github.com/8dcc/plumber
+ */
+static char *plumb_cmd = "plumber";
+
+/* -------------------------------------------------------------------------- */
+/* DRAWING, BLINKING, BELL                                                    */
+/* -------------------------------------------------------------------------- */
+
+/*
+ * draw latency range in ms - from new content/keypress/etc until drawing.
+ * within this range, st draws when content stops arriving (idle). mostly it's
+ * near minlatency, but it waits longer for slow updates to avoid partial draw.
+ * low minlatency will tear/flicker more, as it can "detect" idle too early.
+ */
+static double minlatency = 2;
+static double maxlatency = 16;
+
+/*
+ * blinking timeout (set to 0 to disable blinking) for the terminal blinking
+ * attribute.
+ */
+static unsigned int blinktimeout = 800;
+
+/*
+ * bell volume. It must be a value between -100 and 100. Use 0 for disabling
+ * it
+ */
+static int bellvolume = 0;
+
+/* -------------------------------------------------------------------------- */
+/* SELECTION                                                                  */
+/* -------------------------------------------------------------------------- */
+
+/*
+ * word delimiter string
+ *
+ * More advanced example: L" `'\"()[]{}"
+ */
+wchar_t *worddelimiters = L" ";
+
+/* selection timeouts (in milliseconds) */
+static unsigned int doubleclicktimeout = 250;
+static unsigned int tripleclicktimeout = 500;
+
+/*
+ * spaces per tab
+ *
+ * When you are changing this value, don't forget to adapt the »it« value in
+ * the st.info and appropriately install the st.info in the environment where
+ * you use this st version.
+ *
+ *	it#$tabspaces,
+ *
+ * Secondly make sure your kernel is not expanding tabs. When running `stty
+ * -a` »tab0« should appear. You can tell the terminal to not expand tabs by
+ *  running following command:
+ *
+ *	stty tabs
+ */
+unsigned int tabspaces = 4;
+
+/*
+ * Selection types' masks.
+ * Use the same masks as usual.
+ * Button1Mask is always unset, to make masks match between ButtonPress.
+ * ButtonRelease and MotionNotify.
+ * If no match is found, regular selection is used.
+ */
+static uint selmasks[] = {
+	[SEL_RECTANGULAR] = Mod1Mask,
+};
+
+/* -------------------------------------------------------------------------- */
+/* MOUSE                                                                      */
+/* -------------------------------------------------------------------------- */
 
 /*
  * Force mouse select/shortcuts while mask is active (when MODE_MOUSE is set).
@@ -222,7 +257,10 @@ static MouseShortcut mshortcuts[] = {
 	{ ControlMask|ShiftMask, Button5, ttysend,       {.s = "\033[6;2~"} },
 };
 
-/* Internal keyboard shortcuts. */
+/* -------------------------------------------------------------------------- */
+/* KEYBOARD                                                                   */
+/* -------------------------------------------------------------------------- */
+
 #define MODKEY Mod1Mask
 #define TERMMOD (ControlMask|ShiftMask)
 
@@ -249,27 +287,6 @@ static Shortcut shortcuts[] = {
 #endif
 	{ TERMMOD,              XK_A,          toggleasciionly, {.i =  0} },
 };
-
-/*
- * Special keys (change & recompile st.info accordingly)
- *
- * Mask value:
- * * Use XK_ANY_MOD to match the key no matter modifiers state
- * * Use XK_NO_MOD to match the key alone (no modifiers)
- * appkey value:
- * * 0: no value
- * * > 0: keypad application mode enabled
- * *   = 2: term.numlock = 1
- * * < 0: keypad application mode disabled
- * appcursor value:
- * * 0: no value
- * * > 0: cursor application mode enabled
- * * < 0: cursor application mode disabled
- *
- * Be careful with the order of the definitions because st searches in
- * this table sequentially, so any XK_ANY_MOD must be in the last
- * position for a key.
- */
 
 /*
  * If you want keys other than the X11 function keys (0xFD00 - 0xFFFF)
@@ -500,16 +517,9 @@ static Key key[] = {
 	{ XK_F35,           XK_NO_MOD,      "\033[23;5~",    0,    0},
 };
 
-/*
- * Selection types' masks.
- * Use the same masks as usual.
- * Button1Mask is always unset, to make masks match between ButtonPress.
- * ButtonRelease and MotionNotify.
- * If no match is found, regular selection is used.
- */
-static uint selmasks[] = {
-	[SEL_RECTANGULAR] = Mod1Mask,
-};
+/* -------------------------------------------------------------------------- */
+/* CHARACTER HANDLING                                                         */
+/* -------------------------------------------------------------------------- */
 
 /*
  * Printable characters in ASCII, used to estimate the advance width
@@ -521,7 +531,7 @@ char ascii_printable[] =
 	"`abcdefghijklmnopqrstuvwxyz{|}~";
 
 /*
- * should we render non-ascii characters by default? Can be toggled with the
- * `toggleasciionly' shortcut above.
+ * Render non-ascii characters by default? Can be toggled with the
+ * `toggleasciionly' shortcut.
  */
 int asciionly = 1;
