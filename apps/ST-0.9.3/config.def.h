@@ -3,9 +3,13 @@
 /*
  * appearance
  *
- * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
+ * NOTE: See http://freedesktop.org/software/fontconfig/fontconfig-user.html
+ * NOTE: Font list:
+ *   - "Dina:pixelsize=11"
+ *   - "creep2:pixelsize=11"
+ *   - "Cozette:pixelsize=11"
  */
-static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
+static char *font = "Dina:pixelsize=11";
 static int borderpx = 2;
 
 /*
@@ -37,8 +41,8 @@ static float chscale = 1.0;
 wchar_t *worddelimiters = L" ";
 
 /* selection timeouts (in milliseconds) */
-static unsigned int doubleclicktimeout = 300;
-static unsigned int tripleclicktimeout = 600;
+static unsigned int doubleclicktimeout = 250;
+static unsigned int tripleclicktimeout = 500;
 
 /* alt screens */
 int allowaltscreen = 1;
@@ -91,7 +95,7 @@ char *termname = "st-256color";
  *
  *	stty tabs
  */
-unsigned int tabspaces = 8;
+unsigned int tabspaces = 4;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
@@ -147,8 +151,8 @@ static unsigned int cursorshape = 2;
  * Default columns and rows numbers
  */
 
-static unsigned int cols = 80;
-static unsigned int rows = 24;
+static unsigned int cols = 120;
+static unsigned int rows = 35;
 
 /*
  * Default colour and shape of the mouse cursor
