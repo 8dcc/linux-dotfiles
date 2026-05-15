@@ -29,7 +29,11 @@ int disableroman  = 0;
  */
 static char *shell = "/bin/sh";
 char *utmp = NULL;
-/* scroll program: to enable use a string like "scroll" */
+
+/*
+ * Scroll program: to enable use a string like "scroll". Left NULL because
+ * we use the scrollback patch (in-process history buffer) instead.
+ */
 char *scroll = NULL;
 char *stty_args = "stty raw pass8 nl -echo -iexten -cstopb 38400";
 
@@ -64,7 +68,7 @@ int allowaltscreen = 1;
 
 /* allow certain non-interactive (insecure) window operations such as:
    setting the clipboard text */
-int allowwindowops = 0;
+int allowwindowops = 1;
 
 /*
  * draw latency range in ms - from new content/keypress/etc until drawing.
@@ -73,7 +77,7 @@ int allowwindowops = 0;
  * low minlatency will tear/flicker more, as it can "detect" idle too early.
  */
 static double minlatency = 2;
-static double maxlatency = 33;
+static double maxlatency = 16;
 
 /*
  * blinking timeout (set to 0 to disable blinking) for the terminal blinking
