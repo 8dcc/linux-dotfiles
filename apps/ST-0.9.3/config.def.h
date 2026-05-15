@@ -178,13 +178,24 @@ static uint forcemousemod = ShiftMask;
  * Internal mouse shortcuts.
  * Beware that overloading Button1 will disable the selection.
  */
+const unsigned int mousescrollincrement = 2;
 static MouseShortcut mshortcuts[] = {
 	/* mask                 button   function        argument       release */
 	{ XK_ANY_MOD,           Button2, selpaste,       {.i = 0},      1 },
+#if 0 /* Original keybinds from 0.9.3 */
 	{ ShiftMask,            Button4, ttysend,        {.s = "\033[5;2~"} },
 	{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"} },
 	{ ShiftMask,            Button5, ttysend,        {.s = "\033[6;2~"} },
 	{ XK_ANY_MOD,           Button5, ttysend,        {.s = "\005"} },
+#endif
+};
+
+MouseKey mkeys[] = {
+	/* button               mask            function        argument */
+	{ Button4,              ShiftMask,      kscrollup,      {.i =  -1} }, /* Scroll with Shift+MWheel */
+	{ Button5,              ShiftMask,      kscrolldown,    {.i =  -1} }, /* Scroll with Shift+MWheel */
+	{ Button4,              XK_NO_MOD,      kscrollup,      {.i =  mousescrollincrement} }, /* Scroll with just MWheel */
+	{ Button5,              XK_NO_MOD,      kscrolldown,    {.i =  mousescrollincrement} }, /* Scroll with just MWheel */
 };
 
 /* Internal keyboard shortcuts. */
@@ -206,6 +217,8 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_V,           clippaste,      {.i =  0} },
 #if 0
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
+	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
+	{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
 #endif
