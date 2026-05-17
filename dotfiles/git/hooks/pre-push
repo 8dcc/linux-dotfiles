@@ -9,15 +9,15 @@ while read local_ref local_sha remote_ref remote_sha; do
     # When pushing a new branch that doesn't exist on the remote, git uses a
     # null hash as the remote.
     if [ "$remote_sha" = "0000000000000000000000000000000000000000" ]; then
-        commits=$(git log "$local_sha" --format="%ae")
+        emails=$(git log "$local_sha" --format="%ae%n%ce")
     else
-        commits=$(git log "$remote_sha..$local_sha" --format="%ae")
+        emails=$(git log "$remote_sha..$local_sha" --format="%ae%n%ce")
     fi
 
-    # Check if any commit is made by a blocked author.
-    for author in "${BLOCKED_AUTHORS[@]}"; do
-        if echo "$commits" | grep -q "^$author$"; then
-            echo "Push rejected: commit authored as $author. Check your git identity for this repo."
+    # Check if any commit exposes a blocked email (author or committer).
+    for blocked in "${BLOCKED_AUTHORS[@]}"; do
+        if echo "$emails" | grep -q "^$blocked$"; then
+            echo "Push rejected: a commit exposes email $blocked. Check your git identity for this repo."
             exit 1
         fi
     done
