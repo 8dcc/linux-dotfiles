@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+#
+# Copyright 2025 8dcc
+#
+# This file is part of 8dcc's Linux dotfiles.
+#
+# This program is free software: you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation, either version 3 of the License, or any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program. If not, see <https://www.gnu.org/licenses/>.
+set -e
+
+if [ $# -lt 1 ]; then
+    echo "Usage: $(basename "$0") [GREP_ARGS] PATTERN FILE [FILE...]" 1>&2
+    exit 1
+fi
+
+assert_cmd() {
+    if [ ! "$(command -v "$1")" ]; then
+        echo "The '$1' command is not installed." 1>&2
+        exit 1
+    fi
+}
+
+assert_cmd "gpg"
+assert_cmd "grep"
+
+#-------------------------------------------------------------------------------
+
+grep_args=()
+pattern=""
+files=()
+found_sep=0
+
+for arg in "$@"; do
+    if [ "$found_sep" -eq 1 ]; then
+        files+=("$arg")
+    elif [ "$arg" = "--" ]; then
+        found_sep=1
+    elif [[ "$arg" == -* ]]; then
+        grep_args+=("$arg")
+    elif [ -z "$pattern" ]; then
+        pattern="$arg"
+    else
+        files+=("$arg")
+    fi
+done
+
+set +e
+for file in "${files[@]}"; do
+    gpg --decrypt "$file" 2>/dev/null | grep "${grep_args[@]}" "$pattern"
+done
