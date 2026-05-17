@@ -1,0 +1,20 @@
+* Guix configuration
+
+** =channels.scm=
+
+Guix channel list, including the personal and nonguix channels. Move this
+file to =~/.config/guix/channels.scm=, then run =guix pull=.
+
+** =home.scm= and =system.scm=
+
+Home and system configurations for Guix. Move them to
+=~/.config/guix/home.scm= and =~/.config/guix/system.scm= respectively,
+then reconfigure:
+
+#+begin_src bash
+guix home reconfigure ~/.config/guix/home.scm
+guix system reconfigure ~/.config/guix/system.scm
+#+end_src
+
+The corresponding =.org= files are the literate programming sources for
+the =.scm= files. Edit those and tangle them to update the configurations.
