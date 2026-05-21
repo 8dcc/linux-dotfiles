@@ -533,5 +533,7 @@ char ascii_printable[] =
 /*
  * Render non-ascii characters by default? Can be toggled with the
  * `toggleasciionly' shortcut.
+ *
+ * FIXME: The logic for this boolean is inverted.
  */
-int asciionly = 0;
+int asciionly = 1;
