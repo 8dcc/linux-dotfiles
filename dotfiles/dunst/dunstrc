@@ -41,13 +41,13 @@
     # Offset from the origin
     # NOTE: Dunst from version 1.11 and older use this alternative notation
     # offset = 10x50
-    offset = (10, 50)
+    offset = (15, 49)
 
     # Scale factor. It is auto-detected if value is 0.
     scale = 0
 
     # Maximum number of notification (0 means no limit)
-    notification_limit = 20
+    notification_limit = 0
 
     ### Progress bar ###
 
@@ -98,10 +98,10 @@
     separator_height = 2
 
     # Padding between text and separator.
-    padding = 8
+    padding = 6
 
     # Horizontal padding.
-    horizontal_padding = 8
+    horizontal_padding = 6
 
     # Padding between text and icon.
     text_icon_padding = 0
@@ -111,7 +111,7 @@
     frame_width = 3
 
     # Defines color of the frame around the notification window.
-    frame_color = "#aaaaaa"
+    frame_color = "#8EC07C"
 
     # Size of gap to display between notifications - requires a compositor.
     # If value is greater than 0, separator_height will be ignored and a border
@@ -133,7 +133,7 @@
     #  * urgency_ascending: sort by urgency (low then normal then critical)
     #  * urgency_descending: sort by urgency (critical then normal then low)
     #  * update: sort by update (most recent always at the top)
-    sort = yes
+    sort = no
 
     # Don't remove messages, if the user is idle (no mouse or keyboard input)
     # for longer than idle_threshold seconds.
@@ -144,7 +144,7 @@
 
     ### Text ###
 
-    font = Monospace 8
+    font = Dina 11
 
     # The spacing between lines.  If the height is smaller than the
     # font height, it will get raised to the font height.
@@ -190,7 +190,7 @@
 
     # Alignment of message text.
     # Possible values are "left", "center" and "right".
-    alignment = left
+    alignment = center
 
     # Vertical alignment of message text and icon.
     # Possible values are "top", "center" and "bottom".
@@ -199,7 +199,7 @@
     # Show age of message if message is older than show_age_threshold
     # seconds.
     # Set to -1 to disable.
-    show_age_threshold = 60
+    show_age_threshold = -1
 
     # Specify where to make an ellipsis in long lines.
     # Possible values are "start", "middle" and "end".
@@ -215,7 +215,7 @@
     hide_duplicate_count = false
 
     # Display indicators for URLs (U) and actions (A).
-    show_indicators = yes
+    show_indicators = no
 
     # When set to true (recommended), you can use POSIX regular expressions for filtering rules.
     # If this is set to false (not recommended), dunst will use fnmatch(3) for matching strings.
@@ -236,7 +236,7 @@
     # icon_theme = "Adwaita, breeze"
 
     # Align icons left/right/top/off
-    icon_position = left
+    icon_position = off
 
     # Scale small icons up to this size, set to 0 to disable. Helpful
     # for e.g. small files or high-dpi screens. In case of conflict,
@@ -256,7 +256,7 @@
     sticky_history = yes
 
     # Maximum amount of notifications kept in history
-    history_length = 20
+    history_length = 15
 
     ### Misc/Advanced ###
 
@@ -360,25 +360,28 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#222222"
-    foreground = "#888888"
-    timeout = 10
-    # Icon for notifications with low urgency
-    default_icon = dialog-information
+    frame_color = "#3B7C87"
+    foreground = "#3B7C87"
+    background = "#191311"
+    #background = "#2B313C"
+    timeout = 4
 
 [urgency_normal]
-    background = "#285577"
-    foreground = "#ffffff"
-    timeout = 10
+    frame_color = "#5B8234"
+    foreground = "#5B8234"
+    background = "#191311"
+    #background = "#2B313C"
+    timeout = 6
     override_pause_level = 30
     # Icon for notifications with normal urgency
     default_icon = dialog-information
 
 [urgency_critical]
-    background = "#900000"
-    foreground = "#ffffff"
-    frame_color = "#ff0000"
-    timeout = 0
+    frame_color = "#B7472A"
+    foreground = "#B7472A"
+    background = "#191311"
+    #background = "#2B313C"
+    timeout = 8
     override_pause_level = 60
     # Icon for notifications with critical urgency
     default_icon = dialog-warning
@@ -512,3 +515,4 @@
 #    appname = "some_volume_notifiers"
 #    set_stack_tag = "volume"
 #
+# vim: ft=cfg
