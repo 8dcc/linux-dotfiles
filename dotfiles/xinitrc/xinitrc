@@ -20,6 +20,9 @@
 # Battery monitor
 [[ $(command -v batsignal) ]] && batsignal -b -p -m 5
 
+# Needed for avoiding a crash on the 'xdg-desktop-portal-gtk' service.
+systemctl --user import-environment DISPLAY XAUTHORITY
+
 # You might need to use the following line if using pipewire on gentoo. See
 # gentoo's pipewire wiki page.
 #     exec dbus-launch --exit-with-session dwm
