@@ -58,7 +58,16 @@ shopt -s histappend
 #-------------------------------------------------------------------------------
 # Prompt
 
-PS1='\[\033[0;32m\]\u \[\033[1;34m\]\w\[\033[0m\] \[$(_get_git_branch_pre)\]$(_get_git_branch_name)\[$(_get_git_branch_post)\]\$ '
+# Detect if this shell was accessed through SSH once, not every PS1 evaluation.
+if [ -n "$SSH_CONNECTION" ] || [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+    _ps1_ssh_prefix='[SSH] '
+    _ps1_user='\u@\h'
+else
+    _ps1_ssh_prefix=''
+    _ps1_user='\u'
+fi
+
+PS1="${_ps1_ssh_prefix}"'\[\033[0;32m\]'"${_ps1_user}"' \[\033[1;34m\]\w\[\033[0m\] \[$(_get_git_branch_pre)\]$(_get_git_branch_name)\[$(_get_git_branch_post)\]\$ '
 PS2='> '
 
 # Git stuff
