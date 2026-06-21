@@ -6,6 +6,11 @@ BLOCKED_AUTHORS=(
 )
 
 while read local_ref local_sha remote_ref remote_sha; do
+    # Deletions have a null local_sha — nothing to scan.
+    if [ "$local_sha" = "0000000000000000000000000000000000000000" ]; then
+        continue
+    fi
+
     # When pushing a new branch that doesn't exist on the remote, git uses a
     # null hash as the remote.
     if [ "$remote_sha" = "0000000000000000000000000000000000000000" ]; then
