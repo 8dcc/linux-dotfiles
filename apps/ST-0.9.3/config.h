@@ -244,17 +244,17 @@ const unsigned int mousescrollincrement = 2;
 static MouseShortcut mshortcuts[] = {
 	/* mask                 button   function        argument                       release */
 	{ XK_ANY_MOD,           Button2, selpaste,       {.i = 0},                      1 },
+	/* Shift+MWheel page-scrolls local scrollback (before plain MWheel) */
+	{ ShiftMask,            Button4, kscrollup,      {.i = -1} },
+	{ ShiftMask,            Button5, kscrolldown,    {.i = -1} },
 	/* MWheel scrolls local scrollback */
 	{ XK_NO_MOD,            Button4, kscrollup,      {.i = mousescrollincrement} },
 	{ XK_NO_MOD,            Button5, kscrolldown,    {.i = mousescrollincrement} },
-	/* Shift+MWheel page-scrolls local scrollback */
-	{ ShiftMask,            Button4, kscrollup,      {.i = -1} },
-	{ ShiftMask,            Button5, kscrolldown,    {.i = -1} },
 	/* Ctrl+MWheel and Ctrl+Shift+MWheel forward to the terminal app (upstream's MWheel bindings) */
-	{ ControlMask,          Button4, ttysend,        {.s = "\031"} },
-	{ ControlMask,          Button5, ttysend,        {.s = "\005"} },
 	{ ControlMask|ShiftMask, Button4, ttysend,       {.s = "\033[5;2~"} },
 	{ ControlMask|ShiftMask, Button5, ttysend,       {.s = "\033[6;2~"} },
+	{ ControlMask,          Button4, ttysend,        {.s = "\031"} },
+	{ ControlMask,          Button5, ttysend,        {.s = "\005"} },
 };
 
 /* -------------------------------------------------------------------------- */
