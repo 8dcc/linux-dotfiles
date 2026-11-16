@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 #####################
-multibattery=false  # FIXME: Detect automatically based on line count.
 hourchange=false    #
 hourdiff=-1         # Ignored if !hourchange
 #####################
@@ -80,56 +79,43 @@ vol() {
     fi
 }
 
-batt() {
-    if [ "$multibattery" == false ]; then
-        if [ "$(acpi | awk '{print $3}')" == 'Charging,' ]; then
-            # If battery is being charged we display a different icon
-            batt1="+$(acpi | awk '{print $4}')"
-        elif [ "$(acpi | awk '{print $3}')" == 'Not' ]; then
-            # If battery is not being charged we use the 5th field
-            batt1="$(acpi | awk '{print $5}')"
-        else
-            # If battery is being discharged we use the 4th field
-            batt1="$(acpi | awk '{print $4}')"
-        fi
+# Print the charge of the battery described by the 'acpi' line in $1.
+batt_line() {
+    local state
+    local charge
+    state="$(echo "$1" | awk '{print $3}')"
 
-        # Check for weird commas
-        if [[ $batt1 == *','* ]]; then
-            batt1=${batt1::-1}
-        fi
-
-        echo "$batt1"
+    if [ "$state" == 'Charging,' ]; then
+        # If battery is being charged we display a different icon
+        charge="+$(echo "$1" | awk '{print $4}')"
+    elif [ "$state" == 'Not' ]; then
+        # If battery is not being charged we use the 5th field
+        charge="$(echo "$1" | awk '{print $5}')"
     else
-        # First battery
-        if [ "$(acpi | head -n 1 | awk '{print $3}')" == 'Charging,' ]; then
-            # If battery is being charged we display a different icon
-            batt1="+$(acpi | head -n 1 | awk '{print $4}')"
-        elif [ "$(acpi | head -n 1 | awk '{print $3}')" == 'Not' ]; then
-            # If battery is not being charged we use the 5th field
-            batt1="$(acpi | head -n 1 | awk '{print $5}')"
-        else
-            batt1="$(acpi | head -n 1 | awk '{print $4}')"
-        fi
-
-        # Second battery
-        if [ "$(acpi | tail -n 1 | awk '{print $3}')" == 'Charging,' ]; then
-            batt2="+$(acpi | tail -n 1 | awk '{print $4}')"
-        elif [ "$(acpi | tail -n 1 | awk '{print $3}')" == 'Not' ];then
-            batt2="$(acpi | tail -n 1 | awk '{print $5}')"
-        else
-            batt2="$(acpi | tail -n 1 | awk '{print $4}')"
-        fi
-
-        # Check for weird commas
-        if [[ $batt1 == *','* ]]; then
-            batt1=${batt1::-1}
-        fi
-        if [[ $batt2 == *','* ]]; then
-            batt2=${batt2::-1}
-        fi
-
-        echo "${batt1}, ${batt2}"
+        # If battery is being discharged we use the 4th field
+        charge="$(echo "$1" | awk '{print $4}')"
     fi
+
+    # Check for weird commas
+    if [[ $charge == *','* ]]; then
+        charge=${charge::-1}
+    fi
+
+    echo "$charge"
+}
+
+# Print the charge of every battery reported by 'acpi', separated by commas.
+batt() {
+    local line
+    local result=''
+
+    while read -r line; do
+        [ -z "$line" ] && continue
+        [ -n "$result" ] && result+=', '
+        result+="$(batt_line "$line")"
+    done <<< "$(acpi 2>/dev/null)"
+
+    echo "$result"
 }
 
 bt() {
