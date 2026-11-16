@@ -42,6 +42,8 @@ mem() {
     echo "${mem_c}/${mem_t}"
 }
 
+# TODO: Instead of sleeping, store the previous reading in globals and compare
+# against it on the next tick, measuring the usage of the last full interval.
 cpu() {
     read -r cpu a b c previdle rest < /proc/stat
     prevtotal=$((a+b+c+previdle))
@@ -156,31 +158,36 @@ bt() {
     fi
 }
 
+# Format the bar from the cached 's_*' values, updated in the main loop.
 status() {
-    local battery
-    local bluetooth
-    battery="$(batt)"
-    bluetooth="$(bt)"
-
-    echo -n " CPU: $(cpu) | Mem: $(mem) | Disk: $(dsk) | "
+    echo -n " CPU: $s_cpu | Mem: $s_mem | Disk: $s_dsk | "
 
     # NOTE: VPN is commented for now.
     #echo -n "VPN: $(vpn) | "
 
-    if [ ! -z "$bluetooth" ]; then
-        echo -n "BT: $bluetooth | "
+    if [ -n "$s_bt" ]; then
+        echo -n "BT: $s_bt | "
     fi
 
-    if [ ! -z "$battery" ]; then
-        echo -n "Batt: $battery | "
+    if [ -n "$s_batt" ]; then
+        echo -n "Batt: $s_batt | "
     fi
 
-    echo "Vol: $(vol) | $(dte) "
+    echo "Vol: $s_vol | $s_dte "
 }
 
+# Each element is refreshed only when 'tick' is a multiple of its interval (in
+# seconds), and the bar is redrawn every tick using the cached values. The tick
+# wraps every hour; this must be a multiple of every interval.
+tick=0
 while true; do
-    # TODO: Separate the update rate of each element, since some should refresh
-    # slower than others.
+    (( tick % 2  == 0 )) && { s_cpu="$(cpu)"; s_mem="$(mem)"; }
+    (( tick % 5  == 0 )) && { s_vol="$(vol)"; s_bt="$(bt)"; }
+    (( tick % 10 == 0 )) && s_dte="$(dte)"
+    (( tick % 30 == 0 )) && s_batt="$(batt)"
+    (( tick % 60 == 0 )) && s_dsk="$(dsk)"
+
     xsetroot -name "$(status)"
-    sleep 5
+    tick=$(( (tick + 1) % 3600 ))
+    sleep 1
 done &
