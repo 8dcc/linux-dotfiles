@@ -96,6 +96,12 @@ static const char* dmenucmd[] = {
 static const char* termcmd[] = { "st", NULL };
 static const char* layoutmenu_cmd = "dwm-menu-layout";
 
+/*
+ * To see the name of a key, run:
+ *
+ *     $ xbindkeys --key
+ *
+ */
 static Key keys[] = {
     /* modifier         key        function        argument */
     { MODKEY,           XK_p,      spawn,          {.v = dmenucmd } },
@@ -149,6 +155,8 @@ static Key keys[] = {
     { 0, XF86XK_AudioPrev,         spawn,          SHCMD("playerctl previous") },
     { 0, XF86XK_AudioNext,         spawn,          SHCMD("playerctl next") },
     { 0, XF86XK_AudioPlay,         spawn,          SHCMD("playerctl play-pause") },
+    { 0, XF86XK_AudioPause,        spawn,          SHCMD("playerctl pause") },
+    { 0, XF86XK_AudioStop,         spawn,          SHCMD("playerctl stop") },
     { 0, XF86XK_MonBrightnessUp,   spawn,          SHCMD("xbacklight -inc 10") },
     { 0, XF86XK_MonBrightnessDown, spawn,          SHCMD("xbacklight -dec 10") },
 };
