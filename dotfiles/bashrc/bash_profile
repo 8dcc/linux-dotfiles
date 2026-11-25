@@ -34,5 +34,8 @@ if [ -f "$HOME/.bashrc" ]; then
     . "$HOME/.bashrc"
 fi
 
-# Start Xorg server, see '.xinitrc'.
-startx
+# Start Xorg server only when logging in from the first virtual console, not
+# from SSH or other TTYs. See '.xinitrc'.
+if [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
+    startx
+fi
